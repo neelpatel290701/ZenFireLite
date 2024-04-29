@@ -9,5 +9,25 @@
         android:id="@+id/loginScreen"
         android:name="com.example.zenfirelite.fragments.LoginScreen"
         android:label="fragment_login_screen"
-        tools:layout="@layout/fragment_login_screen" />
+        tools:layout="@layout/fragment_login_screen" >
+        <action
+            android:id="@+id/action_loginScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.zenfirelite.fragments.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/customerList"
+        android:name="com.example.zenfirelite.fragments.CustomerList"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_customer_list" />
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.example.zenfirelite.fragments.Setting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+
 </navigation>
