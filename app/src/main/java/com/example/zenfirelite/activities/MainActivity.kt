@@ -1,21 +1,17 @@
-package com.example.zenfirelite
+package com.example.zenfirelite.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.example.zenfirelite.R
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +33,16 @@ class MainActivity : AppCompatActivity() {
         findViewById<NavigationView>(R.id.nav_view)
             .setupWithNavController(navController)
 
-        // Hide toolbar and navigation drawer on the login page
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginScreen) {
-                findViewById<Toolbar>(R.id.toolbar).visibility = View.GONE
-                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            } else {
-                findViewById<Toolbar>(R.id.toolbar).visibility = View.VISIBLE
-                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
-        }
+//        // Hide toolbar and navigation drawer on the login page
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            if (destination.id == R.id.loginScreen) {
+//                findViewById<Toolbar>(R.id.toolbar).visibility = View.GONE
+//                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+//            } else {
+//                findViewById<Toolbar>(R.id.toolbar).visibility = View.VISIBLE
+//                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+//            }
+//        }
 
 
     }
