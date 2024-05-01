@@ -64,7 +64,7 @@
             android:gravity="center"
             android:hint="From Date"
             android:inputType="text"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/searchview"
@@ -86,7 +86,7 @@
             android:hint="To Date"
             android:inputType="text"
             android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/black"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/startDate"
             app:layout_constraintLeft_toRightOf="@id/startDate"
@@ -112,8 +112,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
