@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zenfirelite.R
+import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
+import com.example.zenfirelite.datamodels.InspectionInfoModel
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -38,6 +41,17 @@ class HomeScreen : Fragment() {
         binding.toDate.setOnClickListener {
             openCalenderPicker(binding.toDate, binding.startDate.getDateInMillis())
         }
+
+
+        binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
+        val inspectionList = ArrayList<InspectionInfoModel>()
+        for (i in 1..20) {
+            inspectionList.add(InspectionInfoModel("Neel Patel"))
+        }
+        val adapter = AdapterForInspectionList(inspectionList)
+        binding.inspectionrecyclerview.adapter = adapter
+
+
         return binding.root
     }
 

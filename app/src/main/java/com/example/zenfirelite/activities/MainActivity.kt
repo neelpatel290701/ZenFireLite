@@ -33,18 +33,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<NavigationView>(R.id.nav_view)
             .setupWithNavController(navController)
 
-//        // Hide toolbar and navigation drawer on the login page
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            if (destination.id == R.id.loginScreen) {
-//                findViewById<Toolbar>(R.id.toolbar).visibility = View.GONE
-//                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-//            } else {
-//                findViewById<Toolbar>(R.id.toolbar).visibility = View.VISIBLE
-//                findViewById<DrawerLayout>(R.id.drawer_layout).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-//            }
-//        }
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
