@@ -22,13 +22,11 @@ import java.util.Locale
 class HomeScreen : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,9 +44,12 @@ class HomeScreen : Fragment() {
         binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
         val inspectionList = ArrayList<InspectionInfoModel>()
         for (i in 1..20) {
-            inspectionList.add(InspectionInfoModel("Neel Patel"))
+            inspectionList.add(InspectionInfoModel(
+                "00123",
+                "Neel Patel" ,
+                "Completed"))
         }
-        val adapter = AdapterForInspectionList(inspectionList)
+        val adapter = context?.let { AdapterForInspectionList(it, inspectionList) }
         binding.inspectionrecyclerview.adapter = adapter
 
 
