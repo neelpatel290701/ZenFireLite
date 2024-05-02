@@ -40,7 +40,6 @@ class HomeScreen : Fragment() {
             openCalenderPicker(binding.toDate, binding.startDate.getDateInMillis())
         }
 
-
         binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
         val inspectionList = ArrayList<InspectionInfoModel>()
         for (i in 1..20) {
