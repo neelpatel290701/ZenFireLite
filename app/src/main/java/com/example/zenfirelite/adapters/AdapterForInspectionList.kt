@@ -23,13 +23,28 @@ class AdapterForInspectionList(private val context: Context, private val inspect
         val customerName: TextView
         val InspectionNumber : TextView
 //        val InspectionStatus : TextView
-        val statusOption : Spinner
+        val InsStatusOption : Spinner
+        val DefReported  :TextView
+        val Recommendation:TextView
+        val InsStartDate : TextView
+        val InsEndDate : TextView
+        val InsStartTime : TextView
+        val InsEndTime : TextView
+        val InspectorName : TextView
+
         init {
             // Define click listener for the ViewHolder's View
             customerName = view.findViewById(R.id.customerName_value)
             InspectionNumber = view.findViewById(R.id.inspectionNumber_value)
 //            InspectionStatus = view.findViewById(R.id.inspectionstatus_value)
-            statusOption = view.findViewById(R.id.statusSpinner)
+            InsStatusOption = view.findViewById(R.id.statusSpinner)
+            DefReported = view.findViewById(R.id.DefRep_value)
+            Recommendation = view.findViewById(R.id.recommendation_value)
+            InsStartDate = view.findViewById(R.id.InsStartDate_value)
+            InsEndDate = view.findViewById(R.id.InsEndDate_value)
+            InsStartTime = view.findViewById(R.id.InsStartTime_value)
+            InsEndTime = view.findViewById(R.id.InsEndTime_value)
+            InspectorName = view.findViewById(R.id.InspectorName_value)
         }
     }
 
@@ -50,18 +65,24 @@ class AdapterForInspectionList(private val context: Context, private val inspect
         holder.customerName.text = ItemsViewModel.CustomerName
         holder.InspectionNumber.text = ItemsViewModel.InspectionNumber
 //        holder.InspectionStatus.text = ItemsViewModel.InspectionStatus
-
+        holder.DefReported.text = ItemsViewModel.DeficiencyReported
+        holder.Recommendation.text = ItemsViewModel.Recommendation
+        holder.InsStartDate.text = ItemsViewModel.InsStartDate
+        holder.InsEndDate.text = ItemsViewModel.InsEndDate
+        holder.InsStartTime.text = ItemsViewModel.InsStartTime
+        holder.InsEndTime.text = ItemsViewModel.InsEndTime
+        holder.InspectorName.text = ItemsViewModel.InspectorName
 
         var status = arrayOf<String?>("In Process", "Completed","Pending")
-        holder.statusOption.onItemSelectedListener
-        val ad: ArrayAdapter<*> = ArrayAdapter<Any?>(
+        holder.InsStatusOption.onItemSelectedListener
+        val insAdapter: ArrayAdapter<*> = ArrayAdapter<Any?>(
             context,
             android.R.layout.simple_spinner_item,
             status)
 
-        ad.setDropDownViewResource(
+        insAdapter.setDropDownViewResource(
             android.R.layout.simple_spinner_dropdown_item)
-        holder.statusOption.adapter = ad
+        holder.InsStatusOption.adapter = insAdapter
 
         holder.itemView.setOnClickListener{
             val intent = Intent(context, LoginActivity::class.java)

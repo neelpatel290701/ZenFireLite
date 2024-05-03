@@ -44,9 +44,17 @@ class HomeScreen : Fragment() {
         val inspectionList = ArrayList<InspectionInfoModel>()
         for (i in 1..20) {
             inspectionList.add(InspectionInfoModel(
-                "00123",
+                "#00123",
                 "Neel Patel" ,
-                "Completed"))
+                "Completed",
+                "0",
+                "2",
+                "05/02/2024",
+                "05/03/2024",
+                "12:00PM",
+                "12:00PM",
+                "Kuldeep Tripathi"
+            ))
         }
         val adapter = context?.let { AdapterForInspectionList(it, inspectionList) }
         binding.inspectionrecyclerview.adapter = adapter
