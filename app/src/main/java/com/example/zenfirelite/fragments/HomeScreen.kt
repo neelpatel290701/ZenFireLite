@@ -8,24 +8,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
 import com.example.zenfirelite.datamodels.InspectionInfoModel
+import com.example.zenfirelite.interfaces.OnItemClickListenerForInspectionItem
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 
-class HomeScreen : Fragment() {
+class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
 
     private lateinit var binding: FragmentHomeScreenBinding
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +66,8 @@ class HomeScreen : Fragment() {
                 "Kuldeep Tripathi"
             ))
         }
-        val adapter = context?.let { AdapterForInspectionList(it, inspectionList) }
+        val adapter = context?.let { AdapterForInspectionList(it, inspectionList ,this) }
         binding.inspectionrecyclerview.adapter = adapter
-
 
         return binding.root
     }
@@ -118,6 +127,11 @@ class HomeScreen : Fragment() {
             return cal.timeInMillis
         }
         return null
+    }
+
+    override fun onItemClick(item: InspectionInfoModel) {
+
+            navController.navigate(R.id.action_homeScreen_to_inspectionInfo)
     }
 
 

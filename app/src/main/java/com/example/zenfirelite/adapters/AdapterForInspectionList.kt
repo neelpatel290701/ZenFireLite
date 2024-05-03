@@ -14,9 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.activities.LoginActivity
 import com.example.zenfirelite.datamodels.InspectionInfoModel
+import com.example.zenfirelite.interfaces.OnItemClickListenerForInspectionItem
 
-class AdapterForInspectionList(private val context: Context, private val inspectionInfoList:List<InspectionInfoModel>) :
-    RecyclerView.Adapter<AdapterForInspectionList.ViewHolder>() ,
+class AdapterForInspectionList(
+    private val context: Context,
+    private val inspectionInfoList:List<InspectionInfoModel>,
+    private val itemClickListnerForInspectionItem: OnItemClickListenerForInspectionItem
+) : RecyclerView.Adapter<AdapterForInspectionList.ViewHolder>() ,
     AdapterView.OnItemSelectedListener {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -85,8 +89,7 @@ class AdapterForInspectionList(private val context: Context, private val inspect
         holder.InsStatusOption.adapter = insAdapter
 
         holder.itemView.setOnClickListener{
-            val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
+            itemClickListnerForInspectionItem.onItemClick(ItemsViewModel)
         }
     }
 

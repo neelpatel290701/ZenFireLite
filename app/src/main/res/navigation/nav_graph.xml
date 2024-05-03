@@ -9,7 +9,11 @@
         android:id="@+id/homeScreen"
         android:name="com.example.zenfirelite.fragments.HomeScreen"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_inspectionInfo"
+            app:destination="@id/inspectionInfo" />
+    </fragment>
     <fragment
         android:id="@+id/customerList"
         android:name="com.example.zenfirelite.fragments.CustomerList"
@@ -20,5 +24,10 @@
         android:name="com.example.zenfirelite.fragments.Setting"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/inspectionInfo"
+        android:name="com.example.zenfirelite.fragments.InspectionInfo"
+        android:label="fragment_inspection_info"
+        tools:layout="@layout/fragment_inspection_info" />
 
 </navigation>
