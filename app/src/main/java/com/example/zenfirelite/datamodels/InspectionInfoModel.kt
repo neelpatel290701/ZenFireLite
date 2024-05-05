@@ -1,5 +1,8 @@
 package com.example.zenfirelite.datamodels
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class InspectionInfoModel(
     val InspectionNumber : String,
     val CustomerName : String,
@@ -11,6 +14,4 @@ data class InspectionInfoModel(
     val InsStartTime : String,
     val InsEndTime : String,
     val InspectorName : String
-){
-
-}
+):Parcelable

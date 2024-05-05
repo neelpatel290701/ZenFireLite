@@ -130,8 +130,8 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
     }
 
     override fun onItemClick(item: InspectionInfoModel) {
-
-            navController.navigate(R.id.action_homeScreen_to_inspectionInfo)
+            val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(item)
+            navController.navigate(action)
     }
 
 
