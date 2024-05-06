@@ -25,7 +25,6 @@
     <fragment
         android:id="@+id/inspectionInfo"
         android:name="com.example.zenfirelite.fragments.InspectionInfo"
-        android:label="inspectionInfo"
         tools:layout="@layout/fragment_inspection_info" >
         <argument
             android:name="inspectionInfo"

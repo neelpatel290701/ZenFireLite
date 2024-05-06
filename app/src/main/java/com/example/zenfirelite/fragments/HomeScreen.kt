@@ -52,7 +52,7 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
 
         binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
         val inspectionList = ArrayList<InspectionInfoModel>()
-        for (i in 1..20) {
+        for (i in 1..10) {
             inspectionList.add(InspectionInfoModel(
                 "#00123",
                 "Neel Patel" ,
@@ -64,6 +64,18 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
                 "12:00PM",
                 "12:00PM",
                 "Kuldeep Tripathi"
+            ))
+            inspectionList.add(InspectionInfoModel(
+                "#00124",
+                "Kuldeep Tripathi" ,
+                "Completed",
+                "1",
+                "3",
+                "05/02/2024",
+                "05/10/2024",
+                "12:00PM",
+                "12:00PM",
+                "Neel Patel"
             ))
         }
         val adapter = context?.let { AdapterForInspectionList(it, inspectionList ,this) }

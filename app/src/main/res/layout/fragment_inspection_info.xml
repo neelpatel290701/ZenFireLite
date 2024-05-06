@@ -3,16 +3,221 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragments.InspectionInfo">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/insInfoCustomerName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="InspectionInfo"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginRight="8dp"
+                    android:text="Customer Unique Id:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="abc fire(201023)" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="8dp"
+                    android:text="Customer Name:" />
+                <TextView
+                    android:id="@+id/customerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="Neel Patel" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="8dp"
+                    android:text="Inspector Name:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fireInspector"
+                    android:hint="Fire Inspector"
+                    android:textColorHint="@color/black"
+                    android:gravity="center_vertical"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                    android:background="@android:drawable/editbox_background" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="8dp"
+                    android:text="Start Date/Time:" />
+                <TextView
+                    android:id="@+id/InsStartDateValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginRight="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="06/05/2024" />
+                <TextView
+                    android:id="@+id/InsStartTimeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="12:00AM" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="8dp"
+                    android:text="Address:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="A/21 Radheshyam Township 98152 US" />
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingBottom="20dp">
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/navigatetolocation"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:fontFamily="@font/roboto_bold"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:paddingStart="30dp"
+                    android:focusableInTouchMode="false"
+                    android:hint="Navigate to Location"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/vector"
+                    app:layout_constraintLeft_toLeftOf="@+id/location"
+                    app:layout_constraintTop_toTopOf="@+id/location"
+                    app:layout_constraintBottom_toBottomOf="@+id/location"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/black">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F5F5F5">
+
+            </LinearLayout>
+
+        </LinearLayout>
+   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
