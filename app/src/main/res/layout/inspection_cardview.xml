@@ -32,11 +32,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="3dp"
             android:text="Inspection Number :"
-            android:textColor="#808080"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            android:textColor="#808080" />
             <TextView
                 android:id="@+id/inspectionNumber_value"
                 android:layout_width="wrap_content"
@@ -44,11 +40,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:textSize="15sp"
                 android:text="#000030"
-                android:textColor="#808080"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="#808080" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,11 +57,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="3dp"
                 android:text="Customer Name : "
-                android:textColor="#808080"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="#808080" />
             <TextView
                 android:id="@+id/customerName_value"
                 android:layout_width="wrap_content"
@@ -77,11 +65,7 @@
                 android:fontFamily="@font/roboto"
                 android:textSize="13sp"
                 android:text="Neel Patel"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,10 +96,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="Inspection Status:"
                     android:textColor="#808080"
-                    android:textSize="12sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
 <!--            <TextView-->
@@ -167,11 +148,7 @@
                 android:textSize="12sp"
                 android:text="Deficiency Reported: "
                 android:layout_marginRight="5dp"
-                android:textColor="#808080"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="#808080" />
             </LinearLayout>
             <TextView
                 android:id="@+id/DefRep_value"
@@ -180,11 +157,7 @@
                 android:fontFamily="@font/roboto"
                 android:textSize="12sp"
                 android:text="0"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -213,11 +186,7 @@
                 android:textSize="12sp"
                 android:text="Recommendation:"
                 android:layout_marginRight="5dp"
-                android:textColor="#808080"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="#808080"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/recommendation_value"
@@ -226,11 +195,7 @@
                 android:fontFamily="@font/roboto"
                 android:textSize="12sp"
                 android:text="0"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -253,10 +218,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="Inspection Start Date:"
                     android:textColor="#808080"
-                    android:textSize="12sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="12sp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/InsStartDate_value"
@@ -266,11 +228,7 @@
                 android:textSize="12sp"
                 android:text="05/02/2024"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
             <TextView
                 android:id="@+id/InsStartTime_value"
                 android:layout_width="wrap_content"
@@ -278,11 +236,7 @@
                 android:fontFamily="@font/roboto"
                 android:textSize="12sp"
                 android:text="12:00PM"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -305,10 +259,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="Inspection End Date:"
                     android:textColor="#808080"
-                    android:textSize="12sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="12sp" />
             </LinearLayout>
             <TextView
                 android:id="@+id/InsEndDate_value"
@@ -318,11 +269,7 @@
                 android:textSize="12sp"
                 android:text="05/02/2024"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
             <TextView
                 android:id="@+id/InsEndTime_value"
                 android:layout_width="wrap_content"
@@ -330,11 +277,7 @@
                 android:fontFamily="@font/roboto"
                 android:textSize="12sp"
                 android:text="12:00PM"
-                android:textColor="@color/cardview_dark_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -363,11 +306,7 @@
                     android:textSize="12sp"
                     android:text="Inspector Name:"
                     android:layout_marginRight="5dp"
-                    android:textColor="#808080"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    />
+                    android:textColor="#808080" />
             </LinearLayout>
             <TextView
                 android:id="@+id/InspectorName_value"
@@ -376,11 +315,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:textSize="12sp"
                 android:text="Kuldeep Tripathi"
-                android:textColor="#808080"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
+                android:textColor="#808080" />
         </LinearLayout>
 
 

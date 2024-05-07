@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -35,14 +36,12 @@ class InspectionInfo : Fragment() {
     private lateinit var binding : FragmentInspectionInfoBinding
     private lateinit var navController: NavController
     val args : InspectionInfoArgs by navArgs()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
@@ -55,9 +54,7 @@ class InspectionInfo : Fragment() {
         val inspectionInfo : InspectionInfoModel = args.inspectionInfo
         // Set the title in the toolbar
         requireActivity().title = inspectionInfo.InspectionNumber
-//        Log.d("neel" , "${inspectionInfo}")
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)
-//        binding.insInfoCustomerName.text = inspectionInfo.CustomerName.toString()
 
         binding.customerName.text = inspectionInfo.CustomerName.toString()
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
@@ -71,14 +68,29 @@ class InspectionInfo : Fragment() {
         }
 
         val fireInspectorList = ArrayList<String>()
-
         for (i in 1..10) {
             fireInspectorList.add("Neel Patel")
             fireInspectorList.add("Smit Patel")
             fireInspectorList.add("Kuldeep Tripathi")
         }
 
-        binding.fireInspector.setOnClickListener {
+        clickOnFireInspectorDropDownMenu(binding.fireInspector , fireInspectorList)
+
+        binding.forms.setOnClickListener {
+            binding.forms.setBackgroundResource(R.drawable.forms_deficiency)
+            binding.deficiency.setBackgroundResource(android.R.color.darker_gray)
+        }
+        binding.deficiency.setOnClickListener {
+            binding.deficiency.setBackgroundResource(R.drawable.forms_deficiency)
+            binding.forms.setBackgroundResource(android.R.color.darker_gray)
+        }
+
+        return binding.root
+    }
+
+    private fun clickOnFireInspectorDropDownMenu(fireInspector : TextView , fireInspectorList:ArrayList<String>) {
+        fireInspector.setOnClickListener{
+
             val dialog = Dialog(requireContext())
             dialog.setContentView(R.layout.fireinspector_dialogspinner)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -130,12 +142,7 @@ class InspectionInfo : Fragment() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
-
         }
-
-
-
-        return binding.root
     }
 
 }
