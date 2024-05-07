@@ -27,7 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForFireInspectorList
+import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
+import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 import com.example.zenfirelite.datamodels.InspectionInfoModel
 import java.util.Locale
 
@@ -85,6 +87,24 @@ class InspectionInfo : Fragment() {
             binding.forms.setBackgroundResource(android.R.color.darker_gray)
         }
 
+
+        val formInspectionList = ArrayList<InspectionInfoFormModel>()
+        for (i in 1..10) {
+            formInspectionList.add(InspectionInfoFormModel(
+                "Inspection of IND Fire Suppression System",
+                "Neel Patel",
+                "07/05/2024",
+                "12:00AM"))
+            formInspectionList.add(InspectionInfoFormModel(
+                "Off Road Vehicle Sysytem Inspection",
+                "Kuldeep Tripathi",
+                "07/05/2024",
+                "12:00PM"))
+        }
+
+        val adapter = AdapterForInspectionForm(formInspectionList)
+        binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
+        binding.formsRecycleView.adapter = adapter
         return binding.root
     }
 
