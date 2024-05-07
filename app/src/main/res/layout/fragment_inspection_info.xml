@@ -77,14 +77,15 @@
                     android:text="Inspector Name:" />
 
                 <TextView
+                    android:id="@+id/fireInspector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fireInspector"
                     android:hint="Fire Inspector"
                     android:textColorHint="@color/black"
                     android:gravity="center_vertical"
                     android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                     android:background="@android:drawable/editbox_background" />
+
 
             </LinearLayout>
             <LinearLayout
