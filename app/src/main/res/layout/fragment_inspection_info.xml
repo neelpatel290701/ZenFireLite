@@ -191,15 +191,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#F5F5F5">
 
                     <LinearLayout
@@ -207,120 +201,65 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/darker_gray"
                         android:weightSum="2"
+                        android:orientation="horizontal"
                         android:layout_marginTop="10dp">
 
-                    <EditText
-                        android:id="@+id/forms"
-                        android:layout_width="90dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:layout_margin="1dp"
-                        android:background="@drawable/forms_deficiency"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:fontFamily="@font/roboto"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Forms"
-                        android:inputType="text"
-                        android:textColorHint="@color/black"
-                        android:textSize="12sp" />
-                    <EditText
-                        android:id="@+id/deficiency"
-                        android:layout_width="90dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/darker_gray"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:fontFamily="@font/roboto"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Deficiency"
-                        android:inputType="text"
-                        android:textColorHint="@color/black"
-                        android:textSize="12sp" />
+<!--                    <EditText-->
+<!--                        android:id="@+id/forms"-->
+<!--                        android:layout_width="90dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_margin="1dp"-->
+<!--                        android:background="@drawable/forms_deficiency"-->
+<!--                        android:clickable="false"-->
+<!--                        android:cursorVisible="false"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:ems="10"-->
+<!--                        android:gravity="center"-->
+<!--                        android:focusable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:hint="Forms"-->
+<!--                        android:inputType="text"-->
+<!--                        android:textColorHint="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                    <EditText-->
+<!--                        android:id="@+id/deficiency"-->
+<!--                        android:layout_width="90dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_margin="1dp"-->
+<!--                        android:background="@android:color/darker_gray"-->
+<!--                        android:clickable="false"-->
+<!--                        android:cursorVisible="false"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:ems="10"-->
+<!--                        android:gravity="center"-->
+<!--                        android:focusable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:hint="Deficiency"-->
+<!--                        android:inputType="text"-->
+<!--                        android:textColorHint="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/insInfoTabLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            app:tabRippleColor="@null"
+                            app:tabIndicatorHeight="0dp"
+                            android:background="@android:color/darker_gray"/>
 
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:weightSum="4"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4">
-
-                    <EditText
-                        android:id="@+id/searchForm"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/searchbar"
-                        android:layout_marginRight="15dp"
-                        android:ems="10"
-                        android:fontFamily="@font/roboto"
-                        android:hint="Search Form"
-                        android:inputType="text"
-                        android:drawableStart="@drawable/magnifyingglass"
-                        android:drawablePadding="10dp"
-                        android:maxLength="20"
-                        android:maxLines="1"
-                        android:paddingStart="10dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:textCursorDrawable="@drawable/cursor_color"
-                        android:textSize="12dp" />
-
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/addForm"
-                        android:layout_width="90dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/navigatetolocation"
-                        android:drawableStart="@drawable/baseline_add"
-                        android:drawablePadding="3dp"
-                        android:drawableTint="@color/white"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:fontFamily="@font/roboto_bold"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:paddingStart="5dp"
-                        android:focusableInTouchMode="false"
-                        android:hint="Add Form"
-                        android:inputType="text"
-                        android:textColorHint="@color/white"
-                        android:textSize="12sp" />
-
-
-                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F5F5F5">
+                android:layout_height="match_parent" >
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/formsRecycleView"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/insInfoViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/inspectionform_cardview"
-                    />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 

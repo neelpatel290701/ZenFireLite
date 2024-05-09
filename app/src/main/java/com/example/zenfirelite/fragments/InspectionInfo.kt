@@ -28,16 +28,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForFireInspectorList
 import com.example.zenfirelite.adapters.AdapterForInspectionForm
+import com.example.zenfirelite.adapters.PageAdapterForInspectionInfo
 import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 import com.example.zenfirelite.datamodels.InspectionInfoModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class InspectionInfo : Fragment() {
 
     private lateinit var binding : FragmentInspectionInfoBinding
     private lateinit var navController: NavController
     val args : InspectionInfoArgs by navArgs()
+    private val tabTitles = arrayListOf("Forms","Deficiency")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -78,33 +83,31 @@ class InspectionInfo : Fragment() {
 
         clickOnFireInspectorDropDownMenu(binding.fireInspector , fireInspectorList)
 
-        binding.forms.setOnClickListener {
-            binding.forms.setBackgroundResource(R.drawable.forms_deficiency)
-            binding.deficiency.setBackgroundResource(android.R.color.darker_gray)
-        }
-        binding.deficiency.setOnClickListener {
-            binding.deficiency.setBackgroundResource(R.drawable.forms_deficiency)
-            binding.forms.setBackgroundResource(android.R.color.darker_gray)
-        }
+//        binding.forms.setOnClickListener {
+//            binding.forms.setBackgroundResource(R.drawable.forms_deficiency)
+//            binding.deficiency.setBackgroundResource(android.R.color.darker_gray)
+//        }
+//        binding.deficiency.setOnClickListener {
+//            binding.deficiency.setBackgroundResource(R.drawable.forms_deficiency)
+//            binding.forms.setBackgroundResource(android.R.color.darker_gray)
+//        }
 
 
-        val formInspectionList = ArrayList<InspectionInfoFormModel>()
-        for (i in 1..10) {
-            formInspectionList.add(InspectionInfoFormModel(
-                "Inspection of IND Fire Suppression System",
-                "Neel Patel",
-                "07/05/2024",
-                "12:00AM"))
-            formInspectionList.add(InspectionInfoFormModel(
-                "Off Road Vehicle Sysytem Inspection",
-                "Kuldeep Tripathi",
-                "07/05/2024",
-                "12:00PM"))
-        }
+        binding.insInfoViewPager.adapter = PageAdapterForInspectionInfo(this)
+//        binding.insInfoTabLayout.setupWithViewPager(binding.insInfoViewPager)
+        TabLayoutMediator(binding.insInfoTabLayout , binding.insInfoViewPager){tab,position->
+//              tab.text = tabTitles[position]
+              val customView = LayoutInflater.from(binding.insInfoTabLayout.context).
+              inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
+              customView.text = tabTitles[position]
+              tab.customView = customView
+        }.attach()
 
-        val adapter = AdapterForInspectionForm(formInspectionList)
-        binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
-        binding.formsRecycleView.adapter = adapter
+//        for(i in 0..2){
+//            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.inspectioninfo_tabtitle,null) as TextView
+//            binding.insInfoTabLayout.getTabAt(i)?.customView = textView
+//        }
+
         return binding.root
     }
 
