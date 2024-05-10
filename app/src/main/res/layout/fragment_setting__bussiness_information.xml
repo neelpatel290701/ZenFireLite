@@ -43,30 +43,21 @@
                     android:textColorHint="@color/black"
                     android:textSize="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Company Name">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userName2"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Company Name"
-                    android:inputType="text"
-                    android:paddingStart="25dp"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@color/black"
-                    android:textSize="12dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            <android.support.design.widget.TextInputLayout-->
+<!--                android:id="@+id/signup_input_layout_name"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="10dp">-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/signup_input_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:ems="10"-->
+<!--                    android:hint="Name"/>-->
+<!--            </android.support.design.widget.TextInputLayout>-->
 
         </LinearLayout>
 

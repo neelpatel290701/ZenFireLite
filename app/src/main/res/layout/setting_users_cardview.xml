@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="14dp"
+    android:layout_marginRight="13dp">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@color/white">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@color/white"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:weightSum="4"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/userName"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="Neel Patel"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:maxLength="10"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/userEmail"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:text="neel.patel@zentardes.pro"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:maxLength="10"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/userContactNum"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:text="1234"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:maxLength="10"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/userRole"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:text="Inspector"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:maxLength="10"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="Neel Patel"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="neel.patel@zentrades.pro"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/userContactNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="123"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/userRole"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="Inspector"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.cardview.widget.CardView>
