@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.adapters.AdapterForCustomerList
+import com.example.zenfirelite.databinding.FragmentCustomerListBinding
+import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
 
 
 class CustomerList : Fragment() {
 
-
+    private lateinit var binding : FragmentCustomerListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -23,7 +28,21 @@ class CustomerList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_customer_list, container, false)
+        binding = FragmentCustomerListBinding.inflate(inflater,container,false)
+
+        val customerList = ArrayList<String>()
+        for (i in 1..10) {
+            customerList.add("Neel Patel (1234)")
+            customerList.add("Smit Patel (5678)")
+            customerList.add("Kuldeep Tripathi (9012)")
+            customerList.add("Dhruv Pathak (34567)")
+        }
+
+        val customerAdapter = AdapterForCustomerList(customerList)
+        binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
+        binding.customerRecycleView.adapter = customerAdapter
+
+        return binding.root
     }
 
 }

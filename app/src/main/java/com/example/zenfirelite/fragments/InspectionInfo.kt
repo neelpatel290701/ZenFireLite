@@ -83,18 +83,7 @@ class InspectionInfo : Fragment() {
 
         clickOnFireInspectorDropDownMenu(binding.fireInspector , fireInspectorList)
 
-//        binding.forms.setOnClickListener {
-//            binding.forms.setBackgroundResource(R.drawable.forms_deficiency)
-//            binding.deficiency.setBackgroundResource(android.R.color.darker_gray)
-//        }
-//        binding.deficiency.setOnClickListener {
-//            binding.deficiency.setBackgroundResource(R.drawable.forms_deficiency)
-//            binding.forms.setBackgroundResource(android.R.color.darker_gray)
-//        }
-
-
         binding.insInfoViewPager.adapter = PageAdapterForInspectionInfo(this)
-//        binding.insInfoTabLayout.setupWithViewPager(binding.insInfoViewPager)
         TabLayoutMediator(binding.insInfoTabLayout , binding.insInfoViewPager){tab,position->
 //              tab.text = tabTitles[position]
               val customView = LayoutInflater.from(binding.insInfoTabLayout.context).

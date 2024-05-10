@@ -15,7 +15,6 @@ class PageAdapterForInspectionInfo(fm: Fragment): FragmentStateAdapter(fm) {
         return 2
     }
     override fun createFragment(position: Int): Fragment {
-        Log.d("neel" , position.toString())
         return when(position) {
             0 -> InspectionInfoFormList()
             1 -> InspectionInfoDeficiency()
