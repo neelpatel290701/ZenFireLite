@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/customerList"
         android:name="com.example.zenfirelite.fragments.CustomerList"
-        tools:layout="@layout/fragment_customer_list" />
+        tools:layout="@layout/fragment_customer_list" >
+        <action
+            android:id="@+id/action_customerList_to_customerDetails"
+            app:destination="@id/customerDetails" />
+    </fragment>
     <fragment
         android:id="@+id/setting"
         android:name="com.example.zenfirelite.fragments.Setting"
@@ -29,6 +33,17 @@
         <argument
             android:name="inspectionInfo"
             app:argType="com.example.zenfirelite.datamodels.InspectionInfoModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerDetails"
+        android:name="com.example.zenfirelite.fragments.CustomerDetails"
+        tools:layout="@layout/fragment_customer_details" >
+        <argument
+            android:name="cutomerName"
+            app:argType="string" />
+        <argument
+            android:name="cutomerUniqueId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

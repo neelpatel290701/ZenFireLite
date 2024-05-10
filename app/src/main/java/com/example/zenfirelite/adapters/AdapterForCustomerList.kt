@@ -1,6 +1,7 @@
 package com.example.zenfirelite.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.fragments.CustomerListDirections
 
-class AdapterForCustomerList(private val customerNameList: List<String>) :
+class AdapterForCustomerList(private val customerNameList: List<String> , private val context : Context) :
     RecyclerView.Adapter<AdapterForCustomerList.ViewHolder>() {
 
     private var expandedPosition = -1
@@ -60,6 +63,9 @@ class AdapterForCustomerList(private val customerNameList: List<String>) :
             if (expandedPosition == holder.adapterPosition) {
                 // Open a new fragment here
                 Log.d("neel" , "Customer---->")
+                val action = CustomerListDirections.actionCustomerListToCustomerDetails(item.toString() , "123")
+                val navController = Navigation.findNavController(holder.itemView)
+                navController.navigate(action)
             }
         }
 

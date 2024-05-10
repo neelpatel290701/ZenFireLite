@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
@@ -16,12 +18,18 @@ import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
 class CustomerList : Fragment() {
 
     private lateinit var binding : FragmentCustomerListBinding
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +46,12 @@ class CustomerList : Fragment() {
             customerList.add("Dhruv Pathak (34567)")
         }
 
-        val customerAdapter = AdapterForCustomerList(customerList)
+        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it) }
         binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
         binding.customerRecycleView.adapter = customerAdapter
+
+//        val action = CustomerListDirections.actionCustomerListToCustomerDetails()
+//        navController.navigate(action)
 
         return binding.root
     }

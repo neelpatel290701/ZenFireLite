@@ -28,14 +28,14 @@ class Setting_BussinessInformation : Fragment() {
     ): View? {
         binding = FragmentSettingBussinessInformationBinding.inflate(inflater, container, false)
 
-        if (!TextUtils.isEmpty(binding.userName.getText())) {
-            // Set hint to empty to prevent floating hint from showing
-            binding.neel.setHint("Company Name");
-        }
-        // Set hint if EditText is empty
-        else {
-            binding.neel.setHint("Comapny Name");
-        }
+//        if (!TextUtils.isEmpty(binding.userName.getText())) {
+//            // Set hint to empty to prevent floating hint from showing
+//            binding.neel.setHint("Company Name");
+//        }
+//        // Set hint if EditText is empty
+//        else {
+//            binding.neel.setHint("Comapny Name");
+//        }
 
         return binding.root
     }
