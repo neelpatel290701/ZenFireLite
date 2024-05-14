@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/customerList"
+        android:id="@+id/addCustomerOnHomepage"
         android:title="Inspections"
         android:icon="@drawable/baseline_add"
         app:showAsAction="always"/>

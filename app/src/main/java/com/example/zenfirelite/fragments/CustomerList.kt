@@ -46,7 +46,7 @@ class CustomerList : Fragment() {
             customerList.add("Dhruv Pathak (34567)")
         }
 
-        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it) }
+        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false) }
         binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
         binding.customerRecycleView.adapter = customerAdapter
 

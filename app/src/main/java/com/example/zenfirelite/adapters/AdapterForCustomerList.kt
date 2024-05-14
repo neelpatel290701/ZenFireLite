@@ -12,9 +12,12 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.activities.MainActivity
 import com.example.zenfirelite.fragments.CustomerListDirections
 
-class AdapterForCustomerList(private val customerNameList: List<String> , private val context : Context) :
+class AdapterForCustomerList(private val customerNameList: List<String> ,
+                             private val context : Context,
+                             private val isFromMainActivity: Boolean) :
     RecyclerView.Adapter<AdapterForCustomerList.ViewHolder>() {
 
     private var expandedPosition = -1
@@ -62,10 +65,17 @@ class AdapterForCustomerList(private val customerNameList: List<String> , privat
         holder.customerNameView2.setOnClickListener {
             if (expandedPosition == holder.adapterPosition) {
                 // Open a new fragment here
-                Log.d("neel" , "Customer---->")
-                val action = CustomerListDirections.actionCustomerListToCustomerDetails(item.toString() , "123")
-                val navController = Navigation.findNavController(holder.itemView)
-                navController.navigate(action)
+                if(!isFromMainActivity) {
+                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(
+                        item.toString(),
+                        "123"
+                    )
+                    val navController = Navigation.findNavController(holder.itemView)
+                    navController.navigate(action)
+                }else{
+
+                    Log.d("neel" , "Mainactivity to Customer---->")
+                }
             }
         }
 
