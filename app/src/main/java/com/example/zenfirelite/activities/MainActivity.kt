@@ -36,11 +36,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.draweritems, menu)
+        menuInflater.inflate(R.menu.toolbaritems, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_customerList_to_customerDetails"
             app:destination="@id/customerDetails" />
+        <action
+            android:id="@+id/action_customerList_to_addCustomerDetails"
+            app:destination="@id/addCustomerDetails" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -45,5 +48,9 @@
             android:name="cutomerUniqueId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addCustomerDetails"
+        android:name="com.example.zenfirelite.fragments.AddCustomerDetails"
+        tools:layout="@layout/fragment_add_customer_details" />
 
 </navigation>

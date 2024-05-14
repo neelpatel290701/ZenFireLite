@@ -50,8 +50,10 @@ class CustomerList : Fragment() {
         binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
         binding.customerRecycleView.adapter = customerAdapter
 
-//        val action = CustomerListDirections.actionCustomerListToCustomerDetails()
-//        navController.navigate(action)
+        binding.addCustomer.setOnClickListener {
+            val action = CustomerListDirections.actionCustomerListToAddCustomerDetails()
+            navController.navigate(action)
+        }
 
         return binding.root
     }
