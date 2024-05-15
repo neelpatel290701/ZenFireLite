@@ -4,7 +4,8 @@
 
     <item
         android:id="@+id/addCustomerOnHomepage"
-        android:title="Inspections"
+        android:title="addCustomer"
+        android:visible="false"
         android:icon="@drawable/baseline_add"
         app:showAsAction="always"/>
    ]
