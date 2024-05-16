@@ -52,5 +52,10 @@
         android:id="@+id/addCustomerDetails"
         android:name="com.example.zenfirelite.fragments.AddCustomerDetails"
         tools:layout="@layout/fragment_add_customer_details" />
+    <fragment
+        android:id="@+id/formDetails"
+        android:name="com.example.zenfirelite.fragments.FormDetails"
+        android:label="fragment_form_details"
+        tools:layout="@layout/fragment_form_details" />
 
 </navigation>

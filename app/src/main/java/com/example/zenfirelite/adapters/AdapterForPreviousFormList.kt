@@ -1,24 +1,19 @@
 package com.example.zenfirelite.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import javax.xml.transform.Templates
 
-class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String>):
-      RecyclerView.Adapter<AdapterForFormTemplatesList.ViewHolder>(){
+class AdapterForPreviousFormList(private val previousForms : ArrayList<String>) :
+    RecyclerView.Adapter<AdapterForPreviousFormList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val formName : TextView = view.findViewById(R.id.formName)
 
     }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -28,17 +23,12 @@ class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String>)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AdapterForFormTemplatesList.ViewHolder, position: Int) {
-        val formName = formTemplates[position]
+    override fun onBindViewHolder(holder: AdapterForPreviousFormList.ViewHolder, position: Int) {
+        val formName = previousForms[position]
         holder.formName.text = formName
-
-        holder.itemView.setOnClickListener {
-//            Log.d("neel" ,formName)
-
-        }
     }
 
     override fun getItemCount(): Int {
-        return formTemplates.size
+        return previousForms.size
     }
 }

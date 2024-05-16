@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.adapters.AdapterForInspectionForm
+import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 
@@ -86,16 +87,18 @@ class InspectionInfoFormList : Fragment() {
 
         val formTemplatesList = ArrayList<String>()
         for (i in 1..20) {
-            formTemplatesList.add("Neel")
+            formTemplatesList.add("Neel Patel")
+            formTemplatesList.add("Kuldeep Tripathi")
         }
 
         val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView)
-        val formTemplatesRecycleView2 = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView2)
+        val previousFormsRecycleView = dialog.findViewById<RecyclerView>(R.id.previousFormsRecycleView)
         formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
-        formTemplatesRecycleView2 .layoutManager = LinearLayoutManager(requireContext())
-        val adapterform = AdapterForFormTemplatesList(formTemplatesList)
-        formTemplatesRecycleView.adapter = adapterform
-        formTemplatesRecycleView2.adapter = adapterform
+        previousFormsRecycleView .layoutManager = LinearLayoutManager(requireContext())
+        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList)
+        val previousFormAdapter = AdapterForPreviousFormList(formTemplatesList)
+        formTemplatesRecycleView.adapter = formTemplatesAdapter
+        previousFormsRecycleView.adapter = previousFormAdapter
         dialog.show()
     }
 
