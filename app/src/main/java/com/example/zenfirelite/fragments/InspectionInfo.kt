@@ -97,6 +97,7 @@ class InspectionInfo : Fragment() {
 //            binding.insInfoTabLayout.getTabAt(i)?.customView = textView
 //        }
 
+
         return binding.root
     }
 
