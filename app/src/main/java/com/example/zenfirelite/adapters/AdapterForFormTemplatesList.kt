@@ -1,17 +1,18 @@
 package com.example.zenfirelite.adapters
 
-import android.util.Log
+import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import javax.xml.transform.Templates
+import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 
-class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String>):
+class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String> ,
+        private val view : View,
+        private val itemClickListenerForFormTemplateItem: OnItemClickListenerForFormTemplateItem,
+        private val dialog: Dialog):
       RecyclerView.Adapter<AdapterForFormTemplatesList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +35,11 @@ class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String>)
 
         holder.itemView.setOnClickListener {
 //            Log.d("neel" ,formName)
-
+//            val action = InspectionInfoFormListDirections.actionInspectionInfoFormListToFormDetails()
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(action)
+              itemClickListenerForFormTemplateItem.onFormTemplateClick(holder.formName.toString())
+            dialog.dismiss()
         }
     }
 

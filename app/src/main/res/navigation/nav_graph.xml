@@ -36,6 +36,9 @@
         <argument
             android:name="inspectionInfo"
             app:argType="com.example.zenfirelite.datamodels.InspectionInfoModel" />
+        <action
+            android:id="@+id/action_inspectionInfo_to_formDetails2"
+            app:destination="@id/formDetails" />
     </fragment>
     <fragment
         android:id="@+id/customerDetails"
@@ -57,5 +60,10 @@
         android:name="com.example.zenfirelite.fragments.FormDetails"
         android:label="fragment_form_details"
         tools:layout="@layout/fragment_form_details" />
+    <fragment
+        android:id="@+id/inspectionInfoFormList"
+        android:name="com.example.zenfirelite.fragments.InspectionInfoFormList"
+        android:label="fragment_inspection_info_form_list"
+        tools:layout="@layout/fragment_inspection_info_form_list" />
 
 </navigation>

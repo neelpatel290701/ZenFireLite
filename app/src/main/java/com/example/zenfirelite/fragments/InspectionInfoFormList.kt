@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
@@ -18,10 +21,12 @@ import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
+import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 
 
-class InspectionInfoFormList : Fragment() {
+class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateItem {
     private lateinit var binding : FragmentInspectionInfoFormListBinding
+    private lateinit var view : View
 //    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +37,7 @@ class InspectionInfoFormList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        navController = Navigation.findNavController(view)
+        this.view = view
     }
 
 
@@ -95,11 +101,18 @@ class InspectionInfoFormList : Fragment() {
         val previousFormsRecycleView = dialog.findViewById<RecyclerView>(R.id.previousFormsRecycleView)
         formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
         previousFormsRecycleView .layoutManager = LinearLayoutManager(requireContext())
-        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList)
+        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList,view , this , dialog)
         val previousFormAdapter = AdapterForPreviousFormList(formTemplatesList)
         formTemplatesRecycleView.adapter = formTemplatesAdapter
         previousFormsRecycleView.adapter = previousFormAdapter
         dialog.show()
+    }
+
+    override fun onFormTemplateClick(item: String) {
+        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2()
+        val navController = Navigation.findNavController(requireParentFragment().requireView())
+            navController.navigate(action)
+
     }
 
 

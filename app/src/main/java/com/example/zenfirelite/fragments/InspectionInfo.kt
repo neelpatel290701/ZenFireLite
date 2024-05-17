@@ -145,8 +145,8 @@ class InspectionInfo : Fragment() {
                         fireInspectorRecyclerView.adapter = newAdapter
                         newAdapter.notifyDataSetChanged()
                     }else{
-                        val adapter = AdapterForFireInspectorList(fireInspectorList,binding.fireInspector,dialog)
-                        fireInspectorRecyclerView.adapter = adapter
+                        val fireInspectoradapter = AdapterForFireInspectorList(fireInspectorList,binding.fireInspector,dialog)
+                        fireInspectorRecyclerView.adapter = fireInspectoradapter
                         adapter.notifyDataSetChanged()
                     }
 
