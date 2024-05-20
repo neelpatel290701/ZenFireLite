@@ -207,7 +207,7 @@
                         <com.google.android.material.tabs.TabLayout
                             android:id="@+id/insInfoTabLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_height="35dp"
                             app:tabRippleColor="@null"
                             app:tabIndicatorHeight="0dp"
                             android:background="@android:color/darker_gray"/>

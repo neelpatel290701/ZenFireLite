@@ -93,8 +93,9 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
 
         val formTemplatesList = ArrayList<String>()
         for (i in 1..20) {
-            formTemplatesList.add("Neel Patel")
-            formTemplatesList.add("Kuldeep Tripathi")
+            formTemplatesList.add("1-Fire Sprinkler inspection report(combo)")
+            formTemplatesList.add("Alarm Inspection & Testing Form ")
+            formTemplatesList.add("Backflow Assembly test form")
         }
 
         val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView)
@@ -109,7 +110,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
     }
 
     override fun onFormTemplateClick(item: String) {
-        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2()
+        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item.toString())
         val navController = Navigation.findNavController(requireParentFragment().requireView())
             navController.navigate(action)
 

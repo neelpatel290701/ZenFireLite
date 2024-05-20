@@ -39,7 +39,7 @@ class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String> 
 //            val navController = Navigation.findNavController(view)
 //            navController.navigate(action)
               itemClickListenerForFormTemplateItem.onFormTemplateClick(holder.formName.toString())
-            dialog.dismiss()
+              dialog.dismiss()
         }
     }
 

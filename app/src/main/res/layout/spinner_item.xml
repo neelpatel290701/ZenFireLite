@@ -7,11 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Neel"
-    android:paddingStart="20dp"
+    android:paddingStart="10dp"
     android:paddingEnd="2dp"
-    android:textSize="13sp"
+    android:textSize="14sp"
     android:background="@android:color/white"
     android:textColor="@android:color/black"
     />
+
+
 
 

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="5"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".fragments.FormDetails">
 
     <LinearLayout
-        android:id="@+id/mainParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@color/white"
+        android:orientation="vertical">
     <Button
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
@@ -33,4 +36,64 @@
 
     </LinearLayout>
 
-</ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="50dp"
+        android:layout_marginTop="5dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="5"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/peviousSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Previous"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/formSectionName"
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/changedate"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingStart="10dp"
+            android:hint="Section Name"
+            android:fontFamily="@font/roboto_bold"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/nextSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="Next"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
