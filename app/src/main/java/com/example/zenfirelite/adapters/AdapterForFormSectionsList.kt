@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.interfaces.OnSectionSelectedListener
 
-class AdapterForFormSectionsList(private val formSectionList: List<String>):
+class AdapterForFormSectionsList(private val formSectionList: List<String>,
+                                 private val OnSectionSelected :  OnSectionSelectedListener):
       RecyclerView.Adapter<AdapterForFormSectionsList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,6 +30,10 @@ class AdapterForFormSectionsList(private val formSectionList: List<String>):
     override fun onBindViewHolder(holder: AdapterForFormSectionsList.ViewHolder, position: Int) {
         val ItemsViewModel = formSectionList[position]
         holder.formSectionName.text = ItemsViewModel
+
+        holder.itemView.setOnClickListener {
+            OnSectionSelected.onSectionSelected(position)
+        }
     }
 
     override fun getItemCount(): Int {

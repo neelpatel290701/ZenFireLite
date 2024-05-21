@@ -15,16 +15,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/formtemplates"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Form Templates"
             android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:paddingLeft="10dp"
             android:textColor="#808080"
             />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/formTemplatesRecycleView"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 tools:listitem="@layout/formtemplates_items_cardview"/>
@@ -47,6 +50,7 @@
             />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/previousFormsRecycleView"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="210dp"
             tools:listitem="@layout/formtemplates_items_cardview"/>

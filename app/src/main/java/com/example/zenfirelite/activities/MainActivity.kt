@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
         setSupportActionBar(findViewById(R.id.toolbar))
         //https://developer.android.com/develop/ui/views/components/appbar/setting-up
 
@@ -51,57 +50,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
-
         findViewById<NavigationView>(R.id.nav_view)
             .setupWithNavController(navController)
 
-
-//        findViewById<Toolbar>(R.id.toolbar).setOnMenuItemClickListener{ menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.addCustomerOnHomepage -> {
-//                    OnItemClickListenerForAddCustomerOnHomePage()
-//                }
-//                else -> false
-//            }
-//        }
-
-    }
-
-    private fun OnItemClickListenerForAddCustomerOnHomePage() : Boolean {
-        val dialog = Dialog(this@MainActivity)
-        dialog.setContentView(R.layout.fragment_customer_list)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        dialog.window?.setBackgroundDrawableResource(R.drawable.dialogeboxbackground)
-
-        val dialogWidth = WindowManager.LayoutParams.MATCH_PARENT
-        val dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog.window?.setLayout(900, 1300)
-
-        dialog.window?.setGravity(Gravity.CENTER)
-
-        val customerList = ArrayList<String>()
-        for (i in 1..10) {
-            customerList.add("Neel Patel (1234)")
-            customerList.add("Smit Patel (5678)")
-            customerList.add("Kuldeep Tripathi (9012)")
-            customerList.add("Dhruv Pathak (34567)")
-        }
-
-        val customerRecycleView = dialog.findViewById<RecyclerView>(R.id.customerRecycleView)
-        customerRecycleView .layoutManager = LinearLayoutManager(this)
-        val adapter = AdapterForCustomerList(customerList,this,true)
-        customerRecycleView .adapter = adapter
-
-        val addCustomer = dialog.findViewById<TextView>(R.id.addCustomer)
-
-        addCustomer.setOnClickListener{
-            navController.navigate(R.id.addCustomerDetails)
-            dialog.dismiss()
-        }
-
-        dialog.show()
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -119,5 +70,6 @@ class MainActivity : AppCompatActivity() {
 ////        menuInflater.inflate(R.menu.toolbaritems, menu)
 //        return super.onCreateOptionsMenu(menu)
 //    }
+
 
 }
