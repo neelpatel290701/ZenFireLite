@@ -127,8 +127,10 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         // Hide or show menu items as needed
-        val menuItem = menu.findItem(R.id.addCustomerOnHomepage)
-        menuItem.isVisible = true // or false, depending on your condition
+        val menuItem_addCustomer= menu.findItem(R.id.addCustomerOnHomepage)
+        val menuItem_reload= menu.findItem(R.id.reload)
+        menuItem_addCustomer.isVisible = true // or false, depending on your condition
+        menuItem_reload.isVisible = true
     }
 
     @Deprecated("Deprecated in Java")

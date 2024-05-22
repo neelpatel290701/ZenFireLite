@@ -1,16 +1,16 @@
 package com.example.zenfirelite.adapters
 
+import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.interfaces.OnSectionSelectedListener
 
 class AdapterForFormSectionsList(private val formSectionList: List<String>,
-                                 private val OnSectionSelected :  OnSectionSelectedListener):
+                                 private val dialog: Dialog,
+                                 private val onItemClickListener: (Int, String) -> Unit):
       RecyclerView.Adapter<AdapterForFormSectionsList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,7 +32,9 @@ class AdapterForFormSectionsList(private val formSectionList: List<String>,
         holder.formSectionName.text = ItemsViewModel
 
         holder.itemView.setOnClickListener {
-            OnSectionSelected.onSectionSelected(position)
+//            OnSectionSelected.onSectionSelected(position)
+            onItemClickListener.invoke(position,ItemsViewModel)
+            dialog.dismiss()
         }
     }
 

@@ -59,34 +59,12 @@
         android:id="@+id/formDetails"
         android:name="com.example.zenfirelite.fragments.FormDetails"
         tools:layout="@layout/fragment_form_details" >
-        <action
-            android:id="@+id/action_formDetails_to_formSections_Dialog"
-            app:destination="@id/formSections_Dialog" />
         <argument
             android:name="formName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_formDetails_self"
-            app:destination="@id/formDetails" />
-        <argument
-            android:name="flag"
-            app:argType="boolean" />
-
-        <argument
-            android:name="isFromSectionDialog"
-            app:argType="boolean" />
         <argument
             android:name="sectionIndex"
             app:argType="integer" />
     </fragment>
-    <dialog
-        android:id="@+id/formSections_Dialog"
-        android:name="com.example.zenfirelite.fragments.FormSections_Dialog"
-        android:label="fragment_form_sections__dialog"
-        tools:layout="@layout/fragment_form_sections__dialog" >
-        <action
-            android:id="@+id/action_formSections_Dialog_to_formDetails2"
-            app:destination="@id/formDetails" />
-    </dialog>
 
 </navigation>

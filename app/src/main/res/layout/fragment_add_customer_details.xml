@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <LinearLayout
@@ -34,86 +35,144 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="5"
+                android:weightSum="3"
                 android:orientation="horizontal">
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:fontFamily="@font/roboto"-->
-<!--                    android:text="Residential"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="18sp"/>-->
+
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_height="match_parent"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_weight="1"
+                    android:spinnerMode="dropdown"
                     android:background="@drawable/inspectionstatus"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginRight="40dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp" />
-                <EditText
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Company Name*"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2">
+                    <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Company Name*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Company Name*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
 
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:weightSum="2">
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:hint="First Name*"
-                    android:textSize="12sp"/>
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/roboto"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="First Name*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="First Name*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:hint="Last Name"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Last Name">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Last Name"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Additional Name"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    android:layout_weight="1"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Additional Name">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Additional Name"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -167,32 +226,58 @@
                 android:weightSum="2"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Line 1*"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Line1*">
 
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Line1*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
 
-                <EditText
-                    android:layout_width="wrap_content"
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Line 2"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Line2">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Line2"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
@@ -200,59 +285,115 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2">
-                <EditText
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:hint="City*"
-                    android:textSize="12sp"/>
-                <EditText
-                    android:layout_width="wrap_content"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="City*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="City*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:hint="State*"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="State*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="State*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2">
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:layout_weight="1"
-                    android:hint="ZipCode*"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
-                <EditText
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Country*"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="ZipCode*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="ZipCode*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Country*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Country*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -280,17 +421,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Email*"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    android:layout_weight="1"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Email*">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Email*"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
@@ -298,47 +454,91 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2">
-                <EditText
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:hint="Landline"
-                    android:textSize="12sp"/>
-                <EditText
-                    android:layout_width="wrap_content"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Landline">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Landline"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
                     android:layout_weight="1"
-                    android:inputType="text"
-                    android:hint="Extension"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Extension">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Extension"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="5">
-                <EditText
-                    android:layout_width="wrap_content"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Cell Phone"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:textSize="12sp"/>
+                    android:layout_weight="1"
+                    app:hintTextColor="@android:color/darker_gray"
+                    app:cursorColor="@color/black"
+                    app:expandedHintEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    android:hint="Cell Phone">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        android:backgroundTint="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:hint="Cell Phone"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:textColorHint="@color/black"
+                        android:singleLine="true"
+                        android:maxLength="30"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
         </LinearLayout>

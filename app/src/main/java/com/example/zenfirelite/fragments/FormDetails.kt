@@ -7,18 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForDynamicDataField
+import com.example.zenfirelite.adapters.AdapterForFormSectionsList
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
-import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
 import com.example.zenfirelite.datamodels.FieldTypeListItem
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class FormDetails : Fragment()  {
@@ -36,7 +35,7 @@ class FormDetails : Fragment()  {
         arguments?.let {
         }
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,26 +44,44 @@ class FormDetails : Fragment()  {
         val formName = args.formName.toString()
         requireActivity().title = "Alarm Inspection"
 
-
         currSectionIndex = args.sectionIndex
-
-//        binding.buttonAdd.setOnClickListener{
-//            addNewView()
-//        }
+        Log.d("neel","-----$currSectionIndex")
+        OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
 
         val sectionName : String = "Profile"
         binding.formSectionName.hint =  sectionName
 
-        binding.index.text = currSectionIndex.toString()
-
         binding.formSectionName.setOnClickListener {
 //            val action = FormDetailsDirections.actionFormDetailsToFormSectionsDialog()
 //            navController.navigate(action)
+            val dialog = BottomSheetDialog(requireContext())
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.fragment_form_sections__dialog, null)
+
+
+            val formSectionList = ArrayList<String>()
+            for (i in 1..10) {
+                formSectionList.add("Neel Patel")
+                formSectionList.add("Kuldeep Tripathi")
+            }
+
+            val formSectionsRecyclerView = view.findViewById<RecyclerView>(R.id.formSectionsRecyclerView)
+            formSectionsRecyclerView.layoutManager = LinearLayoutManager(context)
+            val adapter = AdapterForFormSectionsList(formSectionList,dialog){sectionIndex,sectionName->
+                OnChangeSectionIndexUpdateSectionItems(sectionIndex)
+                binding.formSectionName.hint = sectionName
+            }
+            formSectionsRecyclerView.adapter = adapter
+
+            dialog.setContentView(view)
+            dialog.show()
+
         }
 
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
@@ -72,44 +89,44 @@ class FormDetails : Fragment()  {
 
         binding.nextSection.setOnClickListener{
             currSectionIndex++
+            OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
         }
 
         binding.peviousSection.setOnClickListener{
             currSectionIndex--
+            OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
 
         }
 
-        val list = listOf(
+        val list = mutableListOf(
             FieldTypeListItem.EditTextType("Enter First Name"),
             FieldTypeListItem.EditTextType("Enter Last Name"),
-            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
-            FieldTypeListItem.EditTextType("Enter Address"),
-            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
-            FieldTypeListItem.EditTextType("Enter Country"),
-            FieldTypeListItem.EditTextType("Enter First Name"),
-            FieldTypeListItem.EditTextType("Enter Last Name"),
-            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
-            FieldTypeListItem.EditTextType("Enter Address"),
-            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
-            FieldTypeListItem.EditTextType("Enter Country"),
-            FieldTypeListItem.EditTextType("Enter First Name"),
-            FieldTypeListItem.EditTextType("Enter Last Name"),
-            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
-            FieldTypeListItem.EditTextType("Enter Address"),
-            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
-            FieldTypeListItem.EditTextType("Enter Country"),
         )
+
 
 
         binding.datFieldRecyclerView.layoutManager = LinearLayoutManager(context)
         val adapter =  AdapterForDynamicDataField(list)
         binding.datFieldRecyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
 
 
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun OnChangeSectionIndexUpdateSectionItems(currSectionIndex : Int) {
+                val tempList =  mutableListOf( FieldTypeListItem.EditTextType("Enter First Name"))
 
+                for (i in 1.. currSectionIndex) {
+                    tempList.add(FieldTypeListItem.EditTextType("Enter First Name"))
+                }
+                val adapter =  AdapterForDynamicDataField(tempList)
+               binding.datFieldRecyclerView.adapter = adapter
+
+                adapter.notifyDataSetChanged()
+
+    }
 
 
 

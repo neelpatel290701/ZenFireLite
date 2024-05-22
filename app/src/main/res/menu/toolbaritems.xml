@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/reload"
-        android:title="addCustomer"
-        android:visible="true"
+        android:title="reload"
+        android:visible="false"
         android:icon="@drawable/reload"
         app:showAsAction="always"/>
 
@@ -15,6 +15,12 @@
         android:title="addCustomer"
         android:visible="false"
         android:icon="@drawable/baseline_add_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/save_addCustomer"
+        android:title=" Save "
+        android:visible="false"
         app:showAsAction="always"/>
 
 </menu>

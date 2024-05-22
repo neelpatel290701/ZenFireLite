@@ -101,14 +101,25 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView)
         val previousFormsRecycleView = dialog.findViewById<RecyclerView>(R.id.previousFormsRecycleView)
         val FormTemplate = dialog.findViewById<TextView>(R.id.formtemplates)
-        var flag = true
+        val PreviousForm = dialog.findViewById<TextView>(R.id.previousForm)
+        var FormTemplateflag = true
         FormTemplate.setOnClickListener{
-            if(!flag) {
+            if(!FormTemplateflag) {
                 formTemplatesRecycleView.visibility = View.VISIBLE
             }else{
                 formTemplatesRecycleView.visibility = View.GONE
             }
-            flag = !flag
+            FormTemplateflag = !FormTemplateflag
+        }
+
+        var PreviousFormflag = true
+        PreviousForm.setOnClickListener{
+            if(!PreviousFormflag) {
+                previousFormsRecycleView.visibility = View.VISIBLE
+            }else{
+                previousFormsRecycleView.visibility = View.GONE
+            }
+            PreviousFormflag = !PreviousFormflag
         }
         formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
         previousFormsRecycleView .layoutManager = LinearLayoutManager(requireContext())
@@ -120,7 +131,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
     }
 
     override fun onFormTemplateClick(item: String) {
-        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item.toString(),true,false,0)
+        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item.toString(),0)
         val navController = Navigation.findNavController(requireParentFragment().requireView())
             navController.navigate(action)
 
