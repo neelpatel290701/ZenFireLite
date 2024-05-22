@@ -9,7 +9,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Name"
+        android:text="Enter Pincode"
         android:textColor="@color/black"
         android:layout_marginLeft="10dp"
         android:textSize="15sp"

@@ -13,10 +13,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zenfirelite.R
+import com.example.zenfirelite.adapters.AdapterForDynamicDataField
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
-
+import com.example.zenfirelite.datamodels.FieldTypeListItem
 
 
 class FormDetails : Fragment()  {
@@ -46,9 +48,9 @@ class FormDetails : Fragment()  {
 
         currSectionIndex = args.sectionIndex
 
-        binding.buttonAdd.setOnClickListener{
-            addNewView()
-        }
+//        binding.buttonAdd.setOnClickListener{
+//            addNewView()
+//        }
 
         val sectionName : String = "Profile"
         binding.formSectionName.hint =  sectionName
@@ -56,8 +58,8 @@ class FormDetails : Fragment()  {
         binding.index.text = currSectionIndex.toString()
 
         binding.formSectionName.setOnClickListener {
-            val action = FormDetailsDirections.actionFormDetailsToFormSectionsDialog()
-            navController.navigate(action)
+//            val action = FormDetailsDirections.actionFormDetailsToFormSectionsDialog()
+//            navController.navigate(action)
         }
 
         return binding.root
@@ -67,22 +69,43 @@ class FormDetails : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-       for (i in 1..currSectionIndex){
-           addNewView()
-       }
 
         binding.nextSection.setOnClickListener{
             currSectionIndex++
-            navigateToFormDetailsWithIndex(currSectionIndex)
         }
 
         binding.peviousSection.setOnClickListener{
             currSectionIndex--
-//            findNavController().popBackStack()
-            navigateToFormDetailsWithIndex(currSectionIndex)
 
         }
 
+        val list = listOf(
+            FieldTypeListItem.EditTextType("Enter First Name"),
+            FieldTypeListItem.EditTextType("Enter Last Name"),
+            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
+            FieldTypeListItem.EditTextType("Enter Address"),
+            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
+            FieldTypeListItem.EditTextType("Enter Country"),
+            FieldTypeListItem.EditTextType("Enter First Name"),
+            FieldTypeListItem.EditTextType("Enter Last Name"),
+            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
+            FieldTypeListItem.EditTextType("Enter Address"),
+            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
+            FieldTypeListItem.EditTextType("Enter Country"),
+            FieldTypeListItem.EditTextType("Enter First Name"),
+            FieldTypeListItem.EditTextType("Enter Last Name"),
+            FieldTypeListItem.EditTextTypeNum("Enter Contact Number"),
+            FieldTypeListItem.EditTextType("Enter Address"),
+            FieldTypeListItem.EditTextTypeNum("Enter Pincode"),
+            FieldTypeListItem.EditTextType("Enter Country"),
+        )
+
+
+        binding.datFieldRecyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter =  AdapterForDynamicDataField(list)
+        binding.datFieldRecyclerView.adapter = adapter
+
+
 
     }
 
@@ -90,16 +113,16 @@ class FormDetails : Fragment()  {
 
 
 
-    @SuppressLint("InflateParams")
-    private fun addNewView() {
-        val inflater = LayoutInflater.from(requireContext()).inflate(R.layout.sample_textfieldtype_1, null)
-        binding.parentLinearLayout.addView(inflater, binding.parentLinearLayout.childCount)
-    }
+//    @SuppressLint("InflateParams")
+//    private fun addNewView() {
+//        val inflater = LayoutInflater.from(requireContext()).inflate(R.layout.sample_textfieldtype_1, null)
+//        binding.parentLinearLayout.addView(inflater, binding.parentLinearLayout.childCount)
+//    }
 
-    private fun navigateToFormDetailsWithIndex(currSectionIndex: Int) {
-        val action = FormDetailsDirections.actionFormDetailsSelf("Neel",false,false,currSectionIndex)
-        navController.navigate(action)
-    }
+//    private fun navigateToFormDetailsWithIndex(currSectionIndex: Int) {
+//        val action = FormDetailsDirections.actionFormDetailsSelf("Neel",false,false,currSectionIndex)
+//        navController.navigate(action)
+//    }
 
 
 }

@@ -25,19 +25,14 @@
             android:textColor="@color/black"
             android:text="Next"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/datFieldRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:drawableRight="@drawable/baseline_add_24"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Add"
-        android:textAllCaps="false"
-        android:textColor="@color/white"/>
+
+
 
     <LinearLayout
         android:id="@+id/parent_linear_layout"
