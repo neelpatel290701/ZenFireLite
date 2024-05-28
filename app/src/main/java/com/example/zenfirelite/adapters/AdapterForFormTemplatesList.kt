@@ -34,10 +34,6 @@ class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String> 
         holder.formName.text = formName
 
         holder.itemView.setOnClickListener {
-//            Log.d("neel" ,formName)
-//            val action = InspectionInfoFormListDirections.actionInspectionInfoFormListToFormDetails()
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(action)
               itemClickListenerForFormTemplateItem.onFormTemplateClick(holder.formName.toString())
               dialog.dismiss()
         }

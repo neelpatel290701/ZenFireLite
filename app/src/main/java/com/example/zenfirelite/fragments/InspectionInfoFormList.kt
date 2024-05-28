@@ -131,7 +131,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
     }
 
     override fun onFormTemplateClick(item: String) {
-        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item.toString(),0)
+        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item,0)
         val navController = Navigation.findNavController(requireParentFragment().requireView())
             navController.navigate(action)
 
