@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -102,7 +103,10 @@ class FormDetails : Fragment()  {
                 val options= arrayListOf("Neel Patel","kuldeep Tripathi","Smit Patel")
                 val tempList =  mutableListOf( FieldTypeListItem.EditTextType("First Name","String"),
                     FieldTypeListItem.DropDownList("Choose Option",options),
-                    FieldTypeListItem.EditTextType("Phone No.","number"),)
+                    FieldTypeListItem.EditTextType("Phone No.","number"),
+                    FieldTypeListItem.RadioButton("Choose Any One",true),
+                    FieldTypeListItem.RadioButton("Choose Multi Options",false),
+                    FieldTypeListItem.RadioTypeButton("Select Option"))
 
                 for (i in 1.. currSectionIndex) {
                     tempList.add(FieldTypeListItem.EditTextType("Enter First Name","String"))
@@ -126,6 +130,7 @@ class FormDetails : Fragment()  {
         }
 
         val formSectionsRecyclerView = view.findViewById<RecyclerView>(R.id.formSectionsRecyclerView)
+        val chooseSection = view.findViewById<TextView>(R.id.choosesection)
         formSectionsRecyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = AdapterForFormSectionsList(formSectionList,dialog){sectionIndex,sectionName->
             OnChangeSectionIndexUpdateSectionItems(sectionIndex)
@@ -134,6 +139,7 @@ class FormDetails : Fragment()  {
         }
         formSectionsRecyclerView.adapter = adapter
 
+        chooseSection.setOnClickListener{dialog.dismiss()}
         dialog.setContentView(view)
         dialog.show()
 
