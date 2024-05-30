@@ -21,7 +21,8 @@
         android:textColor="@color/black"
         android:layout_margin="10dp"
         android:inputType="text"
-        android:textColorHint="@android:color/darker_gray"
+        android:textSize="12dp"
+        android:textColorHint="@color/light_grey"
         android:textCursorDrawable="@drawable/cursor_color"
         android:background="@drawable/inspectionstatus"/>
 

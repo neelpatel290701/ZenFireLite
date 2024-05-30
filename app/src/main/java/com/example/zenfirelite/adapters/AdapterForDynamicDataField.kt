@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
@@ -28,6 +29,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             textView.text = item.title
 
             val editText = itemView.findViewById<TextView>(R.id.value)
+            editText.hint = item.title
             if(item.inputType == "number") {
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }else{
@@ -74,13 +76,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             textView.text = item.title
             val isRadioButton = item.isRadioButton
             recyclerView.layoutManager = LinearLayoutManager(context)
-            val itemList = mutableListOf<RadioButtonItem>(
-                RadioButtonItem("Item 1"),
-                RadioButtonItem("Item 2"),
-                RadioButtonItem("Item 3"),
-                RadioButtonItem("Item 4"),
-                RadioButtonItem("Item 5"),
-            )
+            val itemList = item.options
             val adapter = AdapterForRadioButtonItem(itemList,isRadioMode = isRadioButton)
             recyclerView.adapter = adapter
         }

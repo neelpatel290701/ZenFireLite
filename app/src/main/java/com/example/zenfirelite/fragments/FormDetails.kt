@@ -17,7 +17,11 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForDynamicDataField
 import com.example.zenfirelite.adapters.AdapterForFormSectionsList
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
+import com.example.zenfirelite.datamodels.Field
 import com.example.zenfirelite.datamodels.FieldTypeListItem
+import com.example.zenfirelite.datamodels.Option
+import com.example.zenfirelite.datamodels.RadioButtonItem
+import com.example.zenfirelite.datamodels.Section
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -29,6 +33,155 @@ class FormDetails : Fragment()  {
     private lateinit var binding : FragmentFormDetailsBinding
     private lateinit var navController: NavController
     val args : FormDetailsArgs by navArgs()
+
+
+    val sections = arrayOf(
+        Section(
+            fields = listOf(
+                Field(inputType = "text", title = "first name"),
+                Field(inputType = "text", title = "last name"),
+                Field(inputType = "number", title = "contact number"),
+                Field(inputType = "text", title = "address"),
+                Field(inputType = "number", title = "pincode"),
+                Field(inputType = "text", title = "country"),
+                Field(inputType = "textarea", title = "bio"),
+                Field(inputType = "dropdownList", title = "country", options = listOf(
+                    Option(value = "USA", isSelected = false),
+                    Option(value = "Canada", isSelected = false),
+                    Option(value = "Mexico", isSelected = false)
+                )),
+                Field(inputType = "dropdownList", title = "country", options = listOf(
+                    Option(value = "USA", isSelected = false),
+                    Option(value = "Canada", isSelected = false),
+                    Option(value = "Mexico", isSelected = false)
+                )),
+                Field(inputType = "text", title = "country"),
+                Field(inputType = "text", title = "Service Type"),
+                Field(inputType = "text", title = "City"),
+                Field(inputType = "text", title = "country"),
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "dropdownList", title = "country", options = listOf(
+                    Option(value = "USA", isSelected = false),
+                    Option(value = "Canada", isSelected = false),
+                    Option(value = "Mexico", isSelected = false)
+                )),
+                Field(inputType = "radio button", title = "gender", options = listOf(
+                    Option(value = "Male", isSelected = false),
+                    Option(value = "Female", isSelected = false),
+                    Option(value = "Other", isSelected = false)
+                )),
+                Field(inputType = "checkbox", title = "subscribe to newsletter", options = listOf(
+                    Option(value = "Yes", isSelected = false),
+                    Option(value = "No", isSelected = false)
+                )),
+                Field(inputType = "text", title = "username"),
+                Field(inputType = "text", title = "password"),
+                Field(inputType = "text", title = "email"),
+                Field(inputType = "textarea", title = "comments")
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "radiotype button", title = "marital status", options = listOf(
+                    Option(value = "Single", isSelected = false),
+                    Option(value = "Married", isSelected = false),
+                    Option(value = "Divorced", isSelected = false)
+                )),
+                Field(inputType = "textarea", title = "bio"),
+                Field(inputType = "text", title = "favorite hobby"),
+                Field(inputType = "text", title = "favorite food"),
+                Field(inputType = "number", title = "number of siblings"),
+                Field(inputType = "text", title = "mother's maiden name"),
+                Field(inputType = "dropdownList", title = "favorite season", options = listOf(
+                    Option(value = "Winter", isSelected = false),
+                    Option(value = "Spring", isSelected = false),
+                    Option(value = "Summer", isSelected = false),
+                    Option(value = "Fall", isSelected = false)
+                ))
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "text", title = "nickname"),
+                Field(inputType = "text", title = "pet's name"),
+                Field(inputType = "number", title = "house number"),
+                Field(inputType = "text", title = "street name"),
+                Field(inputType = "text", title = "city"),
+                Field(inputType = "text", title = "state"),
+                Field(inputType = "text", title = "zipcode")
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "dropdownList", title = "favorite color", options = listOf(
+                    Option(value = "Red", isSelected = false),
+                    Option(value = "Green", isSelected = false),
+                    Option(value = "Blue", isSelected = false),
+                    Option(value = "Yellow", isSelected = false)
+                )),
+                Field(inputType = "radio button", title = "subscription type", options = listOf(
+                    Option(value = "Free", isSelected = false),
+                    Option(value = "Premium", isSelected = false),
+                    Option(value = "VIP", isSelected = false)
+                )),
+                Field(inputType = "checkbox", title = "features", options = listOf(
+                    Option(value = "Feature 1", isSelected = false),
+                    Option(value = "Feature 2", isSelected = false),
+                    Option(value = "Feature 3", isSelected = false)
+                )),
+                Field(inputType = "textarea", title = "feedback"),
+                Field(inputType = "text", title = "suggestions"),
+                Field(inputType = "text", title = "improvements")
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "text", title = "first name"),
+                Field(inputType = "text", title = "last name"),
+                Field(inputType = "number", title = "phone number"),
+                Field(inputType = "text", title = "emergency contact"),
+                Field(inputType = "number", title = "emergency contact number"),
+                Field(inputType = "text", title = "relationship"),
+                Field(inputType = "textarea", title = "notes")
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "dropdownList", title = "city", options = listOf(
+                    Option(value = "New York", isSelected = false),
+                    Option(value = "Los Angeles", isSelected = false),
+                    Option(value = "Chicago", isSelected = false),
+                    Option(value = "Houston", isSelected = false)
+                )),
+                Field(inputType = "radio button", title = "age group", options = listOf(
+                    Option(value = "18-24", isSelected = false),
+                    Option(value = "25-34", isSelected = false),
+                    Option(value = "35-44", isSelected = false),
+                    Option(value = "45+", isSelected = false)
+                )),
+                Field(inputType = "radiotype button", title = "employment status"),
+                Field(inputType = "text", title = "job title"),
+                Field(inputType = "text", title = "company name"),
+                Field(inputType = "number", title = "years of experience"),
+                Field(inputType = "textarea", title = "professional summary")
+            )
+        ),
+        Section(
+            fields = listOf(
+                Field(inputType = "text", title = "favorite book"),
+                Field(inputType = "text", title = "favorite movie"),
+                Field(inputType = "text", title = "favorite song"),
+                Field(inputType = "number", title = "lucky number"),
+                Field(inputType = "text", title = "favorite sport"),
+                Field(inputType = "text", title = "favorite team"),
+                Field(inputType = "textarea", title = "other interests")
+            )
+        )
+    )
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +215,17 @@ class FormDetails : Fragment()  {
 
 
         binding.nextSection.setOnClickListener{
-            currSectionIndex++
-            OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
+            if(currSectionIndex + 1 in sections.indices) {
+                currSectionIndex++
+                OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
+            }
         }
 
         binding.peviousSection.setOnClickListener{
-            currSectionIndex--
-            OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
+            if(currSectionIndex - 1 in sections.indices) {
+                currSectionIndex--
+                OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
+            }
 
         }
 
@@ -100,23 +257,51 @@ class FormDetails : Fragment()  {
     @SuppressLint("NotifyDataSetChanged")
     private fun OnChangeSectionIndexUpdateSectionItems(currSectionIndex : Int) {
 
-                val options= arrayListOf("Neel Patel","kuldeep Tripathi","Smit Patel")
-                val tempList =  mutableListOf( FieldTypeListItem.EditTextType("First Name","String"),
-                    FieldTypeListItem.DropDownList("Choose Option",options),
-                    FieldTypeListItem.EditTextType("Phone No.","number"),
-                    FieldTypeListItem.RadioButton("Choose Any One",true),
-                    FieldTypeListItem.RadioButton("Choose Multi Options",false),
-                    FieldTypeListItem.RadioTypeButton("Select Option"))
+//                val options= arrayListOf("Neel Patel","kuldeep Tripathi","Smit Patel")
+//                val itemList = mutableListOf<RadioButtonItem>(
+//                    RadioButtonItem("Item 1",false),
+//                    RadioButtonItem("Item 2",false),
+//                    RadioButtonItem("Item 3",false),
+//                    RadioButtonItem("Item 4",false),
+//                    RadioButtonItem("Item 5",false),
+//                )
+//                val tempList =  mutableListOf( FieldTypeListItem.EditTextType("First Name","String"),
+//                    FieldTypeListItem.DropDownList("Choose Option",options),
+//                    FieldTypeListItem.EditTextType("Phone No.","number"),
+//                    FieldTypeListItem.RadioButton("Choose Any One",true,itemList),
+//                    FieldTypeListItem.RadioButton("Choose Multi Options",false,itemList),
+//                    FieldTypeListItem.RadioTypeButton("Select Option"))
+//
+//                for (i in 1.. currSectionIndex) {
+//                    tempList.add(FieldTypeListItem.EditTextType("Enter First Name","String"))
+//                }
 
-                for (i in 1.. currSectionIndex) {
-                    tempList.add(FieldTypeListItem.EditTextType("Enter First Name","String"))
+        if (currSectionIndex in sections.indices) {
+            val selectedSection = sections[currSectionIndex]
+
+            // Transform the fields to FieldTypeListItem
+            val fieldTypeListItems: List<FieldTypeListItem> = selectedSection.fields.map { field ->
+                when (field.inputType) {
+                    "text" -> FieldTypeListItem.EditTextType(field.title, "text")
+                    "number" -> FieldTypeListItem.EditTextType(field.title,"number")
+                    "dropdownList" -> FieldTypeListItem.DropDownList(field.title, field.options?.map { it.value } ?: emptyList())
+                    "radio button" -> FieldTypeListItem.RadioButton(field.title, true, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+                    "checkbox" -> FieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+                    "radiotype button" -> FieldTypeListItem.RadioTypeButton(field.title)
+                    "textarea" -> FieldTypeListItem.EditTextType(field.title, "textarea")
+                    else -> throw IllegalArgumentException("Unknown input type")
                 }
-                val adapter = context?.let { AdapterForDynamicDataField(tempList, it) }
-               binding.dataFieldRecyclerView.adapter = adapter
+            }
 
-                adapter!!.notifyDataSetChanged()
+            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems, it) }
+            binding.dataFieldRecyclerView.adapter = adapter
+            adapter!!.notifyDataSetChanged()
+            binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
 
-              binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
+        } else {
+            // Handle the case where the index is out of bounds
+            println("Invalid section index")
+        }
 
     }
 
