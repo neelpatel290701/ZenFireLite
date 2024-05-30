@@ -1,6 +1,7 @@
 package com.example.zenfirelite.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -77,7 +78,7 @@ class FormDetails : Fragment()  {
                     Option(value = "Yes", isSelected = false),
                     Option(value = "No", isSelected = false)
                 )),
-                Field(inputType = "text", title = "username"),
+                Field(inputType = "signature", title = "Inspector's Signature"),
                 Field(inputType = "text", title = "password"),
                 Field(inputType = "text", title = "email"),
                 Field(inputType = "textarea", title = "comments")
@@ -229,56 +230,31 @@ class FormDetails : Fragment()  {
 
         }
 
-//        val list = mutableListOf(
-//            FieldTypeListItem.EditTextType("Enter First Name","String"),
-//            FieldTypeListItem.EditTextType("Enter Number","number"),
-//        )
-
-//        val options= arrayListOf("Neel Patel","kuldeep Tripathi","Smit Patel")
-//
-//        val list = mutableListOf(
-//            FieldTypeListItem.EditTextType("First Name","String"),
-//            FieldTypeListItem.DropDownList("Choose Option",options),
-//            FieldTypeListItem.EditTextType("Phone No.","number"),
-//        )
-
-
-
         binding.dataFieldRecyclerView.layoutManager = LinearLayoutManager(context)
         OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
-//        val adapter = context?.let { AdapterForDynamicDataField(list, it) }
-//        binding.dataFieldRecyclerView.adapter = adapter
-//        adapter!!.notifyDataSetChanged()
-
-
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun OnChangeSectionIndexUpdateSectionItems(currSectionIndex : Int) {
 
-//                val options= arrayListOf("Neel Patel","kuldeep Tripathi","Smit Patel")
-//                val itemList = mutableListOf<RadioButtonItem>(
-//                    RadioButtonItem("Item 1",false),
-//                    RadioButtonItem("Item 2",false),
-//                    RadioButtonItem("Item 3",false),
-//                    RadioButtonItem("Item 4",false),
-//                    RadioButtonItem("Item 5",false),
-//                )
-//                val tempList =  mutableListOf( FieldTypeListItem.EditTextType("First Name","String"),
-//                    FieldTypeListItem.DropDownList("Choose Option",options),
-//                    FieldTypeListItem.EditTextType("Phone No.","number"),
-//                    FieldTypeListItem.RadioButton("Choose Any One",true,itemList),
-//                    FieldTypeListItem.RadioButton("Choose Multi Options",false,itemList),
-//                    FieldTypeListItem.RadioTypeButton("Select Option"))
-//
-//                for (i in 1.. currSectionIndex) {
-//                    tempList.add(FieldTypeListItem.EditTextType("Enter First Name","String"))
-//                }
+        when(currSectionIndex) {
+            0 -> { binding.peviousSection.setTextColor(Color.parseColor("#D3D3D3"))
+                   binding.nextSection.setTextColor(Color.parseColor("#318CE7"))
+                 }
+            sections.size-1 -> {
+                  binding.nextSection.setTextColor(Color.parseColor("#D3D3D3"))
+                  binding.peviousSection.setTextColor(Color.parseColor("#318CE7"))
+                 }
+            else -> {
+                 binding.nextSection.setTextColor(Color.parseColor("#318CE7"))
+                 binding.peviousSection.setTextColor(Color.parseColor("#318CE7"))
+                 }
+        }
 
         if (currSectionIndex in sections.indices) {
-            val selectedSection = sections[currSectionIndex]
 
+            val selectedSection = sections[currSectionIndex]
             // Transform the fields to FieldTypeListItem
             val fieldTypeListItems: List<FieldTypeListItem> = selectedSection.fields.map { field ->
                 when (field.inputType) {
@@ -289,6 +265,7 @@ class FormDetails : Fragment()  {
                     "checkbox" -> FieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
                     "radiotype button" -> FieldTypeListItem.RadioTypeButton(field.title)
                     "textarea" -> FieldTypeListItem.EditTextType(field.title, "textarea")
+                    "signature" -> FieldTypeListItem.SignaturePadType(field.title)
                     else -> throw IllegalArgumentException("Unknown input type")
                 }
             }
@@ -300,7 +277,7 @@ class FormDetails : Fragment()  {
 
         } else {
             // Handle the case where the index is out of bounds
-            println("Invalid section index")
+            Log.d("neel","Invalid Section Index, ")
         }
 
     }
@@ -310,7 +287,7 @@ class FormDetails : Fragment()  {
         val view = layoutInflater.inflate(R.layout.fragment_form_sections__dialog, null)
 
         val formSectionList = ArrayList<String>()
-        for (i in 1..10) {
+        for (i in 1..sections.size) {
             formSectionList.add("Section "+(i-1).toString())
         }
 

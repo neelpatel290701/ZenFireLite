@@ -10,11 +10,13 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.FieldTypeListItem
 import com.example.zenfirelite.datamodels.RadioButtonItem
+import com.example.zenfirelite.fragments.FormDetailsDirections
 
 class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
                                  private val context : Context):
@@ -116,6 +118,23 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
 
     }
 
+    inner class SignaturePadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(item: FieldTypeListItem.SignaturePadType) {
+            // Bind data to views
+            val textView = itemView.findViewById<TextView>(R.id.title)
+            val addSignature = itemView.findViewById<TextView>(R.id.addSignature)
+            textView.text = item.title
+
+            addSignature.setOnClickListener{
+                val action = FormDetailsDirections.actionFormDetailsToSignaturePad()
+                val navController = Navigation.findNavController(itemView)
+                navController.navigate(action)
+            }
+
+
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is FieldTypeListItem.EditTextType-> 0
@@ -123,6 +142,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             is FieldTypeListItem.DropDownList -> 2
             is FieldTypeListItem.RadioButton -> 3
             is FieldTypeListItem.RadioTypeButton -> 4
+            is FieldTypeListItem.SignaturePadType -> 5
         }
     }
 
@@ -148,6 +168,10 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.fieldtype_radiotypebutton, parent, false)
             )
+            5 -> SignaturePadViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.filedtype_signature, parent, false)
+            )
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -163,6 +187,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             is FieldTypeListItem.DropDownList -> (holder as DropDownViewHolder).bind(item)
             is FieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
             is FieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
+            is FieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
         }
     }
 

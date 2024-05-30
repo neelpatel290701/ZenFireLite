@@ -6,9 +6,8 @@ sealed class FieldTypeListItem {
     data class DropDownList(val title : String , val options : List<String>) : FieldTypeListItem()
     data class RadioButton(val title : String , val isRadioButton : Boolean , val options : List<RadioButtonItem>) : FieldTypeListItem()
     data class RadioTypeButton(val title : String) : FieldTypeListItem()
+    data class SignaturePadType(val title : String) : FieldTypeListItem()
 }
-
-
 
 data class Option(
     val value: String,
