@@ -26,6 +26,7 @@
                     android:background="@drawable/searchbar"
                     android:layout_marginRight="15dp"
                     android:ems="10"
+                    android:clickable="true"
                     android:fontFamily="@font/roboto"
                     android:hint="Search Form"
                     android:inputType="text"

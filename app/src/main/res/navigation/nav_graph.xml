@@ -68,11 +68,19 @@
         <action
             android:id="@+id/action_formDetails_to_signaturePad"
             app:destination="@id/signaturePad" />
+        <action
+            android:id="@+id/action_formDetails_to_tableInfo"
+            app:destination="@id/tableInfo" />
     </fragment>
     <fragment
         android:id="@+id/signaturePad"
         android:name="com.example.zenfirelite.fragments.SignaturePad"
         android:label="fragment_signature_pad"
         tools:layout="@layout/fragment_signature_pad" />
+    <fragment
+        android:id="@+id/tableInfo"
+        android:name="com.example.zenfirelite.fragments.TableInfo"
+        android:label="fragment_table_info"
+        tools:layout="@layout/fragment_table_info" />
 
 </navigation>

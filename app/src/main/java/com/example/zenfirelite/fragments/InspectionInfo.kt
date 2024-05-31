@@ -101,6 +101,11 @@ class InspectionInfo : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.topLayout.visibility = View.VISIBLE
+    }
+
     private fun clickOnFireInspectorDropDownMenu(fireInspector : TextView , fireInspectorList:ArrayList<String>) {
         fireInspector.setOnClickListener{
 

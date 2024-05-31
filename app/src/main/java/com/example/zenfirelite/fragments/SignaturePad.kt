@@ -1,5 +1,6 @@
 package com.example.zenfirelite.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation
 import com.example.zenfirelite.R
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
 import com.example.zenfirelite.databinding.FragmentSignaturePadBinding
+import java.io.ByteArrayOutputStream
 
 @Suppress("DEPRECATION")
 class SignaturePad : Fragment() {
@@ -63,12 +65,28 @@ class SignaturePad : Fragment() {
         return  when (item.itemId) {
             R.id.save_signature -> {
                 Toast.makeText(requireContext(), "Signature Saved", Toast.LENGTH_SHORT).show()
+
+                val signatureBitmap = binding.signaturePad.signatureBitmap
+                passDataBackToFragmentA(signatureBitmap)
+                parentFragmentManager.popBackStack()
+
 //                navController.popBackStack()
-                binding.ivSignature.setImageBitmap(binding.signaturePad.signatureBitmap)
+//                binding.ivSignature.setImageBitmap(binding.signaturePad.signatureBitmap)
                 true
             }
             else -> false
         }
+    }
+
+    private fun passDataBackToFragmentA(bitmap: Bitmap) {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+
+        val result = Bundle().apply {
+            putByteArray(FormDetails.SIGNATURE_DATA_KEY, byteArray)
+        }
+        parentFragmentManager.setFragmentResult(FormDetails.SIGNATURE_RESULT_KEY, result)
     }
 
 

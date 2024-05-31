@@ -135,6 +135,22 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
         }
     }
 
+    inner class TableTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(item: FieldTypeListItem.TableView) {
+            // Bind data to views
+            val textView = itemView.findViewById<TextView>(R.id.title)
+            textView.text = item.title
+
+            val editTable = itemView.findViewById<TextView>(R.id.editTable)
+            editTable.setOnClickListener{
+                    val action = FormDetailsDirections.actionFormDetailsToTableInfo()
+                    val navController = Navigation.findNavController(itemView)
+                    navController.navigate(action)
+
+            }
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is FieldTypeListItem.EditTextType-> 0
@@ -143,6 +159,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             is FieldTypeListItem.RadioButton -> 3
             is FieldTypeListItem.RadioTypeButton -> 4
             is FieldTypeListItem.SignaturePadType -> 5
+            is FieldTypeListItem.TableView -> 6
         }
     }
 
@@ -172,6 +189,10 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.filedtype_signature, parent, false)
             )
+            6 -> TableTypeViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.filedtype_table, parent, false)
+            )
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -188,6 +209,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             is FieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
             is FieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
             is FieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
+            is FieldTypeListItem.TableView -> (holder as TableTypeViewHolder).bind(item)
         }
     }
 

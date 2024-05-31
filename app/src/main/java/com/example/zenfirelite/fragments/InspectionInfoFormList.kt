@@ -1,27 +1,38 @@
 package com.example.zenfirelite.fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.adapters.AdapterForFireInspectorList
 import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
+import com.google.android.material.internal.ViewUtils.showKeyboard
+import java.util.Locale
 
 
 class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateItem {
@@ -38,13 +49,14 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         super.onViewCreated(view, savedInstanceState)
 //        navController = Navigation.findNavController(view)
         this.view = view
+
     }
 
-
+    @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentInspectionInfoFormListBinding.inflate(inflater,container,false)
 
@@ -74,6 +86,25 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         binding.addForm.setOnClickListener{
                  OpenFormList()
         }
+
+        val parentTopLinearLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.topLayout)
+
+        binding.searchForm.setOnClickListener {
+            parentTopLinearLayout.visibility = View.GONE
+        }
+
+
+        binding.searchForm.addTextChangedListener(object: TextWatcher {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                parentTopLinearLayout.visibility = View.GONE
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+//        binding.searchForm.isClickable = true
+//        binding.searchForm.isFocusable = true
 
         return binding.root
     }

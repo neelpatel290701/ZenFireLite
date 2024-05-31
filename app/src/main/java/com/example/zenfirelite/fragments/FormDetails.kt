@@ -1,6 +1,7 @@
 package com.example.zenfirelite.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class FormDetails : Fragment()  {
+
+    companion object {
+        const val SIGNATURE_RESULT_KEY = "signature_result_key"
+        const val SIGNATURE_DATA_KEY = "signature_data_key"
+    }
 
 
     private var currSectionIndex = 0
@@ -57,6 +63,7 @@ class FormDetails : Fragment()  {
                     Option(value = "Mexico", isSelected = false)
                 )),
                 Field(inputType = "text", title = "country"),
+                Field(inputType = "table", title = "Equipment Type"),
                 Field(inputType = "text", title = "Service Type"),
                 Field(inputType = "text", title = "City"),
                 Field(inputType = "text", title = "country"),
@@ -78,6 +85,7 @@ class FormDetails : Fragment()  {
                     Option(value = "Yes", isSelected = false),
                     Option(value = "No", isSelected = false)
                 )),
+                Field(inputType = "table", title = "EquipmentInfo Type"),
                 Field(inputType = "signature", title = "Inspector's Signature"),
                 Field(inputType = "text", title = "password"),
                 Field(inputType = "text", title = "email"),
@@ -94,6 +102,7 @@ class FormDetails : Fragment()  {
                 Field(inputType = "textarea", title = "bio"),
                 Field(inputType = "text", title = "favorite hobby"),
                 Field(inputType = "text", title = "favorite food"),
+                Field(inputType = "signature", title = "Inspector's Signature"),
                 Field(inputType = "number", title = "number of siblings"),
                 Field(inputType = "text", title = "mother's maiden name"),
                 Field(inputType = "dropdownList", title = "favorite season", options = listOf(
@@ -187,8 +196,7 @@ class FormDetails : Fragment()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
+        currSectionIndex = args.sectionIndex
     }
     @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
     override fun onCreateView(
@@ -199,7 +207,6 @@ class FormDetails : Fragment()  {
         val formName = args.formName
         requireActivity().title = "Alarm Inspection"
 
-        currSectionIndex = args.sectionIndex
         binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
 
         binding.formSectionName.setOnClickListener {
@@ -231,8 +238,27 @@ class FormDetails : Fragment()  {
         }
 
         binding.dataFieldRecyclerView.layoutManager = LinearLayoutManager(context)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
 
+        parentFragmentManager.setFragmentResultListener(SIGNATURE_RESULT_KEY, this) { _, result ->
+            val byteArray = result.getByteArray(SIGNATURE_DATA_KEY)
+            byteArray?.let {
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+//                imageView.setImageBitmap(bitmap)
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        parentFragmentManager.clearFragmentResultListener(SIGNATURE_RESULT_KEY)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -266,6 +292,7 @@ class FormDetails : Fragment()  {
                     "radiotype button" -> FieldTypeListItem.RadioTypeButton(field.title)
                     "textarea" -> FieldTypeListItem.EditTextType(field.title, "textarea")
                     "signature" -> FieldTypeListItem.SignaturePadType(field.title)
+                    "table" -> FieldTypeListItem.TableView(field.title)
                     else -> throw IllegalArgumentException("Unknown input type")
                 }
             }
