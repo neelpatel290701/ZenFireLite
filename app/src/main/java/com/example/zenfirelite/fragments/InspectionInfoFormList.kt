@@ -87,18 +87,25 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
                  OpenFormList()
         }
 
-        val parentTopLinearLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.topLayout)
-
-        binding.searchForm.setOnClickListener {
-            parentTopLinearLayout.visibility = View.GONE
-        }
+//        val parentTopLinearLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.topLayout)
+//        val parentLowerLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.lowerLayout)
+//
+//        binding.searchForm.setOnClickListener {
+//            parentTopLinearLayout.visibility = View.GONE
+////            val layoutParams = parentLowerLayout .layoutParams
+////            // Modify the height property to match parent
+////            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+////            // Set the modified layout parameters back to the LinearLayout
+////            parentLowerLayout .layoutParams = layoutParams
+//
+//        }
 
 
         binding.searchForm.addTextChangedListener(object: TextWatcher {
             @SuppressLint("NotifyDataSetChanged")
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                parentTopLinearLayout.visibility = View.GONE
+//                parentTopLinearLayout.visibility = View.GONE
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -154,7 +161,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         }
         formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
         previousFormsRecycleView .layoutManager = LinearLayoutManager(requireContext())
-        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList,view , this , dialog)
+        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , this , dialog)
         val previousFormAdapter = AdapterForPreviousFormList(formTemplatesList)
         formTemplatesRecycleView.adapter = formTemplatesAdapter
         previousFormsRecycleView.adapter = previousFormAdapter
@@ -164,7 +171,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
     override fun onFormTemplateClick(item: String) {
         val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item,0)
         val navController = Navigation.findNavController(requireParentFragment().requireView())
-            navController.navigate(action)
+        navController.navigate(action)
 
     }
 

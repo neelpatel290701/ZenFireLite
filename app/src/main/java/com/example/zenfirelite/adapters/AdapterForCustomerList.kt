@@ -17,7 +17,8 @@ import com.example.zenfirelite.fragments.CustomerListDirections
 
 class AdapterForCustomerList(private val customerNameList: List<String> ,
                              private val context : Context,
-                             private val isFromMainActivity: Boolean) :
+                             private val isFromHomeScreen: Boolean,
+                             private val onItemClickListener: (String, String) -> Unit) :
     RecyclerView.Adapter<AdapterForCustomerList.ViewHolder>() {
 
     private var expandedPosition = -1
@@ -65,16 +66,10 @@ class AdapterForCustomerList(private val customerNameList: List<String> ,
         holder.customerNameView2.setOnClickListener {
             if (expandedPosition == holder.adapterPosition) {
                 // Open a new fragment here
-                if(!isFromMainActivity) {
-                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(
-                        item.toString(),
-                        "123"
-                    )
-                    val navController = Navigation.findNavController(holder.itemView)
-                    navController.navigate(action)
+                if(!isFromHomeScreen) {
+                    onItemClickListener.invoke(item,"123")
                 }else{
-
-                    Log.d("neel" , "Mainactivity to Customer---->")
+                    onItemClickListener.invoke(item,"123")
                 }
             }
         }

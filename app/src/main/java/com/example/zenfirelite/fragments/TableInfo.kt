@@ -56,10 +56,24 @@ class TableInfo : Fragment() {
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.HeaderRow("Sr No."),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.HeaderRow("Sr No."),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
             )
 
 
-        val adapter = AdapterForVerticleTableRow(list)
+        val adapter = context?.let { AdapterForVerticleTableRow(list, it) }
         binding.tableRowRecycleView.adapter = adapter
     }
 

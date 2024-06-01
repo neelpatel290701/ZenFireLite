@@ -34,11 +34,14 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import androidx.appcompat.widget.Toolbar
-
+import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
+import com.example.zenfirelite.adapters.AdapterForPreviousFormList
+import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 
 
 @Suppress("DEPRECATION")
-class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
+class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem ,
+    OnItemClickListenerForFormTemplateItem {
 
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var navController: NavController
@@ -229,7 +232,11 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
 
         val customerRecycleView = dialog.findViewById<RecyclerView>(R.id.customerRecycleView)
         customerRecycleView .layoutManager = LinearLayoutManager(requireContext())
-        val adapter = AdapterForCustomerList(customerList,requireContext(),true)
+        val adapter = AdapterForCustomerList(customerList,requireContext(),true) { customerName, customerId ->
+            dialog.dismiss()
+            onclickCustomerNameOpenFormTemplatesList(customerName, customerId)
+        }
+
         customerRecycleView .adapter = adapter
 
         val addCustomer = dialog.findViewById<TextView>(R.id.addCustomer)
@@ -241,6 +248,44 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem {
 
         dialog.show()
         return true
+    }
+
+    private fun onclickCustomerNameOpenFormTemplatesList(customerName: String, customerId: String) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.formtemplates_athomepage)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialogeboxbackground)
+
+        val dialogWidth = WindowManager.LayoutParams.MATCH_PARENT
+        val dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog.window?.setLayout(900, 1300)
+
+        dialog.window?.setGravity(Gravity.CENTER)
+
+        val formTemplatesList = ArrayList<String>()
+        for (i in 1..20) {
+            formTemplatesList.add("1-Fire Sprinkler inspection report(combo)")
+            formTemplatesList.add("Alarm Inspection & Testing Form ")
+            formTemplatesList.add("Backflow Assembly test form")
+        }
+
+        val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView_homepage)
+        val cancelDialogBox = dialog.findViewById<TextView>(R.id.cancelDialogBox)
+        formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
+        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList, this , dialog)
+        formTemplatesRecycleView.adapter = formTemplatesAdapter
+
+        cancelDialogBox.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    override fun onFormTemplateClick(item: String) {
+        val action = HomeScreenDirections.actionHomeScreenToFormDetails(item,0)
+        navController.navigate(action)
     }
 
 

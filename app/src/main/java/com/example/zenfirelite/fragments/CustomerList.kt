@@ -1,6 +1,7 @@
 package com.example.zenfirelite.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,16 @@ class CustomerList : Fragment() {
             customerList.add("Dhruv Pathak (34567)")
         }
 
-        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false) }
+        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
+            customerName , customerId ->
+            Log.d("neel","dialog box2222222")
+            val action = CustomerListDirections.actionCustomerListToCustomerDetails(
+                customerName,
+                customerId
+            )
+            navController.navigate(action)
+
+        } }
         binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
         binding.customerRecycleView.adapter = customerAdapter
 
@@ -57,5 +67,6 @@ class CustomerList : Fragment() {
 
         return binding.root
     }
+
 
 }

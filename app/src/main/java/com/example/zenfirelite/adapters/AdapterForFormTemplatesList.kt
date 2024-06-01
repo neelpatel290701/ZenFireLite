@@ -10,10 +10,9 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 
 class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String> ,
-        private val view : View,
         private val itemClickListenerForFormTemplateItem: OnItemClickListenerForFormTemplateItem,
         private val dialog: Dialog):
-      RecyclerView.Adapter<AdapterForFormTemplatesList.ViewHolder>(){
+        RecyclerView.Adapter<AdapterForFormTemplatesList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val formName : TextView = view.findViewById(R.id.formName)

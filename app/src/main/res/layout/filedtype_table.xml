@@ -37,6 +37,16 @@
                 android:background="@drawable/tableborder"
                 android:padding="5dp"
                 android:text="Sr.No" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:background="@drawable/tableborder"
+                android:padding="5dp"
+                android:text="Action" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,6 +130,16 @@
                 android:background="@drawable/tableborder"
                 android:padding="5dp"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:background="@drawable/tableborder"
+                android:padding="5dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,6 +205,15 @@
                 android:background="@drawable/tableborder"
                 android:padding="5dp"
                 android:text="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:background="@drawable/tableborder"
+                android:padding="5dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

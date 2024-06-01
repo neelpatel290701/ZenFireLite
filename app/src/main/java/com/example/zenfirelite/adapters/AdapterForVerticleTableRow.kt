@@ -1,15 +1,18 @@
 package com.example.zenfirelite.adapters
 
+import android.content.Context
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.TableRowTypesFields
 
-class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>) :
+class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
+                                 private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class TableHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,6 +30,20 @@ class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>) :
             // Bind data to views
 //            val textView = itemView.findViewById<TextView>(R.id.title)
 //            textView.text = item.title
+            val rowDataCellRecycleView = itemView.findViewById<RecyclerView>(R.id.rowDataCellRecycleView)
+            rowDataCellRecycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val list = listOf(
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
+                )
+
+            val adapter = AdapterForHorizontalTableRowData(list)
+            rowDataCellRecycleView.adapter = adapter
+
         }
     }
 
