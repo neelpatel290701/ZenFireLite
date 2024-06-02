@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForVerticleTableRow
+import com.example.zenfirelite.adapters.AdapterForVerticleTableRow2
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.databinding.FragmentTableInfoBinding
 import com.example.zenfirelite.datamodels.TableRowTypesFields
@@ -27,7 +28,7 @@ class TableInfo : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding =  FragmentTableInfoBinding.inflate(inflater, container, false)
 
@@ -39,7 +40,19 @@ class TableInfo : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        binding.tableRowRecycleView.layoutManager = LinearLayoutManager(context)
+        binding.tableRowRecycleView.layoutManager = object : LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                super.canScrollVertically()
+                return false
+            }
+        }
+
+        binding.tableRowRecycleView2.layoutManager = object : LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                super.canScrollVertically()
+                return false
+            }
+        }
 
         val list = mutableListOf(
             TableRowTypesFields.HeaderRow("Sr No."),
@@ -49,21 +62,24 @@ class TableInfo : Fragment() {
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
-            TableRowTypesFields.HeaderRow("Sr No."),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
-            TableRowTypesFields.HeaderRow("Sr No."),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
-            TableRowTypesFields.HeaderRow("Sr No."),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
+            TableRowTypesFields.DataRow("1"),
+            TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
             TableRowTypesFields.DataRow("2"),
             TableRowTypesFields.DataRow("1"),
@@ -74,7 +90,9 @@ class TableInfo : Fragment() {
 
 
         val adapter = context?.let { AdapterForVerticleTableRow(list, it) }
+        val adapter2 = context?.let { AdapterForVerticleTableRow2(list, it) }
         binding.tableRowRecycleView.adapter = adapter
+        binding.tableRowRecycleView2.adapter = adapter2
     }
 
 }

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.TableRowTypesFields
 
-class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
+class AdapterForVerticleTableRow2(private val items: List<TableRowTypesFields>,
                                  private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -21,6 +21,30 @@ class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
             // Bind data to views
 //            val textView = itemView.findViewById<TextView>(R.id.title)
 //            textView.text = item.title
+            val headerDataCellRecycleView = itemView.findViewById<RecyclerView>(R.id.headerDataCellRecycleView)
+            headerDataCellRecycleView.layoutManager = object : LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false){
+                override fun canScrollHorizontally(): Boolean {
+                    super.canScrollHorizontally()
+                    return false
+                }
+            }
+            val list = listOf(
+                "Control",
+                "Type",
+                "Signs",
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
+            )
+
+            val adapter = AdapterForHorizontalTableHeaderData(list)
+            headerDataCellRecycleView.adapter = adapter
         }
     }
 
@@ -30,19 +54,31 @@ class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
             // Bind data to views
 //            val textView = itemView.findViewById<TextView>(R.id.title)
 //            textView.text = item.title
-//            val rowDataCellRecycleView = itemView.findViewById<RecyclerView>(R.id.rowDataCellRecycleView)
-//            rowDataCellRecycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//            val list = listOf(
-//                "neel",
-//                "Smit",
-//                "dhruv",
-//                "neel",
-//                "Smit",
-//                "dhruv",
-//                )
+            val rowDataCellRecycleView = itemView.findViewById<RecyclerView>(R.id.rowDataCellRecycleView)
+            rowDataCellRecycleView.layoutManager = object : LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false){
+                override fun canScrollHorizontally(): Boolean {
+                    super.canScrollHorizontally()
+                    return false
+                }
+            }
+            val list = listOf(
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
+                "neel",
+                "Smit",
+                "dhruv",
 
-//            val adapter = AdapterForHorizontalTableRowData(list)
-//            rowDataCellRecycleView.adapter = adapter
+            )
+
+            val adapter = AdapterForHorizontalTableRowData(list)
+            rowDataCellRecycleView.adapter = adapter
 
         }
     }
@@ -58,11 +94,11 @@ class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
         return when (viewType) {
             0 -> TableHeaderViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.table_headerdata, parent, false)
+                    .inflate(R.layout.table_headerdata2, parent, false)
             )
             1 -> TableRowDataViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.table_rowdata, parent, false)
+                    .inflate(R.layout.table_rowdata2, parent, false)
             )
             else -> throw IllegalArgumentException("Invalid view type")
         }
