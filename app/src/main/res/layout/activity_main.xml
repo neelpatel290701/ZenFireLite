@@ -46,17 +46,24 @@
 
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+<!--    width = 250dp-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
+        android:background="@color/white"
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:itemIconTint="@color/black"
+        app:itemIconSize="20dp"
         app:menu="@menu/draweritems"
         android:fitsSystemWindows="true"
+        app:itemVerticalPadding="-10dp"
         app:itemTextColor="@color/black"
         android:backgroundTint="@color/white"
-        app:headerLayout="@layout/drawer_header"
+        app:headerLayout="@layout/drawer_header">
 
-        />
+        <include layout="@layout/navigationdrawer_bottomitem" />
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

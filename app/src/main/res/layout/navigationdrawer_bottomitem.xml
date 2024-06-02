@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigationDrawer_bottomItems"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:background="@color/light_grey"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imvCircular"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/zt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        app:shapeAppearanceOverlay="@style/Circular"/>
+        <TextView
+        android:id="@+id/inspectorName"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:paddingEnd="10dp"
+        android:layout_height="wrap_content"
+        android:text="Neel Patel"
+        app:drawableEndCompat="@drawable/baseline_expand_less_24" />
+
+</LinearLayout>
