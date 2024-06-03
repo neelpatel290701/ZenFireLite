@@ -59,7 +59,6 @@
         android:fitsSystemWindows="true"
         app:itemVerticalPadding="-10dp"
         app:itemTextColor="@color/black"
-        android:backgroundTint="@color/white"
         app:headerLayout="@layout/drawer_header">
 
         <include layout="@layout/navigationdrawer_bottomitem" />

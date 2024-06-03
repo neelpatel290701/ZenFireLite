@@ -13,7 +13,7 @@
         android:id="@+id/imvCircular"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/zt"
+        android:src="@drawable/person"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
