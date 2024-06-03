@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_marginTop="35dp"
-    android:layout_marginLeft="15dp">
+    android:layout_marginTop="35dp">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -26,7 +25,6 @@
         android:text="Neel Patel"
         android:textColor="@color/black"
         android:drawableEnd="@drawable/baseline_expand_more_24"
-        android:paddingEnd="30dp"
         android:textSize="15sp"
         app:layout_constraintTop_toTopOf="@id/imageView2"
         app:layout_constraintBottom_toBottomOf="@id/imageView2"

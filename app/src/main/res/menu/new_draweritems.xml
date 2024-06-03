@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <item
         android:id="@+id/sendfeedback"
         android:title="Send Feedback"
         android:icon="@drawable/sendfeedback"
-        android:iconTint="@color/black"/>
+        android:iconTint="@color/black" />
     <item
         android:id="@+id/support"
         android:title="Support-(206) 826-9074"
-        android:icon="@drawable/support"/>
+        android:icon="@drawable/support"
+       />
 
     <item
         android:id="@+id/version"
         android:title="Version 1.0"
-        android:icon="@drawable/version"/>
+        android:icon="@drawable/version"
+        />
     <item
         android:id="@+id/logout"
         android:title="Logout"
-        android:icon="@drawable/logout"/>
+        android:icon="@drawable/logout"
+        />
 </menu>

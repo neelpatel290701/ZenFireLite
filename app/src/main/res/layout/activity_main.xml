@@ -50,15 +50,17 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:background="@color/white"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemIconTint="@color/black"
         app:itemIconSize="20dp"
         app:menu="@menu/draweritems"
         android:fitsSystemWindows="true"
         app:itemVerticalPadding="-10dp"
         app:itemTextColor="@color/black"
+        android:theme= "@style/ThemeOverlay.AppCompat.navTheme"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
         app:headerLayout="@layout/drawer_header">
 
         <include layout="@layout/navigationdrawer_bottomitem" />

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:gravity="center"
-    android:background="@color/light_grey"
     android:layout_gravity="bottom"
     android:orientation="horizontal">
 
@@ -14,7 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/person"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         app:shapeAppearanceOverlay="@style/Circular"/>
@@ -25,7 +24,6 @@
         android:fontFamily="@font/roboto_bold"
         android:textSize="13sp"
         android:gravity="center"
-        android:paddingEnd="10dp"
         android:layout_height="wrap_content"
         android:text="Neel Patel"
         app:drawableEndCompat="@drawable/baseline_expand_less_24" />

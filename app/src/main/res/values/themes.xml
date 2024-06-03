@@ -20,4 +20,15 @@
 
 
 
+    <style name="ThemeOverlay.AppCompat.navTheme">
+        <!-- Color of text and icon when SELECTED -->
+        <item name="colorPrimary">@color/white</item>
+        <!-- Background color when SELECTED -->
+        <item name="colorControlHighlight">@color/Zen_Red</item>
+        <!-- Color of text when NON-SELECTED -->
+        <item name="android:textColorSecondary">@color/black</item>
+    </style>
+
+
+
 </resources>

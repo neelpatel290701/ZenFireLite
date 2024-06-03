@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     private var isOldMenuLoaded = true
 
     private var lastSelectedFragmentId: Int = R.id.homeScreen
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -74,54 +75,14 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         )
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
-        navigationView.setupWithNavController(navController)
+
+//        navigationView.setupWithNavController(navController)
 
         navigationView.setNavigationItemSelectedListener(this)
 
-//        val actionBarDrawerToggle = ActionBarDrawerToggle(this, navigationDrawerLayout, R.string.nav_open, R.string.nav_close)
-//        navigationDrawerLayout.addDrawerListener(actionBarDrawerToggle)
-//        actionBarDrawerToggle.syncState()
-//
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navigationView.setCheckedItem(R.id.homeScreen)
+        toggleNavigationDrawerItemsClickOnInspectorName()
 
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.nav_host_fragment, HomeScreen()).commit()
-//            navigationView.setCheckedItem(R.id.homeScreen)
-//        }
-
-        val inspectorName: TextView = findViewById(R.id.inspectorName)
-        inspectorName.setOnClickListener {
-            if (isOldMenuLoaded) {
-                // Load new header and menu items
-                navigationView.removeHeaderView(navigationView.getHeaderView(0))
-                navigationView.inflateHeaderView(R.layout.new_drawerheader)
-                navigationView.menu.clear()
-                navigationView.inflateMenu(R.menu.new_draweritems)
-                // Remove bottom item layout
-                findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility = View.GONE
-
-                isOldMenuLoaded = false
-            }
-
-            val inspectorNameAtHeader: TextView = findViewById(R.id.inspectorAtHeader)
-            inspectorNameAtHeader.setOnClickListener {
-                if (!isOldMenuLoaded) {
-                    // Load old header and menu items
-                    navigationView.removeHeaderView(navigationView.getHeaderView(0))
-                    navigationView.inflateHeaderView(R.layout.drawer_header)
-                    navigationView.menu.clear()
-                    navigationView.inflateMenu(R.menu.draweritems)
-
-                    // Show bottom item layout
-                    findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility =
-                        View.VISIBLE
-                    isOldMenuLoaded = true
-
-                }
-            }
-
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -149,15 +110,15 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.homeScreen -> {
                 navController.navigate(R.id.homeScreen, null, navOptions)
-                navigationView.setCheckedItem(R.id.homeScreen)
+//                navigationView.setCheckedItem(R.id.homeScreen)
             }
             R.id.customerList -> {
                 navController.navigate(R.id.customerList, null, navOptions)
-                navigationView.setCheckedItem(R.id.customerList)
+//                navigationView.setCheckedItem(R.id.customerList)
             }
             R.id.setting -> {
                 navController.navigate(R.id.setting, null, navOptions)
-                navigationView.setCheckedItem(R.id.setting)
+//                navigationView.setCheckedItem(R.id.setting)
             }
             R.id.sendfeedback -> Toast.makeText(this, "Send Feedback", Toast.LENGTH_SHORT).show()
             R.id.support -> Toast.makeText(this, "Support!", Toast.LENGTH_SHORT).show()
@@ -167,11 +128,38 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         navigationDrawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+    private fun toggleNavigationDrawerItemsClickOnInspectorName() {
+        val inspectorName: TextView = findViewById(R.id.inspectorName)
+        inspectorName.setOnClickListener {
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-//    }
+            if (isOldMenuLoaded) {
+                // Load new header and menu items
+                navigationView.removeHeaderView(navigationView.getHeaderView(0))
+                navigationView.inflateHeaderView(R.layout.new_drawerheader)
+                navigationView.menu.clear()
+                navigationView.inflateMenu(R.menu.new_draweritems)
+                // Remove bottom item layout
+                findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility = View.GONE
+                isOldMenuLoaded = false
+            }
 
+            val inspectorNameAtHeader: TextView = findViewById(R.id.inspectorAtHeader)
+            inspectorNameAtHeader.setOnClickListener {
+                if (!isOldMenuLoaded) {
+                    // Load old header and menu items
+                    navigationView.removeHeaderView(navigationView.getHeaderView(0))
+                    navigationView.inflateHeaderView(R.layout.drawer_header)
+                    navigationView.menu.clear()
+                    navigationView.inflateMenu(R.menu.draweritems)
+                    // Show bottom item layout
+                    findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility = View.VISIBLE
+                    isOldMenuLoaded = true
+
+                }
+            }
+
+        }
+    }
 
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
