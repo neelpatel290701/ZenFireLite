@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    style="?android:attr/spinnerDropDownItemStyle"
-    android:singleLine="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Neel"
-    android:textSize="15dp"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:background="@android:color/white"
-    android:textColor="@android:color/black"
-    />
+<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:id="@android:id/text1"-->
+<!--    style="?android:attr/spinnerDropDownItemStyle"-->
+<!--    android:singleLine="true"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="Neel"-->
+<!--    android:textSize="15dp"-->
+<!--    android:paddingStart="20dp"-->
+<!--    android:paddingEnd="20dp"-->
+<!--    android:background="@android:color/white"-->
+<!--    android:textColor="@android:color/black"-->
+<!--    />-->
+
+
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@android:id/text1"
+style="?android:attr/spinnerDropDownItemStyle"
+android:singleLine="true"
+android:textColor="@color/black"
+android:fontFamily="@font/roboto"
+android:paddingTop="5dp"
+android:paddingBottom="5dp"
+android:text="Neel"
+android:background="@color/white"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:ellipsize="marquee"/>
 
 

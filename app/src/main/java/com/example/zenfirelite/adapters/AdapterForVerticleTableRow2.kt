@@ -29,18 +29,18 @@ class AdapterForVerticleTableRow2(private val items: List<TableRowTypesFields>,
                 }
             }
             val list = listOf(
-                "Control",
-                "Type",
-                "Signs",
-                "neel",
-                "Smit",
-                "dhruv",
-                "neel",
-                "Smit",
-                "dhruv",
-                "neel",
-                "Smit",
-                "dhruv",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
             )
 
             val adapter = AdapterForHorizontalTableHeaderData(list)

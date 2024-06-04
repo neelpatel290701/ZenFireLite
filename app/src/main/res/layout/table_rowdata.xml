@@ -13,6 +13,7 @@
 
             <TableRow android:background="@color/light_grey">
                 <TextView
+                    android:id="@+id/srno_value"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:gravity="center"

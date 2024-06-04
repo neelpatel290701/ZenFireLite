@@ -28,8 +28,8 @@ class AdapterForVerticleTableRow(private val items: List<TableRowTypesFields>,
 
         fun bind(item: TableRowTypesFields.DataRow) {
             // Bind data to views
-//            val textView = itemView.findViewById<TextView>(R.id.title)
-//            textView.text = item.title
+            val textView = itemView.findViewById<TextView>(R.id.srno_value)
+            textView.text = item.title
 //            val rowDataCellRecycleView = itemView.findViewById<RecyclerView>(R.id.rowDataCellRecycleView)
 //            rowDataCellRecycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 //            val list = listOf(

@@ -2,6 +2,7 @@ package com.example.zenfirelite.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.NotificationCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.activities.LoginActivity
@@ -27,7 +29,7 @@ class AdapterForInspectionList(
         val customerName: TextView
         val InspectionNumber : TextView
 //        val InspectionStatus : TextView
-        val InsStatusOption : Spinner
+        val InsStatusOptionSpinner : Spinner
         val DefReported  :TextView
         val Recommendation:TextView
         val InsStartDate : TextView
@@ -41,7 +43,7 @@ class AdapterForInspectionList(
             customerName = view.findViewById(R.id.customerName_value)
             InspectionNumber = view.findViewById(R.id.inspectionNumber_value)
 //            InspectionStatus = view.findViewById(R.id.inspectionstatus_value)
-            InsStatusOption = view.findViewById(R.id.statusSpinner)
+            InsStatusOptionSpinner = view.findViewById(R.id.statusSpinner)
             DefReported = view.findViewById(R.id.DefRep_value)
             Recommendation = view.findViewById(R.id.recommendation_value)
             InsStartDate = view.findViewById(R.id.InsStartDate_value)
@@ -77,28 +79,56 @@ class AdapterForInspectionList(
         holder.InsEndTime.text = ItemsViewModel.InsEndTime
         holder.InspectorName.text = ItemsViewModel.InspectorName
 
-        var status = arrayOf<String?>("In Process", "Completed","Pending")
-        holder.InsStatusOption.onItemSelectedListener
+        val statusValue = ItemsViewModel.InspectionStatus
+
+        val status = arrayOf<String?>("In Process", "Completed","Pending")
         val insAdapter: ArrayAdapter<*> = ArrayAdapter<Any?>(
             context,
-            R.layout.spinner_item,
+            R.layout.spinner_item_inspectionstatus,
             status)
 
         insAdapter.setDropDownViewResource(
             R.layout.status_spinner_dropdown_item)
-        holder.InsStatusOption.adapter = insAdapter
+        holder.InsStatusOptionSpinner.adapter = insAdapter
+
+
+//        holder.InsStatusOptionSpinner.setSelection(0)
+
+        when(statusValue){
+            "In Process" -> holder.InsStatusOptionSpinner.setSelection(0)
+            "Completed" -> holder.InsStatusOptionSpinner.setSelection(1)
+            "Pending"  -> holder.InsStatusOptionSpinner.setSelection(2)
+        }
 
         holder.itemView.setOnClickListener{
             itemClickListnerForInspectionItem.onItemClick(ItemsViewModel)
         }
+
+
+        holder.InsStatusOptionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (status[position]) {
+                    "In Process" -> holder.InsStatusOptionSpinner.setBackgroundResource(R.drawable.shape_inprocess)
+                    "Completed" -> holder.InsStatusOptionSpinner.setBackgroundResource(R.drawable.shape_completed)
+                    "Pending"  -> holder.InsStatusOptionSpinner.setBackgroundResource(R.drawable.shape_pendding)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
 
-    }
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
 
 }

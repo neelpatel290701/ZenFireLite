@@ -23,12 +23,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
+    android:fontFamily="@font/roboto_bold"
     android:text="Neel"
     android:textSize="14sp"
     android:gravity="center"
-    android:textColor="@color/black"
+    android:textColor="@color/white"
     android:textAlignment="inherit"
-    android:drawableEnd="@drawable/baseline_expand_more_24"/>
+    android:drawableEnd="@drawable/baseline_expand_more_24_white"/>
 
 
 
