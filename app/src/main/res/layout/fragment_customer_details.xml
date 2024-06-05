@@ -8,14 +8,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#F5F5F5"
+        android:weightSum="2"
         android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/cusDetail_TopLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F5F5F5"
+            android:layout_weight="1"
+            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginBottom="16dp"
+            android:background="#F5F5F5"
+           android:layout_marginBottom="10dp"
            app:cardCornerRadius="12dp">
 
            <LinearLayout
@@ -55,7 +64,7 @@
                        android:id="@+id/customerUniqueId"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="1234" />
@@ -78,7 +87,7 @@
                        android:id="@+id/customerName"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="Neel Patel" />
@@ -101,7 +110,7 @@
                        android:id="@+id/customerAddress"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="A/21 Radheshyam Township" />
@@ -124,7 +133,7 @@
                        android:id="@+id/customerEmail"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="neel.patel@zentardes.pro" />
@@ -147,7 +156,7 @@
                        android:id="@+id/customerPhone"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="12345" />
@@ -170,7 +179,7 @@
                        android:id="@+id/customerCellPhone"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:fontFamily="@font/roboto_bold"
+                       android:fontFamily="@font/roboto_medium"
                        android:textSize="12sp"
                        android:textColor="#808080"
                        android:text="neel.patel@zentardes.pro" />
@@ -180,10 +189,10 @@
            </LinearLayout>
 
        </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F5F5F5"
         app:cardCornerRadius="12dp">
 
         <LinearLayout
@@ -218,6 +227,8 @@
                 android:layout_marginTop="15dp"
                 android:textColor="@color/black"
                 android:textSize="13dp"
+                android:padding="10dp"
+                android:gravity="top|start"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:background="@drawable/changedate"/>
             </LinearLayout>
@@ -226,9 +237,12 @@
 
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -236,23 +250,17 @@
             android:layout_height="wrap_content"
             android:background="#F5F5F5">
 
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/customerDetailTabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                android:weightSum="2"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/customerDetailTabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    app:tabRippleColor="@null"
-                    app:tabIndicatorHeight="0dp"
-                    android:background="@android:color/darker_gray"/>
-
-            </LinearLayout>
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                app:tabRippleColor="@null"
+                app:tabIndicatorHeight="0dp"
+                style="@style/RoundedTabLayoutStyle"
+                />
 
         </LinearLayout>
 

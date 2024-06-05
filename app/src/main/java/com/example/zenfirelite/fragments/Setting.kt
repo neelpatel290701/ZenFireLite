@@ -35,10 +35,12 @@ class Setting : Fragment() {
 
         binding.settingViewPager.adapter = PageAdapterForSetting(this)
         TabLayoutMediator(binding.settingTabLayout , binding.settingViewPager){tab,position->
-            val customView = LayoutInflater.from(binding.settingTabLayout.context).
-            inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
-            customView.text = tabTitles[position]
-            tab.customView = customView
+//            val customView = LayoutInflater.from(binding.settingTabLayout.context).
+//            inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
+//            customView.text = tabTitles[position]
+//            tab.customView = customView
+
+            tab.text = tabTitles[position]
         }.attach()
 
         return binding.root

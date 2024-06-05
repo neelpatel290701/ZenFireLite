@@ -22,9 +22,8 @@
                 <EditText
                     android:id="@+id/searchForm"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="30dp"
                     android:background="@drawable/searchbar"
-                    android:layout_marginRight="15dp"
                     android:ems="10"
                     android:clickable="true"
                     android:fontFamily="@font/roboto"
@@ -47,6 +46,7 @@
                 android:layout_width="90dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/navigatetolocation"
                 android:drawableStart="@drawable/baseline_add"
                 android:drawablePadding="3dp"

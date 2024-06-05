@@ -4,27 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.InspectionInfo">
 
    <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_height="wrap_content"
        android:background="@color/white"
+       android:weightSum="2"
        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/topLayout"
+            android:id="@+id/insInfo_TopLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_weight="1"
             android:background="@color/white">
 
+            <LinearLayout
+                android:id="@+id/top_firstLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:paddingBottom="8dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:paddingBottom="8dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,11 +80,15 @@
                     android:textColor="@color/black"
                     android:text="Neel Patel" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="12dp">
+
+             </LinearLayout>
+
+             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +110,27 @@
 
 
             </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/top_secondLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_margin="12dp">
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:paddingTop="12dp">
+                android:paddingBottom="8dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,9 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp">
+                android:paddingBottom="10dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,51 +178,46 @@
                     android:textColor="@color/black"
                     android:text="A/21 Radheshyam Township 98152 US" />
             </LinearLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:paddingBottom="20dp">
+
+
+             </LinearLayout>
+
+             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/location"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="5dp"
                     android:background="@drawable/navigatetolocation"
                     android:clickable="false"
                     android:cursorVisible="false"
+                    android:gravity="center"
+                    android:drawableStart="@drawable/ion_navigate"
                     android:ems="10"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/roboto_bold"
                     android:hint="Navigate to Location"
-                    android:inputType="text"
-                    android:paddingStart="30dp"
-                    android:textColor="@color/black"
+                    android:paddingStart="7dp"
                     android:textColorHint="@color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="12sp" />
 
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/vector"
-                    app:layout_constraintLeft_toLeftOf="@+id/location"
-                    app:layout_constraintTop_toTopOf="@+id/location"
-                    app:layout_constraintBottom_toBottomOf="@+id/location"/>
+            </LinearLayout>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/lowerLayout"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F5F5F5"
@@ -200,23 +228,28 @@
                     android:layout_height="wrap_content"
                     android:background="#F5F5F5">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:weightSum="2"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="#F5F5F5"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_marginTop="10dp">-->
 
                         <com.google.android.material.tabs.TabLayout
                             android:id="@+id/insInfoTabLayout"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
                             app:tabRippleColor="@null"
                             app:tabIndicatorHeight="0dp"
-                            android:background="@android:color/darker_gray"/>
+                            style="@style/RoundedTabLayoutStyle"
+                            />
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
             </LinearLayout>
 
@@ -233,5 +266,6 @@
             </LinearLayout>
 
         </LinearLayout>
+
    </LinearLayout>
 </ScrollView>

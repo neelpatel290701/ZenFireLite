@@ -36,16 +36,21 @@ class CustomerDetails : Fragment() {
 
         binding.customerDetailViewPager.adapter = PageAdapterForInspectionInfo(this)
         TabLayoutMediator(binding.customerDetailTabLayout , binding.customerDetailViewPager){tab,position->
-//              tab.text = tabTitles[position]
-            val customView = LayoutInflater.from(binding.customerDetailTabLayout.context).
-            inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
-            customView.text = tabTitles[position]
-            tab.customView = customView
+              tab.text = tabTitles[position]
+//            val customView = LayoutInflater.from(binding.customerDetailTabLayout.context).
+//            inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
+//            customView.text = tabTitles[position]
+//            tab.customView = customView
         }.attach()
 
 
         return binding.root
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        binding.cusDetailTopLayout.visibility = View.VISIBLE
+//    }
 
 
 }

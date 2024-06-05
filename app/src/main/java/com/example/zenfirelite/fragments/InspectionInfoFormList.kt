@@ -38,20 +38,15 @@ import java.util.Locale
 class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateItem {
     private lateinit var binding : FragmentInspectionInfoFormListBinding
     private lateinit var view : View
+    private lateinit var parentTopLinearLayout : LinearLayout
+    private var parentFragment: Fragment? = null
 //    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        navController = Navigation.findNavController(view)
-        this.view = view
-
-    }
-
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,37 +78,46 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         binding.formsRecycleView.adapter = adapter
 
 
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        navController = Navigation.findNavController(view)
+        this.view = view
+
         binding.addForm.setOnClickListener{
-                 OpenFormList()
+            OpenFormList()
         }
 
-//        val parentTopLinearLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.topLayout)
-//        val parentLowerLayout = requireParentFragment().requireView().findViewById<LinearLayout>(R.id.lowerLayout)
-//
-//        binding.searchForm.setOnClickListener {
-//            parentTopLinearLayout.visibility = View.GONE
-////            val layoutParams = parentLowerLayout .layoutParams
-////            // Modify the height property to match parent
-////            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-////            // Set the modified layout parameters back to the LinearLayout
-////            parentLowerLayout .layoutParams = layoutParams
-//
-//        }
+        parentFragment  = requireParentFragment()
+        when (parentFragment) {
+            is InspectionInfo -> {
+                val parentView = (parentFragment as InspectionInfo).requireView()
+                parentTopLinearLayout = parentView.findViewById<LinearLayout>(R.id.insInfo_TopLayout)
+            }
+            is CustomerDetails -> {
+                binding.addForm.visibility =View.GONE
+                val parentView = (parentFragment as CustomerDetails).requireView()
+                parentTopLinearLayout = parentView.findViewById<LinearLayout>(R.id.cusDetail_TopLayout)
+            }
+        }
+
+        binding.searchForm.setOnClickListener {
+            parentTopLinearLayout.visibility = View.GONE
+        }
 
 
         binding.searchForm.addTextChangedListener(object: TextWatcher {
             @SuppressLint("NotifyDataSetChanged")
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                parentTopLinearLayout.visibility = View.GONE
+                parentTopLinearLayout.visibility = View.GONE
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-//        binding.searchForm.isClickable = true
-//        binding.searchForm.isFocusable = true
-
-        return binding.root
     }
 
     private fun OpenFormList() {

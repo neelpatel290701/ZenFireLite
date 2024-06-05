@@ -54,6 +54,7 @@ class InspectionInfo : Fragment() {
         navController = Navigation.findNavController(view)
     }
 
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,11 +86,11 @@ class InspectionInfo : Fragment() {
 
         binding.insInfoViewPager.adapter = PageAdapterForInspectionInfo(this)
         TabLayoutMediator(binding.insInfoTabLayout , binding.insInfoViewPager){tab,position->
-//              tab.text = tabTitles[position]
-              val customView = LayoutInflater.from(binding.insInfoTabLayout.context).
-              inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
-              customView.text = tabTitles[position]
-              tab.customView = customView
+              tab.text = tabTitles[position]
+//              val customView = LayoutInflater.from(binding.insInfoTabLayout.context).
+//              inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
+//              customView.text = tabTitles[position]
+//              tab.customView = customView
         }.attach()
 
 //        for(i in 0..2){
@@ -101,10 +102,10 @@ class InspectionInfo : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.topLayout.visibility = View.VISIBLE
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        binding.insInfoTopLayout.visibility = View.VISIBLE
+//    }
 
     private fun clickOnFireInspectorDropDownMenu(fireInspector : TextView , fireInspectorList:ArrayList<String>) {
         fireInspector.setOnClickListener{
