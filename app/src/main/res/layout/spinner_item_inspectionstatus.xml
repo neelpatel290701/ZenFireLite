@@ -27,7 +27,7 @@
     android:text="Neel"
     android:textSize="14sp"
     android:gravity="center"
-    android:textColor="@color/white"
+    android:textColor="#F5F5F5"
     android:textAlignment="inherit"
     android:drawableEnd="@drawable/baseline_expand_more_24_white"/>
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -20,15 +21,17 @@ import com.example.zenfirelite.interfaces.OnItemClickListenerForInspectionItem
 
 class AdapterForInspectionList(
     private val context: Context,
+    private val screenWidth: Int,
     private val inspectionInfoList:List<InspectionInfoModel>,
     private val itemClickListnerForInspectionItem: OnItemClickListenerForInspectionItem
 ) : RecyclerView.Adapter<AdapterForInspectionList.ViewHolder>() ,
     AdapterView.OnItemSelectedListener {
 
+    private val ScreenSizethreshold = 1080
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val customerName: TextView
         val InspectionNumber : TextView
-//        val InspectionStatus : TextView
         val InsStatusOptionSpinner : Spinner
         val DefReported  :TextView
         val Recommendation:TextView
@@ -37,12 +40,12 @@ class AdapterForInspectionList(
         val InsStartTime : TextView
         val InsEndTime : TextView
         val InspectorName : TextView
+        val insListCardviewLayout : LinearLayout
 
         init {
             // Define click listener for the ViewHolder's View
             customerName = view.findViewById(R.id.customerName_value)
             InspectionNumber = view.findViewById(R.id.inspectionNumber_value)
-//            InspectionStatus = view.findViewById(R.id.inspectionstatus_value)
             InsStatusOptionSpinner = view.findViewById(R.id.statusSpinner)
             DefReported = view.findViewById(R.id.DefRep_value)
             Recommendation = view.findViewById(R.id.recommendation_value)
@@ -51,6 +54,7 @@ class AdapterForInspectionList(
             InsStartTime = view.findViewById(R.id.InsStartTime_value)
             InsEndTime = view.findViewById(R.id.InsEndTime_value)
             InspectorName = view.findViewById(R.id.InspectorName_value)
+            insListCardviewLayout = view.findViewById(R.id.insListCardViewLayout)
         }
     }
 
@@ -67,10 +71,17 @@ class AdapterForInspectionList(
     lateinit var myHolder : ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = inspectionInfoList[position]
+
+
+        if (screenWidth > ScreenSizethreshold) {
+            holder.insListCardviewLayout.orientation = LinearLayout.HORIZONTAL
+        } else {
+            holder.insListCardviewLayout.orientation = LinearLayout.VERTICAL
+        }
+
         myHolder = holder
         holder.customerName.text = ItemsViewModel.CustomerName
         holder.InspectionNumber.text = ItemsViewModel.InspectionNumber
-//        holder.InspectionStatus.text = ItemsViewModel.InspectionStatus
         holder.DefReported.text = ItemsViewModel.DeficiencyReported
         holder.Recommendation.text = ItemsViewModel.Recommendation
         holder.InsStartDate.text = ItemsViewModel.InsStartDate
@@ -90,7 +101,6 @@ class AdapterForInspectionList(
         insAdapter.setDropDownViewResource(
             R.layout.status_spinner_dropdown_item)
         holder.InsStatusOptionSpinner.adapter = insAdapter
-
 
 //        holder.InsStatusOptionSpinner.setSelection(0)
 

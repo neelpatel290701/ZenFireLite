@@ -47,10 +47,10 @@ class CustomerDetails : Fragment() {
         return binding.root
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        binding.cusDetailTopLayout.visibility = View.VISIBLE
-//    }
+    override fun onResume() {
+        super.onResume()
+        binding.cusDetailTopLayout.visibility = View.VISIBLE
+    }
 
 
 }

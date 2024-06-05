@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -69,16 +70,11 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem ,
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         requireActivity().title = ""
         setHasOptionsMenu(true)
-//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.setOnMenuItemClickListener { item ->
-//            when (item.itemId) {
-//                R.id.addCustomerOnHomepage -> {
-//                    Log.d("neel" , "hellooo")
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+
+        // Get screen width
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
 
         binding.startDate.setOnClickListener {
             openCalenderPicker(binding.startDate, null, binding.toDate.getDateInMillis())
@@ -127,7 +123,7 @@ class HomeScreen : Fragment() , OnItemClickListenerForInspectionItem ,
                 "Neel Patel"
             ))
         }
-        val adapter = context?.let { AdapterForInspectionList(it, inspectionList ,this) }
+        val adapter = context?.let { AdapterForInspectionList(it, screenWidth , inspectionList ,this) }
         binding.inspectionrecyclerview.adapter = adapter
 
         return binding.root

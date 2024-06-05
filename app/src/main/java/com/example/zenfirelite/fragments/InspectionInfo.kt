@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -64,6 +65,15 @@ class InspectionInfo : Fragment() {
         requireActivity().title = inspectionInfo.InspectionNumber
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)
 
+
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+
+        // Set layout orientation based on screen width
+        setLayoutOrientation(binding.root, screenWidth)
+
+
         binding.customerName.text = inspectionInfo.CustomerName.toString()
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
         binding.InsStartTimeValue.text = inspectionInfo.InsStartTime
@@ -102,10 +112,27 @@ class InspectionInfo : Fragment() {
         return binding.root
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        binding.insInfoTopLayout.visibility = View.VISIBLE
-//    }
+    private fun setLayoutOrientation(view: View, screenWidth: Int) {
+        // Assuming a threshold for determining orientation
+        val threshold = 1080 // Example threshold in pixels
+        val topFirstLayout = view.findViewById<LinearLayout>(R.id.top_firstLayout)
+        val topSecondLayout = view.findViewById<LinearLayout>(R.id.top_secondLayout)
+
+        Log.d("neel","width : $screenWidth")
+
+        if (screenWidth > threshold) {
+            topFirstLayout.orientation = LinearLayout.HORIZONTAL
+            topSecondLayout.orientation = LinearLayout.HORIZONTAL
+        } else {
+            topFirstLayout.orientation = LinearLayout.VERTICAL
+            topSecondLayout.orientation = LinearLayout.VERTICAL
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.insInfoTopLayout.visibility = View.VISIBLE
+    }
 
     private fun clickOnFireInspectorDropDownMenu(fireInspector : TextView , fireInspectorList:ArrayList<String>) {
         fireInspector.setOnClickListener{
