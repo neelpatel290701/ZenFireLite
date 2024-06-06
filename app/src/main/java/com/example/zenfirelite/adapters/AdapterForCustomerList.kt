@@ -15,10 +15,12 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.activities.MainActivity
 import com.example.zenfirelite.fragments.CustomerListDirections
 
-class AdapterForCustomerList(private val customerNameList: List<String> ,
-                             private val context : Context,
-                             private val isFromHomeScreen: Boolean,
-                             private val onItemClickListener: (String, String) -> Unit) :
+class AdapterForCustomerList(
+    private val customerNameList: List<String>,
+    private val context: Context,
+    private val isFromHomeScreen: Boolean,
+    private val onItemClickListener: (String, String) -> Unit
+) :
     RecyclerView.Adapter<AdapterForCustomerList.ViewHolder>() {
 
     private var expandedPosition = -1
@@ -66,14 +68,13 @@ class AdapterForCustomerList(private val customerNameList: List<String> ,
         holder.customerNameView2.setOnClickListener {
             if (expandedPosition == holder.adapterPosition) {
                 // Open a new fragment here
-                if(!isFromHomeScreen) {
-                    onItemClickListener.invoke(item,"123")
-                }else{
-                    onItemClickListener.invoke(item,"123")
+                if (!isFromHomeScreen) {
+                    onItemClickListener.invoke(item, "123")
+                } else {
+                    onItemClickListener.invoke(item, "123")
                 }
             }
         }
-
 
     }
 

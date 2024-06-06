@@ -77,12 +77,10 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
 //        navigationView.setupWithNavController(navController)
-
         navigationView.setNavigationItemSelectedListener(this)
 
         navigationView.setCheckedItem(R.id.homeScreen)
         toggleNavigationDrawerItemsClickOnInspectorName()
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -160,31 +158,5 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         }
     }
-
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle item selection.
-//        return when (item.itemId) {
-//            R.id.sendfeedback -> {
-//                Log.d("neel","sendfeedbacl")
-//                true
-//            }
-//            R.id.logout -> {
-//                Log.d("neel","logout")
-//                true
-//            }
-//            else -> item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-//        }
-//    }
-
-
-    // inflate menu items at toolbar
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.draweritems, menu)
-//        menuInflater.inflate(R.menu.new_draweritems, menu)
-//        Log.d("neel","111111111")
-//        return super.onCreateOptionsMenu(menu)
-//    }
-
 
 }

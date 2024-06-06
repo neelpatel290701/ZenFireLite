@@ -2,13 +2,19 @@ package com.example.zenfirelite.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.zenfirelite.R
 import com.example.zenfirelite.apis.APIManager
 import com.example.zenfirelite.apis.datamodels.UserAuth
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
 import com.example.zenfirelite.databinding.ActivityLoginBinding
+import com.example.zenfirelite.utils.ZTUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,37 +32,22 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.login.setOnClickListener {
-            val isUserValid = validateUserAtLogin()
+
+            userName = binding.userName.text.toString().trim()
+            password = binding.password.text.toString().trim()
+            rememberMe = binding.toggle.isChecked
+
+            val isUserValid = ZTUtils.validateUserAtLogin(userName,password,binding)
             if(isUserValid){
-                loginUser()
+                binding.progessBar.visibility = View.VISIBLE
+                loginUser(userName,password,rememberMe)
             }
         }
     }
 
-    private fun validateUserAtLogin() : Boolean {
 
-        userName = binding.userName.text.toString().trim()
-        password = binding.password.text.toString().trim()
-        rememberMe = binding.toggle.isChecked
-
-        if(userName.isEmpty()){
-            binding.userName.error = "required"
-            return false
-        }
-        if(!isValidUserName(userName)){
-            binding.userName.error = "Invalid user name"
-            return false
-        }
-        if(password.isEmpty()){
-            binding.password.error = "required"
-            return false
-        }
-
-        return true
-    }
-
-    private fun loginUser() {
-        val userAuthModel = UserAuth(userName,password,true)
+    private fun loginUser(userName :String , password:String , rememberMe : Boolean) {
+        val userAuthModel = UserAuth(userName,password,rememberMe)
         APIManager.apiInterface.userAuth(userAuthModel)
             .enqueue(object : Callback<UserAuthResponse>{
                 override fun onResponse(call: Call<UserAuthResponse>, response: Response<UserAuthResponse>) {
@@ -65,18 +56,15 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(loginIntent)
                         Log.i("neel", "response>>>>>>: ${response.body().toString()} ")
                     }else{
-                        Toast.makeText(applicationContext, "User not found", Toast.LENGTH_LONG).show();
+                        Toast.makeText(applicationContext, "User not found", Toast.LENGTH_LONG).show()
                     }
+                    binding.progessBar.visibility = View.GONE
                 }
-
                 override fun onFailure(call: Call<UserAuthResponse>, t: Throwable) {
-                        Log.d("neel","Login Response Failure")
+                    Toast.makeText(applicationContext, "UserAuth Failure", Toast.LENGTH_LONG).show()
+                    binding.progessBar.visibility = View.GONE
                 }
             })
     }
-    private  fun isValidUserName(email  :String): Boolean {
-        val emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        val emailPredicate = Regex(emailRegex)
-        return emailPredicate.matches(email)
-    }
+
 }

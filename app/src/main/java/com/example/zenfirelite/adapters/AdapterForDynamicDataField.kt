@@ -18,13 +18,14 @@ import com.example.zenfirelite.datamodels.FieldTypeListItem
 import com.example.zenfirelite.datamodels.RadioButtonItem
 import com.example.zenfirelite.fragments.FormDetailsDirections
 
-class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
-                                 private val context : Context):
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class AdapterForDynamicDataField(
+    private val items: List<FieldTypeListItem>,
+    private val context: Context
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // ViewHolder classes for each type of view
     inner class EditTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(item: FieldTypeListItem.EditTextType) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
@@ -32,16 +33,15 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
 
             val editText = itemView.findViewById<TextView>(R.id.value)
             editText.hint = item.title
-            if(item.inputType == "number") {
+            if (item.inputType == "number") {
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }else{
+            } else {
                 editText.inputType = InputType.TYPE_CLASS_TEXT
             }
         }
     }
 
     inner class DropDownViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(item: FieldTypeListItem.DropDownList) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
@@ -53,11 +53,11 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             val ad: ArrayAdapter<*> = ArrayAdapter<Any?>(
                 context,
                 R.layout.spinner_item,
-                options)
-
+                options
+            )
             ad.setDropDownViewResource(
-                R.layout.status_spinner_dropdown_item)
-
+                R.layout.status_spinner_dropdown_item
+            )
             spinner.adapter = ad
         }
     }
@@ -70,6 +70,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             textView.text = item.title
         }
     }
+
     inner class RadioButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: FieldTypeListItem.RadioButton) {
             // Bind data to views
@@ -79,7 +80,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             val isRadioButton = item.isRadioButton
             recyclerView.layoutManager = LinearLayoutManager(context)
             val itemList = item.options
-            val adapter = AdapterForRadioButtonItem(itemList,isRadioMode = isRadioButton)
+            val adapter = AdapterForRadioButtonItem(itemList, isRadioMode = isRadioButton)
             recyclerView.adapter = adapter
         }
     }
@@ -100,7 +101,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             }
 
             YES.setOnClickListener(clickListener)
-            NO.setOnClickListener{view->
+            NO.setOnClickListener { view ->
                 resetTextViewBackgrounds()
                 view.isSelected = true
                 reasonLayout.visibility = View.VISIBLE
@@ -125,7 +126,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             val addSignature = itemView.findViewById<TextView>(R.id.addSignature)
             textView.text = item.title
 
-            addSignature.setOnClickListener{
+            addSignature.setOnClickListener {
                 val action = FormDetailsDirections.actionFormDetailsToSignaturePad()
                 val navController = Navigation.findNavController(itemView)
                 navController.navigate(action)
@@ -142,10 +143,10 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
             textView.text = item.title
 
             val editTable = itemView.findViewById<TextView>(R.id.editTable)
-            editTable.setOnClickListener{
-                    val action = FormDetailsDirections.actionFormDetailsToTableInfo()
-                    val navController = Navigation.findNavController(itemView)
-                    navController.navigate(action)
+            editTable.setOnClickListener {
+                val action = FormDetailsDirections.actionFormDetailsToTableInfo()
+                val navController = Navigation.findNavController(itemView)
+                navController.navigate(action)
 
             }
         }
@@ -153,7 +154,7 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is FieldTypeListItem.EditTextType-> 0
+            is FieldTypeListItem.EditTextType -> 0
             is FieldTypeListItem.EditTextTypeNum -> 1
             is FieldTypeListItem.DropDownList -> 2
             is FieldTypeListItem.RadioButton -> 3
@@ -169,36 +170,43 @@ class AdapterForDynamicDataField(private val items: List<FieldTypeListItem>,
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.fieldtype_edittext, parent, false)
             )
+
             1 -> EditTextNumViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.sample_textfiledtype2, parent, false)
             )
+
             2 -> DropDownViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.fieldtype_dropdown, parent, false)
             )
+
             3 -> RadioButtonViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.fieldtype_radiobutton, parent, false)
             )
+
             4 -> RadioButtonTypeViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.fieldtype_radiotypebutton, parent, false)
             )
+
             5 -> SignaturePadViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.filedtype_signature, parent, false)
             )
+
             6 -> TableTypeViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.filedtype_table, parent, false)
             )
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun getItemCount(): Int {
-        return  items.size
+        return items.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
