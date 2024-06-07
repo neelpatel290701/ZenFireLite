@@ -3,10 +3,10 @@ package com.example.zenfirelite.apis.datamodels
 data class UserAuthResponse(
     val status: String,
     val requestId: Any?,
-    val result: Result,
+    val result: UserAuthResult,
 )
 
-data class Result(
+data class UserAuthResult(
     val user: User,
     val accessToken: String,
     val vapidPublic: String,

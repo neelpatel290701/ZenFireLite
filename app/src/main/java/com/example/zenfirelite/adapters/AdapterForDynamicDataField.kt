@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
@@ -14,19 +13,18 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.datamodels.FieldTypeListItem
-import com.example.zenfirelite.datamodels.RadioButtonItem
+import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.fragments.FormDetailsDirections
 
 class AdapterForDynamicDataField(
-    private val items: List<FieldTypeListItem>,
+    private val items: List<FormFieldTypeListItem>,
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // ViewHolder classes for each type of view
     inner class EditTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.EditTextType) {
+        fun bind(item: FormFieldTypeListItem.EditTextType) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
@@ -42,7 +40,7 @@ class AdapterForDynamicDataField(
     }
 
     inner class DropDownViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.DropDownList) {
+        fun bind(item: FormFieldTypeListItem.DropDownList) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
@@ -63,7 +61,7 @@ class AdapterForDynamicDataField(
     }
 
     inner class EditTextNumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.EditTextTypeNum) {
+        fun bind(item: FormFieldTypeListItem.EditTextTypeNum) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.inputType = InputType.TYPE_CLASS_NUMBER
@@ -72,7 +70,7 @@ class AdapterForDynamicDataField(
     }
 
     inner class RadioButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.RadioButton) {
+        fun bind(item: FormFieldTypeListItem.RadioButton) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             val recyclerView = itemView.findViewById<RecyclerView>(R.id.singleOptionRecycleView)
@@ -91,7 +89,7 @@ class AdapterForDynamicDataField(
         val NO = itemView.findViewById<TextView>(R.id.no)
         val NA = itemView.findViewById<TextView>(R.id.NA)
         val reasonLayout = itemView.findViewById<LinearLayout>(R.id.reasons_layout)
-        fun bind(item: FieldTypeListItem.RadioTypeButton) {
+        fun bind(item: FormFieldTypeListItem.RadioTypeButton) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
@@ -120,7 +118,7 @@ class AdapterForDynamicDataField(
     }
 
     inner class SignaturePadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.SignaturePadType) {
+        fun bind(item: FormFieldTypeListItem.SignaturePadType) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             val addSignature = itemView.findViewById<TextView>(R.id.addSignature)
@@ -137,7 +135,7 @@ class AdapterForDynamicDataField(
     }
 
     inner class TableTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FieldTypeListItem.TableView) {
+        fun bind(item: FormFieldTypeListItem.TableView) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
@@ -154,13 +152,13 @@ class AdapterForDynamicDataField(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is FieldTypeListItem.EditTextType -> 0
-            is FieldTypeListItem.EditTextTypeNum -> 1
-            is FieldTypeListItem.DropDownList -> 2
-            is FieldTypeListItem.RadioButton -> 3
-            is FieldTypeListItem.RadioTypeButton -> 4
-            is FieldTypeListItem.SignaturePadType -> 5
-            is FieldTypeListItem.TableView -> 6
+            is FormFieldTypeListItem.EditTextType -> 0
+            is FormFieldTypeListItem.EditTextTypeNum -> 1
+            is FormFieldTypeListItem.DropDownList -> 2
+            is FormFieldTypeListItem.RadioButton -> 3
+            is FormFieldTypeListItem.RadioTypeButton -> 4
+            is FormFieldTypeListItem.SignaturePadType -> 5
+            is FormFieldTypeListItem.TableView -> 6
         }
     }
 
@@ -211,13 +209,13 @@ class AdapterForDynamicDataField(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is FieldTypeListItem.EditTextType -> (holder as EditTextViewHolder).bind(item)
-            is FieldTypeListItem.EditTextTypeNum -> (holder as EditTextNumViewHolder).bind(item)
-            is FieldTypeListItem.DropDownList -> (holder as DropDownViewHolder).bind(item)
-            is FieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
-            is FieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
-            is FieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
-            is FieldTypeListItem.TableView -> (holder as TableTypeViewHolder).bind(item)
+            is FormFieldTypeListItem.EditTextType -> (holder as EditTextViewHolder).bind(item)
+            is FormFieldTypeListItem.EditTextTypeNum -> (holder as EditTextNumViewHolder).bind(item)
+            is FormFieldTypeListItem.DropDownList -> (holder as DropDownViewHolder).bind(item)
+            is FormFieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
+            is FormFieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
+            is FormFieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
+            is FormFieldTypeListItem.TableView -> (holder as TableTypeViewHolder).bind(item)
         }
     }
 

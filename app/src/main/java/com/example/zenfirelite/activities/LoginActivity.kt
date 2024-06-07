@@ -2,14 +2,10 @@ package com.example.zenfirelite.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.example.zenfirelite.R
 import com.example.zenfirelite.apis.APIManager
 import com.example.zenfirelite.apis.datamodels.UserAuth
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
@@ -37,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
             password = binding.password.text.toString().trim()
             rememberMe = binding.toggle.isChecked
 
-            val isUserValid = ZTUtils.validateUserAtLogin(userName,password,binding)
-            if(isUserValid){
+            val isValidUser = ZTUtils.validateUserAtLogin(userName,password,binding)
+            if(isValidUser){
                 binding.progessBar.visibility = View.VISIBLE
                 loginUser(userName,password,rememberMe)
             }

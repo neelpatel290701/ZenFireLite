@@ -147,14 +147,14 @@
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:text="06/05/2024" />
-                <TextView
-                    android:id="@+id/InsStartTimeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:text="12:00AM" />
+<!--                <TextView-->
+<!--                    android:id="@+id/InsStartTimeValue"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:text="12:00AM" />-->
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -1,0 +1,108 @@
+package com.example.zenfirelite.apis.datamodels
+
+data class InspectionListResponse(
+    val status: String,
+    val requestId: Any?,
+    val result: List<InsListResult>,
+)
+
+data class InsListResult(
+    val id: String,
+    val ticketId: TicketId,
+    val ticketNumber: String,
+    val ticketStartDate: Long,
+    val ticketEndDate: Long,
+    val status: String,
+    val defficiencyReportedCount: Long,
+    val recommendationsCount: Long,
+    val technicians: List<Long>,
+    val companyId: Long,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val updatedAt: Long,
+    val createdAt: Long,
+)
+
+data class TicketId(
+    val id: Long,
+    val ticketNumber: String,
+    val scheduledStartTime: String,
+    val scheduledEndTime: String,
+    val ticketCompletionDate: String,
+    val jobTypeId: Long,
+    val jobStatusId: Long,
+    val jobDescription: String,
+    val potentialRevenue: Long,
+    val options: Options,
+    val serviceAddressId: ServiceAddressId,
+    val customerId: CustomerId,
+    val companyId: Long,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val createdUserId: Long,
+    val updatedUserId: Long,
+    val createdBy: String,
+    val updatedBy: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val readyForSync: Boolean,
+)
+
+data class Options(
+    val isSajob: Boolean,
+    val callback: Boolean,
+    val jobPriority: Long,
+    val notifyForPo: Boolean,
+)
+
+data class ServiceAddressId(
+    val id: Long,
+    val addressLine1: String,
+    val addressLine2: String,
+    val city: String,
+    val state: String,
+    val zipcode: String,
+    val country: String,
+    val companyId: Long,
+    val isTaxable: Boolean,
+    val customerId: Long,
+    val propertyTypeId: Long,
+    val addressTypeId: Long,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val doNotServe: Boolean,
+    val createdBy: String,
+    val updatedBy: String,
+    val updatedAt: String,
+    val createdAt: String,
+    val createdUserId: Long,
+    val updatedUserId: Long,
+)
+
+data class CustomerId(
+    val id: Long,
+    val companyId: Long,
+    val displayName: String,
+    val firstname: String,
+    val lastname: String,
+    val name: String,
+    val additionalName: String,
+    val landline: String,
+    val ext: String,
+    val cellphone: String,
+    val email: String,
+    val customerIdentifier: String,
+    val customerUniqueId: String,
+    val skipLevel: Boolean,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val createdBy: String,
+    val updatedBy: String,
+    val updatedAt: String,
+    val createdAt: String,
+    val createdUserId: Long,
+    val updatedUserId: Long,
+    val readyForSync: Boolean,
+    val isProspect: Boolean,
+)
+

@@ -1,43 +1,22 @@
 package com.example.zenfirelite.activities
 
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.adapters.AdapterForCustomerList
-import com.example.zenfirelite.adapters.AdapterForFireInspectorList
 import com.example.zenfirelite.databinding.ActivityMainBinding
-import com.example.zenfirelite.fragments.CustomerList
-import com.example.zenfirelite.fragments.HomeScreen
-import com.example.zenfirelite.fragments.Setting
-import com.example.zenfirelite.interfaces.OnItemClickListenerForInspectionItem
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{

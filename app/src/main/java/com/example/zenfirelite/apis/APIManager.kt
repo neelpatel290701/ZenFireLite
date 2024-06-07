@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIManager {
-    private const val BASE_URL ="https://services.zentrades.pro/api/"
+    private const val BASE_URL ="https://services-copilot.zentrades.pro/api/"
 
     //create logger
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

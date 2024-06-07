@@ -11,7 +11,4 @@ data class InspectionInfoModel(
     val Recommendation : String,
     val InsStartDate : String,
     val InsEndDate : String,
-    val InsStartTime : String,
-    val InsEndTime : String,
-    val InspectorName : String
 ):Parcelable

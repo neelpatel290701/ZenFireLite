@@ -49,6 +49,7 @@ class InspectionInfo : Fragment() {
         arguments?.let {
 
         }
+        Log.d("neel","onCreate()-InsInfo")
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,7 +77,6 @@ class InspectionInfo : Fragment() {
 
         binding.customerName.text = inspectionInfo.CustomerName.toString()
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
-        binding.InsStartTimeValue.text = inspectionInfo.InsStartTime
 
         binding.location.setOnClickListener {
             val uri :  String = "http://maps.google.com/maps?saddr="

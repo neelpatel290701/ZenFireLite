@@ -1,8 +1,6 @@
 package com.example.zenfirelite.adapters
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +9,15 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.app.NotificationCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.activities.LoginActivity
 import com.example.zenfirelite.datamodels.InspectionInfoModel
-import com.example.zenfirelite.interfaces.OnItemClickListenerForInspectionItem
 
 class AdapterForInspectionList(
     private val context: Context,
     private val screenWidth: Int,
     private val inspectionInfoList:List<InspectionInfoModel>,
-    private val itemClickListnerForInspectionItem: OnItemClickListenerForInspectionItem
+    private val onItemClickListener: (InspectionInfoModel) -> Unit
 ) : RecyclerView.Adapter<AdapterForInspectionList.ViewHolder>() ,
     AdapterView.OnItemSelectedListener {
 
@@ -37,8 +31,6 @@ class AdapterForInspectionList(
         val Recommendation:TextView
         val InsStartDate : TextView
         val InsEndDate : TextView
-        val InsStartTime : TextView
-        val InsEndTime : TextView
         val InspectorName : TextView
         val insListCardviewLayout : LinearLayout
 
@@ -51,8 +43,6 @@ class AdapterForInspectionList(
             Recommendation = view.findViewById(R.id.recommendation_value)
             InsStartDate = view.findViewById(R.id.InsStartDate_value)
             InsEndDate = view.findViewById(R.id.InsEndDate_value)
-            InsStartTime = view.findViewById(R.id.InsStartTime_value)
-            InsEndTime = view.findViewById(R.id.InsEndTime_value)
             InspectorName = view.findViewById(R.id.InspectorName_value)
             insListCardviewLayout = view.findViewById(R.id.insListCardViewLayout)
         }
@@ -86,9 +76,6 @@ class AdapterForInspectionList(
         holder.Recommendation.text = ItemsViewModel.Recommendation
         holder.InsStartDate.text = ItemsViewModel.InsStartDate
         holder.InsEndDate.text = ItemsViewModel.InsEndDate
-        holder.InsStartTime.text = ItemsViewModel.InsStartTime
-        holder.InsEndTime.text = ItemsViewModel.InsEndTime
-        holder.InspectorName.text = ItemsViewModel.InspectorName
 
         val statusValue = ItemsViewModel.InspectionStatus
 
@@ -111,7 +98,9 @@ class AdapterForInspectionList(
         }
 
         holder.itemView.setOnClickListener{
-            itemClickListnerForInspectionItem.onItemClick(ItemsViewModel)
+//            itemClickListnerForInspectionItem.onItemClick(ItemsViewModel)
+            onItemClickListener.invoke(ItemsViewModel)
+
         }
 
 

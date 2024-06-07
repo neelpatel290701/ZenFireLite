@@ -20,7 +20,7 @@ import com.example.zenfirelite.adapters.AdapterForDynamicDataField
 import com.example.zenfirelite.adapters.AdapterForFormSectionsList
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.datamodels.Field
-import com.example.zenfirelite.datamodels.FieldTypeListItem
+import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.datamodels.Option
 import com.example.zenfirelite.datamodels.RadioButtonItem
 import com.example.zenfirelite.datamodels.Section
@@ -197,6 +197,7 @@ class FormDetails : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currSectionIndex = args.sectionIndex
+        Log.d("neel","onCreate()-FormDetails")
     }
     @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
     override fun onCreateView(
@@ -282,17 +283,17 @@ class FormDetails : Fragment()  {
 
             val selectedSection = sections[currSectionIndex]
             // Transform the fields to FieldTypeListItem
-            val fieldTypeListItems: List<FieldTypeListItem> = selectedSection.fields.map { field ->
+            val fieldTypeListItems: List<FormFieldTypeListItem> = selectedSection.fields.map { field ->
                 when (field.inputType) {
-                    "text" -> FieldTypeListItem.EditTextType(field.title, "text")
-                    "number" -> FieldTypeListItem.EditTextType(field.title,"number")
-                    "dropdownList" -> FieldTypeListItem.DropDownList(field.title, field.options?.map { it.value } ?: emptyList())
-                    "radio button" -> FieldTypeListItem.RadioButton(field.title, true, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
-                    "checkbox" -> FieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
-                    "radiotype button" -> FieldTypeListItem.RadioTypeButton(field.title)
-                    "textarea" -> FieldTypeListItem.EditTextType(field.title, "textarea")
-                    "signature" -> FieldTypeListItem.SignaturePadType(field.title)
-                    "table" -> FieldTypeListItem.TableView(field.title)
+                    "text" -> FormFieldTypeListItem.EditTextType(field.title, "text")
+                    "number" -> FormFieldTypeListItem.EditTextType(field.title,"number")
+                    "dropdownList" -> FormFieldTypeListItem.DropDownList(field.title, field.options?.map { it.value } ?: emptyList())
+                    "radio button" -> FormFieldTypeListItem.RadioButton(field.title, true, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+                    "checkbox" -> FormFieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+                    "radiotype button" -> FormFieldTypeListItem.RadioTypeButton(field.title)
+                    "textarea" -> FormFieldTypeListItem.EditTextType(field.title, "textarea")
+                    "signature" -> FormFieldTypeListItem.SignaturePadType(field.title)
+                    "table" -> FormFieldTypeListItem.TableView(field.title)
                     else -> throw IllegalArgumentException("Unknown input type")
                 }
             }
