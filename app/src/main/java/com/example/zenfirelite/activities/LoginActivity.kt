@@ -10,6 +10,7 @@ import com.example.zenfirelite.apis.APIManager
 import com.example.zenfirelite.apis.datamodels.UserAuth
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
 import com.example.zenfirelite.databinding.ActivityLoginBinding
+import com.example.zenfirelite.prefs
 import com.example.zenfirelite.utils.ZTUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +27,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (isUserLoggedIn()) {
+            redirectToMainActivity()
+        }
 
         binding.login.setOnClickListener {
 
@@ -48,9 +53,11 @@ class LoginActivity : AppCompatActivity() {
             .enqueue(object : Callback<UserAuthResponse>{
                 override fun onResponse(call: Call<UserAuthResponse>, response: Response<UserAuthResponse>) {
                     if(response.isSuccessful) {
-                        val loginIntent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(loginIntent)
-                        Log.i("neel", "response>>>>>>: ${response.body().toString()} ")
+                        val responseData = response.body()
+                        redirectToMainActivity()
+                        prefs.userID = responseData?.result?.user?.id.toString()
+                        prefs.companyID = responseData?.result?.user?.company?.id.toString()
+                        prefs.accessToken = responseData?.result?.accessToken
                     }else{
                         Toast.makeText(applicationContext, "User not found", Toast.LENGTH_LONG).show()
                     }
@@ -61,6 +68,17 @@ class LoginActivity : AppCompatActivity() {
                     binding.progessBar.visibility = View.GONE
                 }
             })
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return prefs.userID != null && prefs.accessToken != null
+    }
+
+    private fun redirectToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
+        finish()
     }
 
 }

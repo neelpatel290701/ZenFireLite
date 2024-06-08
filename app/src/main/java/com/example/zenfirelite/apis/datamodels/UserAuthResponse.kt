@@ -1,5 +1,8 @@
 package com.example.zenfirelite.apis.datamodels
 
+import com.google.gson.annotations.SerializedName
+
+
 data class UserAuthResponse(
     val status: String,
     val requestId: Any?,
@@ -8,9 +11,12 @@ data class UserAuthResponse(
 
 data class UserAuthResult(
     val user: User,
+    @SerializedName("access-token")
     val accessToken: String,
+    @SerializedName("VAPID_PUBLIC")
     val vapidPublic: String,
 )
+
 
 data class User(
     val id: Long,
@@ -26,8 +32,8 @@ data class User(
     val updatedBy: String,
     val updatedAt: String,
     val createdAt: String,
-    val costRate: Long,
-    val billableRate: Long,
+    val landline: String,
+    val cellphone: String,
     val rateCriterion: String,
     val rateBasis: String,
     val company: Company,
@@ -47,13 +53,13 @@ data class User(
 data class Company(
     val id: Long,
     val name: String,
+    val tagLine: String,
     val isActive: Boolean,
     val isDeleted: Boolean,
     val updatedAt: String,
     val createdAt: String,
+    @SerializedName("localeISOCode")
     val localeIsocode: String,
-    val vertical: String,
-    val timezoneRegionName: String,
     val defaultLanguage: String,
     val defaultCurrencyCode: String,
     val dstEnabled: Boolean,
@@ -62,10 +68,14 @@ data class Company(
 )
 
 data class RedirectDetails(
+    @SerializedName("IOS")
     val ios: String,
+    @SerializedName("WEB")
     val web: String,
-    val android: String,
+    @SerializedName("ANDROID")
+    val android: String
 )
+
 
 data class RoleDetails(
     val id: Long,
@@ -106,5 +116,5 @@ data class Settings(
     val createdUserId: Long,
     val updatedUserId: Long,
     val companyId: Long,
+    val hideBillingDetails: Boolean,
 )
-

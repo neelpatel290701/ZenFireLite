@@ -40,6 +40,7 @@ import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
 import com.example.zenfirelite.apis.datamodels.SortBy
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
+import com.example.zenfirelite.prefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -94,15 +95,6 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
         Log.d("neel","onCreateView()-HomeScreen")
         binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
 
-//        val adapter =
-//            context?.let { AdapterForInspectionList(it, screenWidth, inspectionList, ){
-//                Log.d("neel",it.toString())
-//                val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(it)
-//                navController.navigate(action)
-//            } }
-//
-//        binding.inspectionrecyclerview.adapter = adapter
-//        binding.inspectionrecyclerview.adapter?.notifyDataSetChanged()
         if(inspectionList.isEmpty()) {
             fetchInspectionList()
             Log.d("neel", "InspectionList-Empty")
@@ -124,12 +116,10 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
 
     private fun fetchInspectionList() {
         val inspectionListRequestModel = InspectionListRequestBody(SortBy("desc"))
-        val accessToken: String =
-            "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsInRva2VuVHlwZSI6ImFjY2Vzcy10b2tlbiJ9.eyJ1c2VySWQiOjcyMTksImNvbXBhbnlJZCI6NDczLCJyb2xlSWQiOjI0MDAsInJvbGVOYW1lIjoiVGVjaG5pY2lhbiIsInByb2ZpbGVOYW1lIjoiVGVjaG5pY2lhbiIsInBsYXRmb3JtQXBwIjoiWkVORklSRV9MSVRFIiwiaWF0IjoxNzE3NzU0NTAxLCJleHAiOjE3MTc4NDA5MDF9.F2xSqU0uEnP85YgNZYOLqdMKPvkAQFPrg61hQafJbjR6Ta2VUSaRlPQ1ALPePOJFmLoxPE5-2mp83D9txj9shRG-4DL3BQhq6uedE_rCOvPX2xEowT8YFeRTfy2dw2LSFB9nDFs949pjucV9VKS9dBPnfacdtEXn4vBNe-U7ej8"
         APIManager.apiInterface.inspectionList(
-            "7219",
-            accessToken,
-            "473",
+            prefs.userID.toString(),
+            prefs.accessToken.toString(),
+            prefs.companyID.toString(),
             inspectionListRequestModel
         )
             .enqueue(object : Callback<InspectionListResponse> {
@@ -154,7 +144,9 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
                         )
                     }?.toCollection(ArrayList())
 //                    Log.d("neel",insList.toString())
-                    inspectionList = insList!!
+                    if(insList != null) {
+                        inspectionList = insList
+                    }
                     val adapter =
                         context?.let { AdapterForInspectionList(it, screenWidth, inspectionList, ){ it ->
                             val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(it)

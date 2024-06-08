@@ -1,6 +1,8 @@
 package com.example.zenfirelite.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
@@ -17,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.zenfirelite.R
 import com.example.zenfirelite.databinding.ActivityMainBinding
+import com.example.zenfirelite.prefs
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
@@ -100,7 +103,16 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             R.id.sendfeedback -> Toast.makeText(this, "Send Feedback", Toast.LENGTH_SHORT).show()
             R.id.support -> Toast.makeText(this, "Support!", Toast.LENGTH_SHORT).show()
             R.id.version -> Toast.makeText(this, "Version", Toast.LENGTH_SHORT).show()
-            R.id.logout ->Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
+            R.id.logout ->{
+                prefs.clear()
+                // Navigate to LoginActivity
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                // Finish the current activity
+                finish()
+                Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
+            }
         }
         navigationDrawerLayout.closeDrawer(GravityCompat.START)
         return true
