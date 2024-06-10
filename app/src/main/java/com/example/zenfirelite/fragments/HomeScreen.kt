@@ -29,16 +29,19 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForCustomerList
 import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
-import com.example.zenfirelite.datamodels.InspectionInfoModel
+import com.example.zenfirelite.datamodels.InspectionListModel
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.apis.APIManager
+import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
+import com.example.zenfirelite.apis.datamodels.CustomerListResponse
 import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
 import com.example.zenfirelite.apis.datamodels.SortBy
+import com.example.zenfirelite.datamodels.CustomerListModel
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 import com.example.zenfirelite.prefs
 import retrofit2.Call
@@ -55,7 +58,8 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
 
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var navController: NavController
-    private var inspectionList = ArrayList<InspectionInfoModel>()
+    private var inspectionList = ArrayList<InspectionListModel>()
+    private var customerList = ArrayList<CustomerListModel>()
     private var screenWidth : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +138,7 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
                     Log.d("neel","InspectionInfo Response")
                     val insList = InspectionResponse?.result?.map{ result->
 
-                        InspectionInfoModel("#"+result.ticketNumber,
+                        InspectionListModel("#"+result.ticketNumber,
                             result.ticketId.customerId.firstname +" "+result.ticketId.customerId.lastname,
                             result.status,
                             result.defficiencyReportedCount.toString(),
@@ -248,7 +252,7 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
         return null
     }
 
-//    override fun onItemClick(item: InspectionInfoModel) {
+//    override fun onItemClick(item: InspectionListModel) {
 //        val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(item)
 //        navController.navigate(action)
 //    }
@@ -266,26 +270,24 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
 
         dialog.window?.setGravity(Gravity.CENTER)
 
-        val customerList = ArrayList<String>()
-        for (i in 1..10) {
-            customerList.add("Neel Patel (1234)")
-            customerList.add("Smit Patel (5678)")
-            customerList.add("Kuldeep Tripathi (9012)")
-            customerList.add("Dhruv Pathak (34567)")
-        }
 
         val customerRecycleView = dialog.findViewById<RecyclerView>(R.id.customerRecycleView)
         customerRecycleView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = AdapterForCustomerList(
-            customerList,
-            requireContext(),
-            true
-        ) { customerName, customerId ->
-            dialog.dismiss()
-            onclickCustomerNameOpenFormTemplatesList(customerName, customerId)
+
+        if(customerList.isEmpty()){
+            fetchCustomerList(customerRecycleView,dialog)
+        }else{
+            val customeradapter = AdapterForCustomerList(
+                customerList,
+                requireContext(),
+                true
+            ) { CustomerDetail->
+                dialog.dismiss()
+                onclickCustomerNameOpenFormTemplatesList()
+            }
+            customerRecycleView.adapter = customeradapter
         }
 
-        customerRecycleView.adapter = adapter
 
         val addCustomer = dialog.findViewById<TextView>(R.id.addCustomer)
 
@@ -298,7 +300,58 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
         return true
     }
 
-    private fun onclickCustomerNameOpenFormTemplatesList(customerName: String, customerId: String) {
+    private fun fetchCustomerList(customerRecycleView:RecyclerView,dialog:Dialog) {
+
+        val customerListRequestModel = CustomerListRequestBody(
+            0,10,"","","","","",
+            false,"","","",
+            true,false)
+
+        APIManager.apiInterface.customerList(
+            prefs.userID.toString(),
+            prefs.accessToken.toString(),
+            prefs.companyID.toString(),
+            System.currentTimeMillis(),
+            customerListRequestModel
+        ).enqueue(object : Callback<CustomerListResponse>{
+
+            override fun onResponse(
+                call: Call<CustomerListResponse>,
+                response: Response<CustomerListResponse>
+            ) {
+                val customerListResponse = response.body()
+                val custList = customerListResponse?.result?.data?.hits?.map {hit->
+                    CustomerListModel(
+                        hit.firstname,hit.lastname,hit.customerUniqueId,hit.addressLine1,hit.addressLine2,
+                        hit.city,hit.state,hit.zipcode,hit.email,hit.cellphone,hit.landline)
+                }?.toCollection(ArrayList())
+
+                if(custList!=null){
+                    customerList = custList
+                }
+
+                val customeradapter = AdapterForCustomerList(
+                    customerList,
+                    requireContext(),
+                    true
+                ) { CustomerDetail->
+                    dialog.dismiss()
+                    onclickCustomerNameOpenFormTemplatesList()
+                }
+                customerRecycleView.adapter = customeradapter
+
+            }
+
+            override fun onFailure(call: Call<CustomerListResponse>, t: Throwable) {
+                Log.d("neel", "CustomerList-onFailure")
+                t.printStackTrace()
+            }
+
+        })
+    }
+
+
+    private fun onclickCustomerNameOpenFormTemplatesList() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.formtemplates_athomepage)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

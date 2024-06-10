@@ -28,7 +28,7 @@ class AdapterForFormTemplatesList(private val formTemplates : ArrayList<String> 
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AdapterForFormTemplatesList.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val formName = formTemplates[position]
         holder.formName.text = formName
 

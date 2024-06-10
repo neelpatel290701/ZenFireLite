@@ -1,17 +1,13 @@
 package com.example.zenfirelite.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.zenfirelite.R
-import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.adapters.AdapterForSettingUsers
 import com.example.zenfirelite.databinding.FragmentSettingUsersBinding
-import com.example.zenfirelite.datamodels.InspectionInfoModel
 import com.example.zenfirelite.datamodels.SettingUsersModel
 
 

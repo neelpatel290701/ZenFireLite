@@ -11,13 +11,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.datamodels.InspectionInfoModel
+import com.example.zenfirelite.datamodels.InspectionListModel
 
 class AdapterForInspectionList(
     private val context: Context,
     private val screenWidth: Int,
-    private val inspectionInfoList:List<InspectionInfoModel>,
-    private val onItemClickListener: (InspectionInfoModel) -> Unit
+    private val inspectionInfoList:List<InspectionListModel>,
+    private val onItemClickListener: (InspectionListModel) -> Unit
 ) : RecyclerView.Adapter<AdapterForInspectionList.ViewHolder>() ,
     AdapterView.OnItemSelectedListener {
 

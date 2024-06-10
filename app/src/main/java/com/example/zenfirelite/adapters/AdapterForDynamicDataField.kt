@@ -213,8 +213,14 @@ class AdapterForDynamicDataField(
             is FormFieldTypeListItem.EditTextTypeNum -> (holder as EditTextNumViewHolder).bind(item)
             is FormFieldTypeListItem.DropDownList -> (holder as DropDownViewHolder).bind(item)
             is FormFieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
-            is FormFieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
-            is FormFieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
+            is FormFieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(
+                item
+            )
+
+            is FormFieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(
+                item
+            )
+
             is FormFieldTypeListItem.TableView -> (holder as TableTypeViewHolder).bind(item)
         }
     }

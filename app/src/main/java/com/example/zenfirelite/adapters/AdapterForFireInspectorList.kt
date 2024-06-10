@@ -13,16 +13,15 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.fragments.InspectionInfo
 
 class AdapterForFireInspectorList(
-    private val inspectorName : List<String>,
-    private val setFireInspector : TextView,
+    private val inspectorName: List<String>,
+    private val setFireInspector: TextView,
     private val dialog: Dialog
-):
-      RecyclerView.Adapter<AdapterForFireInspectorList.ViewHolder>(){
+) :
+    RecyclerView.Adapter<AdapterForFireInspectorList.ViewHolder>() {
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val inspectorName: TextView
-
         init {
             // Define click listener for the ViewHolder's View
             inspectorName = view.findViewById(R.id.inspectorNameOption)

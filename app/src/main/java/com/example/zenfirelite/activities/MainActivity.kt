@@ -73,13 +73,11 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             R.id.setting -> R.id.setting
             else -> null
         }
-
         // Close the drawer and return if the selected fragment is already displayed
         if (destinationFragmentId != null && destinationFragmentId == lastSelectedFragmentId) {
             navigationDrawerLayout.closeDrawer(GravityCompat.START)
             return true
         }
-
         // Update the last selected fragment ID
         lastSelectedFragmentId = destinationFragmentId ?: lastSelectedFragmentId
 

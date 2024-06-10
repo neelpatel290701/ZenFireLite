@@ -2,12 +2,11 @@ package com.example.zenfirelite.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zenfirelite.apis.APIManager
-import com.example.zenfirelite.apis.datamodels.UserAuth
+import com.example.zenfirelite.apis.datamodels.UserAuthRequestBody
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
 import com.example.zenfirelite.databinding.ActivityLoginBinding
 import com.example.zenfirelite.prefs
@@ -48,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun loginUser(userName :String , password:String , rememberMe : Boolean) {
-        val userAuthModel = UserAuth(userName,password,rememberMe)
+        val userAuthModel = UserAuthRequestBody(userName,password,rememberMe)
         APIManager.apiInterface.userAuth(userAuthModel)
             .enqueue(object : Callback<UserAuthResponse>{
                 override fun onResponse(call: Call<UserAuthResponse>, response: Response<UserAuthResponse>) {
@@ -64,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.progessBar.visibility = View.GONE
                 }
                 override fun onFailure(call: Call<UserAuthResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, "UserAuth Failure", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "UserAuthRequestBody Failure", Toast.LENGTH_LONG).show()
                     binding.progessBar.visibility = View.GONE
                 }
             })

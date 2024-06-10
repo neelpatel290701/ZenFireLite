@@ -38,7 +38,7 @@
         tools:layout="@layout/fragment_inspection_info" >
         <argument
             android:name="inspectionInfo"
-            app:argType="com.example.zenfirelite.datamodels.InspectionInfoModel" />
+            app:argType="com.example.zenfirelite.datamodels.InspectionListModel" />
         <action
             android:id="@+id/action_inspectionInfo_to_formDetails2"
             app:destination="@id/formDetails" />
@@ -48,12 +48,10 @@
         android:name="com.example.zenfirelite.fragments.CustomerDetails"
         tools:layout="@layout/fragment_customer_details" >
         <argument
-            android:name="cutomerName"
-            app:argType="string" />
-        <argument
-            android:name="cutomerUniqueId"
-            app:argType="string" />
+            android:name="customerDetails"
+            app:argType="com.example.zenfirelite.datamodels.CustomerListModel" />
     </fragment>
+
     <fragment
         android:id="@+id/addCustomerDetails"
         android:name="com.example.zenfirelite.fragments.AddCustomerDetails"

@@ -1,5 +1,6 @@
 package com.example.zenfirelite.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.PageAdapterForInspectionInfo
 import com.example.zenfirelite.databinding.FragmentCustomerDetailsBinding
 import com.example.zenfirelite.databinding.FragmentCustomerListBinding
+import com.example.zenfirelite.datamodels.CustomerListModel
+import com.example.zenfirelite.datamodels.InspectionListModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -25,22 +28,27 @@ class CustomerDetails : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
+        val customerDetails : CustomerListModel = args.customerDetails
 
         binding = FragmentCustomerDetailsBinding.inflate(inflater,container,false)
-        binding.customerName.text = args.cutomerName
-        binding.customerUniqueId.text = args.cutomerUniqueId
+        binding.customerName.text = customerDetails.firstName + " " + customerDetails.lastName
+        binding.customerUniqueId.text = customerDetails.customerUniqueId
+        binding.customerAddress.text = customerDetails.addressLine1 + " " + customerDetails.addressLine2 + " " +
+                                       customerDetails.city + " " + customerDetails.state + " " + customerDetails.zipCode
+
+        binding.customerEmail.text = customerDetails.email
+        binding.customerPhone.text = customerDetails.landline
+        binding.customerCellPhone.text = customerDetails.cellPhone
 
         binding.customerDetailViewPager.adapter = PageAdapterForInspectionInfo(this)
         TabLayoutMediator(binding.customerDetailTabLayout , binding.customerDetailViewPager){tab,position->
               tab.text = tabTitles[position]
-//            val customView = LayoutInflater.from(binding.customerDetailTabLayout.context).
-//            inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
-//            customView.text = tabTitles[position]
-//            tab.customView = customView
         }.attach()
 
 

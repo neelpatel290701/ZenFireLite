@@ -20,7 +20,6 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -28,12 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForFireInspectorList
-import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.PageAdapterForInspectionInfo
 import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
-import com.example.zenfirelite.datamodels.InspectionInfoFormModel
-import com.example.zenfirelite.datamodels.InspectionInfoModel
-import com.google.android.material.tabs.TabLayout
+import com.example.zenfirelite.datamodels.InspectionListModel
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.Locale
 
@@ -60,8 +56,8 @@ class InspectionInfo : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val inspectionInfo : InspectionInfoModel = args.inspectionInfo
+    ): View {
+        val inspectionInfo : InspectionListModel = args.inspectionInfo
         // Set the title in the toolbar
         requireActivity().title = inspectionInfo.InspectionNumber
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)

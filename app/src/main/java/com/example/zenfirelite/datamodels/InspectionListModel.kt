@@ -3,7 +3,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class InspectionInfoModel(
+data class InspectionListModel(
     val InspectionNumber : String,
     val CustomerName : String,
     val InspectionStatus : String,
