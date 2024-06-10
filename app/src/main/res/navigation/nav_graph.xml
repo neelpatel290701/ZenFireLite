@@ -52,6 +52,7 @@
             app:argType="com.example.zenfirelite.datamodels.CustomerListModel" />
     </fragment>
 
+
     <fragment
         android:id="@+id/addCustomerDetails"
         android:name="com.example.zenfirelite.fragments.AddCustomerDetails"
@@ -73,6 +74,7 @@
             android:id="@+id/action_formDetails_to_tableInfo"
             app:destination="@id/tableInfo" />
     </fragment>
+
     <fragment
         android:id="@+id/signaturePad"
         android:name="com.example.zenfirelite.fragments.SignaturePad"

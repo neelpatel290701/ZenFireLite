@@ -3,6 +3,8 @@ package com.example.zenfirelite.apis
 import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerListResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListResult
+import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_RequestBody
+import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Response
 import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
 import com.example.zenfirelite.apis.datamodels.UserAuthRequestBody
@@ -48,4 +50,18 @@ interface ApiInterface {
         @Query("timestamp") timestamp :Long,
         @Body customerListRequest : CustomerListRequestBody
     ):Call<CustomerListResponse>
+
+
+    @Headers("request-from:ZENFIRE_LITE",
+        "timezone-offset:-330",
+        "timezonecode:IST",
+        "timezonename:Asia/Calcutta",
+        "user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36")
+    @POST("customer/getCustomers")
+    fun getCustomerListWithBillingService(
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+        @Body customerListRequestServiceBilling : CustomerList_ServiceBilling_RequestBody
+    ) : Call<CustomerList_ServiceBilling_Response>
 }
