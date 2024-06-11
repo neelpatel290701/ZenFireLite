@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.zenfirelite.R
-import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
 import com.example.zenfirelite.databinding.FragmentSignaturePadBinding
 import java.io.ByteArrayOutputStream
 
@@ -67,7 +66,7 @@ class SignaturePad : Fragment() {
                 Toast.makeText(requireContext(), "Signature Saved", Toast.LENGTH_SHORT).show()
 
                 val signatureBitmap = binding.signaturePad.signatureBitmap
-                passDataBackToFragmentA(signatureBitmap)
+                passDataBackToParentFragment(signatureBitmap)
                 parentFragmentManager.popBackStack()
 
 //                navController.popBackStack()
@@ -78,7 +77,7 @@ class SignaturePad : Fragment() {
         }
     }
 
-    private fun passDataBackToFragmentA(bitmap: Bitmap) {
+    private fun passDataBackToParentFragment(bitmap: Bitmap) {
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()

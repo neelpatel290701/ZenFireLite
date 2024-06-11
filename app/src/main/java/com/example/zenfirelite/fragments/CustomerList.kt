@@ -1,5 +1,6 @@
 package com.example.zenfirelite.fragments
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -28,6 +29,11 @@ class CustomerList : Fragment() {
     private lateinit var binding : FragmentCustomerListBinding
     private lateinit var navController: NavController
     private var customerList = ArrayList<CustomerListModel>()
+
+    companion object {
+        const val CUSTOMERDETAILS_KEY = "customerDetails_key"
+        const val CUSTOMER_ADDED_STATUS = "customer_Added_status"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,7 +50,6 @@ class CustomerList : Fragment() {
         }
 
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,57 +75,20 @@ class CustomerList : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        parentFragmentManager.setFragmentResultListener(CUSTOMERDETAILS_KEY, this) { _, result ->
+            val addedCustomerStatus = result.getBoolean(CUSTOMER_ADDED_STATUS)
+            if(addedCustomerStatus) {
+                fetchCustomerList()
+            }
+        }
+    }
+
     private fun fetchCustomerList() {
-
-//        val customerListRequestModel = CustomerListRequestBody(
-//            0,50,"","","","","",
-//            false,"","","",
-//            true,false)
-
         val customerListRequestModel2 = CustomerList_ServiceBilling_RequestBody(
-            0,50,"","",false,false,true
+            0,80,"","",false,false,true
         )
-
-//        APIManager.apiInterface.customerList(
-//            prefs.userID.toString(),
-//            prefs.accessToken.toString(),
-//            prefs.companyID.toString(),
-//            System.currentTimeMillis(),
-//            customerListRequestModel
-//        ).enqueue(object : Callback<CustomerListResponse>{
-//
-//            override fun onResponse(
-//                call: Call<CustomerListResponse>,
-//                response: Response<CustomerListResponse>
-//            ) {
-//                val customerListResponse = response.body()
-//                val custList = customerListResponse?.result?.data?.hits?.map {hit->
-//                    CustomerListModel(
-//                        hit.firstname,hit.lastname,hit.customerUniqueId,hit.addressLine1,hit.addressLine2,
-//                        hit.city,hit.state,hit.zipcode,hit.email,hit.cellphone,hit.landline)
-//                }?.toCollection(ArrayList())
-//
-//                if(custList!=null){
-//                    customerList = custList
-//                }
-//
-//                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
-//                        customerDetails->
-//                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
-//                    navController.navigate(action)
-//
-//                } }
-//                binding.customerRecycleView.adapter = customerAdapter
-//
-//            }
-//
-//            override fun onFailure(call: Call<CustomerListResponse>, t: Throwable) {
-//                Log.d("neel", "CustomerList-onFailure")
-//                t.printStackTrace()
-//            }
-//
-//        })
-
 
         APIManager.apiInterface.getCustomerListWithBillingService(
             prefs.userID.toString(),

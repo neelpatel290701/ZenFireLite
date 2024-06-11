@@ -64,19 +64,19 @@
                     android:hint="Company Name*">
 
                     <EditText
+                        android:id="@+id/companyName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Company Name*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -101,19 +101,19 @@
                     android:hint="First Name*">
 
                     <EditText
+                        android:id="@+id/firstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="First Name*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -127,19 +127,19 @@
                     android:hint="Last Name">
 
                     <EditText
+                        android:id="@+id/lastName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Last Name"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,19 +159,19 @@
                     android:hint="Additional Name">
 
                     <EditText
+                        android:id="@+id/additionalName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Additional Name"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -238,19 +238,19 @@
                     android:hint="Line1*">
 
                     <EditText
+                        android:id="@+id/addressLine1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
+                        android:inputType="text"
                         android:fontFamily="@font/roboto"
                         android:hint="Line1*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -264,19 +264,19 @@
                     android:hint="Line2">
 
                     <EditText
+                        android:id="@+id/addressLine2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Line2"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -297,19 +297,19 @@
                     android:hint="City*">
 
                     <EditText
+                        android:id="@+id/city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="City*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -323,19 +323,19 @@
                     android:hint="State*">
 
                     <EditText
+                        android:id="@+id/state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="State*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -354,19 +354,19 @@
                     android:hint="ZipCode*">
 
                     <EditText
+                        android:id="@+id/zipCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
+                        android:inputType="text"
                         android:fontFamily="@font/roboto"
                         android:hint="ZipCode*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -380,19 +380,19 @@
                     android:hint="Country*">
 
                     <EditText
+                        android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="text"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Country*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -433,19 +433,19 @@
                     android:hint="Email*">
 
                     <EditText
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="textEmailAddress"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Email*"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -466,19 +466,19 @@
                     android:hint="Landline">
 
                     <EditText
+                        android:id="@+id/landLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="number"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Landline"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -492,19 +492,19 @@
                     android:hint="Extension">
 
                     <EditText
+                        android:id="@+id/extension"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="number"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Extension"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -524,19 +524,19 @@
                     android:hint="Cell Phone">
 
                     <EditText
+                        android:id="@+id/cellPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:ems="10"
+                        android:inputType="number"
                         android:backgroundTint="@color/black"
                         android:textSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:hint="Cell Phone"
-                        android:maxEms="10"
                         android:ellipsize="end"
                         android:textColorHint="@color/black"
-                        android:singleLine="true"
-                        android:maxLength="30"/>
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -574,7 +574,11 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="15dp"
                     android:textColor="@color/black"
+                    android:inputType="text"
+                    android:gravity="top"
                     android:textSize="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:background="@drawable/changedate"/>
             </LinearLayout>

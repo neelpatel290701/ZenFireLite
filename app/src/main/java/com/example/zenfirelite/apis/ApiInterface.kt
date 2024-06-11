@@ -1,5 +1,7 @@
 package com.example.zenfirelite.apis
 
+import com.example.zenfirelite.apis.datamodels.AddCustomerRequestBody
+import com.example.zenfirelite.apis.datamodels.AddCustomerResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerListResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListResult
@@ -64,4 +66,17 @@ interface ApiInterface {
         @Header("company-id") companyId : String,
         @Body customerListRequestServiceBilling : CustomerList_ServiceBilling_RequestBody
     ) : Call<CustomerList_ServiceBilling_Response>
+
+    @Headers("Content-Type:application/json; charset=UTF-8",
+        "request-from:ZENFIRE_LITE",
+        "timezone-offset:-330",
+        "timezonecode:IST",
+        "timezonename:Asia/Calcutta")
+    @POST("customer")
+    fun addCustomer(
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+        @Body customerDetails : AddCustomerRequestBody
+    ): Call<AddCustomerResponse>
 }

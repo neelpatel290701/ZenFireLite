@@ -75,6 +75,7 @@
             app:destination="@id/tableInfo" />
     </fragment>
 
+
     <fragment
         android:id="@+id/signaturePad"
         android:name="com.example.zenfirelite.fragments.SignaturePad"
