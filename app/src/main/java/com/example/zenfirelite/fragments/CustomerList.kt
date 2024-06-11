@@ -22,6 +22,7 @@ import com.example.zenfirelite.prefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 
 class CustomerList : Fragment() {
@@ -96,10 +97,13 @@ class CustomerList : Fragment() {
             prefs.companyID.toString(),
             customerListRequestModel2
         ).enqueue(object : Callback<CustomerList_ServiceBilling_Response>{
+
             override fun onResponse(
                 call: Call<CustomerList_ServiceBilling_Response>,
                 response: Response<CustomerList_ServiceBilling_Response>
             ) {
+
+                Log.d("neel","-------------${response.isSuccessful}")
                 val customerListResponse = response.body()
                 val custList = customerListResponse?.result?.data?.hits?.flatMap{hit->
                         hit.serviceAddresses.map{ serviceAddress ->
@@ -123,7 +127,7 @@ class CustomerList : Fragment() {
                     customerList = custList
                 }
 
-                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
+                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it , false){
                         customerDetails->
                     val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
                     navController.navigate(action)
@@ -134,7 +138,12 @@ class CustomerList : Fragment() {
             }
 
             override fun onFailure(call: Call<CustomerList_ServiceBilling_Response>, t: Throwable) {
-                Log.d("neel", "CustomerList-onFailure")
+                Log.d("neel", "CustomerList-onFailure : $call")
+                if (t is IOException) {
+                    Log.e("RetrofitFailure", "Network error", t)
+                } else {
+                    Log.e("RetrofitFailure", "Conversion error", t)
+                }
                 t.printStackTrace()
             }
         })

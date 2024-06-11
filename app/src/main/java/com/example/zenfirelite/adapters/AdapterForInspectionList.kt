@@ -76,6 +76,7 @@ class AdapterForInspectionList(
         holder.Recommendation.text = ItemsViewModel.Recommendation
         holder.InsStartDate.text = ItemsViewModel.InsStartDate
         holder.InsEndDate.text = ItemsViewModel.InsEndDate
+        holder.InspectorName.text = ItemsViewModel.InspectorName
 
         val statusValue = ItemsViewModel.InspectionStatus
 

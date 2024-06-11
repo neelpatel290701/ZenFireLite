@@ -52,7 +52,7 @@ class InspectionInfo : Fragment() {
         navController = Navigation.findNavController(view)
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,8 +71,12 @@ class InspectionInfo : Fragment() {
         setLayoutOrientation(binding.root, screenWidth)
 
 
+        binding.customerUniqueId.text = inspectionInfo.CustomerUniqueId
         binding.customerName.text = inspectionInfo.CustomerName.toString()
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
+        binding.insInfoCustomerAddress.text = inspectionInfo.addressLine1 + " " + inspectionInfo.addressLine2 + " " +
+                                              inspectionInfo.city + " " + inspectionInfo.state + " " +
+                                              inspectionInfo.zipCode + " " + inspectionInfo.country
 
         binding.location.setOnClickListener {
             val uri :  String = "http://maps.google.com/maps?saddr="

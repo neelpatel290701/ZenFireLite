@@ -49,6 +49,7 @@
                     android:layout_marginRight="8dp"
                     android:text="Customer Unique Id:" />
                 <TextView
+                    android:id="@+id/customerUniqueId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
@@ -170,6 +171,7 @@
                     android:layout_marginRight="8dp"
                     android:text="Address:" />
                 <TextView
+                    android:id="@+id/insInfoCustomerAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"

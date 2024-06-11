@@ -147,6 +147,14 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
                             result.recommendationsCount.toString(),
                             convertTimestampToFormattedDate(result.ticketStartDate),
                             convertTimestampToFormattedDate(result.ticketEndDate),
+                            "Kuldeep Tripathi",
+                            result.ticketId.customerId.customerUniqueId,
+                            result.ticketId.serviceAddressId.addressLine1 ?:"",
+                            result.ticketId.serviceAddressId.addressLine2 ?: "",
+                            result.ticketId.serviceAddressId.city,
+                            result.ticketId.serviceAddressId.state,
+                            result.ticketId.serviceAddressId.zipcode,
+                            result.ticketId.serviceAddressId.country
                         )
                     }?.toCollection(ArrayList())
 //                    Log.d("neel",insList.toString())
@@ -304,57 +312,9 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
 
     private fun fetchCustomerList(customerRecycleView:RecyclerView,dialog:Dialog) {
 
-        val customerListRequestModel = CustomerListRequestBody(
-            0,10,"","","","","",
-            false,"","","",
-            true,false)
-
         val customerListRequestModel2 = CustomerList_ServiceBilling_RequestBody(
             0,50,"","",false,false,true
         )
-
-//        APIManager.apiInterface.customerList(
-//            prefs.userID.toString(),
-//            prefs.accessToken.toString(),
-//            prefs.companyID.toString(),
-//            System.currentTimeMillis(),
-//            customerListRequestModel
-//        ).enqueue(object : Callback<CustomerListResponse>{
-//
-//            override fun onResponse(
-//                call: Call<CustomerListResponse>,
-//                response: Response<CustomerListResponse>
-//            ) {
-//                val customerListResponse = response.body()
-//                val custList = customerListResponse?.result?.data?.hits?.map {hit->
-//                    CustomerListModel(
-//                        hit.firstname,hit.lastname,hit.customerUniqueId,hit.addressLine1,hit.addressLine2,
-//                        hit.city,hit.state,hit.zipcode,hit.email,hit.cellphone,hit.landline)
-//                }?.toCollection(ArrayList())
-//
-//                if(custList!=null){
-//                    customerList = custList
-//                }
-//
-//                val customeradapter = AdapterForCustomerList(
-//                    customerList,
-//                    requireContext(),
-//                    true
-//                ) { CustomerDetail->
-//                    dialog.dismiss()
-//                    onclickCustomerNameOpenFormTemplatesList()
-//                }
-//                customerRecycleView.adapter = customeradapter
-//
-//            }
-//
-//            override fun onFailure(call: Call<CustomerListResponse>, t: Throwable) {
-//                Log.d("neel", "CustomerList-onFailure")
-//                t.printStackTrace()
-//            }
-//
-//        })
-
 
         APIManager.apiInterface.getCustomerListWithBillingService(
             prefs.userID.toString(),
