@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -117,7 +119,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     }
     private fun toggleNavigationDrawerItemsClickOnInspectorName() {
         val inspectorName: TextView = findViewById(R.id.inspectorName)
-        inspectorName.setOnClickListener {
+        val inspectorNameBottomLayout : LinearLayout = findViewById(R.id.inspectorNameLayout)
+        inspectorNameBottomLayout.setOnClickListener {
 
             if (isOldMenuLoaded) {
                 // Load new header and menu items
@@ -130,8 +133,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                 isOldMenuLoaded = false
             }
 
-            val inspectorNameAtHeader: TextView = findViewById(R.id.inspectorAtHeader)
-            inspectorNameAtHeader.setOnClickListener {
+            val inspectorAtHeader = findViewById<ConstraintLayout>(R.id.inspectorAtHeader)
+            inspectorAtHeader.setOnClickListener {
                 if (!isOldMenuLoaded) {
                     // Load old header and menu items
                     navigationView.removeHeaderView(navigationView.getHeaderView(0))
@@ -139,6 +142,14 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                     navigationView.menu.clear()
                     navigationView.inflateMenu(R.menu.draweritems)
                     // Show bottom item layout
+                    navigationView.setCheckedItem(R.id.homeScreen)
+
+                    when (lastSelectedFragmentId) {
+                        R.id.homeScreen -> navigationView.setCheckedItem(R.id.homeScreen)
+                        R.id.customerList -> navigationView.setCheckedItem(R.id.customerList)
+                        R.id.setting -> navigationView.setCheckedItem(R.id.setting)
+                    }
+
                     findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility = View.VISIBLE
                     isOldMenuLoaded = true
 

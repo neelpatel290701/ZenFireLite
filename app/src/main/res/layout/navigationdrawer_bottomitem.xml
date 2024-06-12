@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigationDrawer_bottomItems"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:gravity="center"
     android:layout_gravity="bottom"
     android:orientation="horizontal">
 
+        <LinearLayout
+            android:id="@+id/inspectorNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
         <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imvCircular"
         android:layout_width="40dp"
@@ -27,5 +34,5 @@
         android:layout_height="wrap_content"
         android:text="Neel Patel"
         app:drawableEndCompat="@drawable/baseline_expand_less_24" />
-
+        </LinearLayout>
 </LinearLayout>
