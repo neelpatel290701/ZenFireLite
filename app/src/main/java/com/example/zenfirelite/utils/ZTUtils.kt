@@ -1,14 +1,22 @@
 package com.example.zenfirelite.utils
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Build
 import android.util.Log
+import android.widget.EditText
 import androidx.annotation.RequiresApi
+import com.example.zenfirelite.R
 import com.example.zenfirelite.databinding.ActivityLoginBinding
 import com.example.zenfirelite.databinding.FragmentAddCustomerDetailsBinding
+import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
 
 object ZTUtils {
 
@@ -91,16 +99,70 @@ object ZTUtils {
         return true
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun convertTimestampToFormattedDate(timestamp: Long): String {
-        // Convert the timestamp to LocalDateTime
         val dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault())
-        // Define the formatter with the desired pattern
         val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
-        // Format the LocalDateTime to the desired string format
+
         return dateTime.format(formatter)
     }
 
+    @Suppress("NAME_SHADOWING")
+    fun openCalenderPicker(
+        dateValue: EditText,
+        minDate: Long? = null,
+        maxDate: Long? = null,
+        context : Context
+    ) {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        var datePickerDialog: DatePickerDialog? = null
+        datePickerDialog = DatePickerDialog(
+            context,
+            R.style.MyDatePickerDialogStyle,
+            { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(year, monthOfYear, dayOfMonth)
+                val selectedDate = calendar.time
+                val monthName = DateFormatSymbols().shortMonths[monthOfYear]
+                val date = "$dayOfMonth-$monthName-$year"
+                dateValue.setText(date)
+
+                if (dateValue.id == R.id.toDate) {
+                    if (minDate != null) {
+                        datePickerDialog?.datePicker?.minDate = minDate
+                    }
+                } else if (dateValue.id == R.id.startDate) {
+                    if (maxDate != null) {
+                        datePickerDialog?.datePicker?.maxDate = maxDate
+                    }
+                }
+            },
+            year,
+            month,
+            day
+        )
+        if (minDate != null) {
+            datePickerDialog.datePicker.minDate = minDate
+        }
+        if (maxDate != null) {
+            datePickerDialog.datePicker.maxDate = maxDate
+        }
+        datePickerDialog.show()
+    }
+
+    fun EditText.getDateInMillis(): Long? {
+        val text = this.text.toString()
+        if (text.isNotEmpty()) {
+            val sdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val cal = Calendar.getInstance()
+            cal.time = sdf.parse(text)!!
+            return cal.timeInMillis
+        }
+        return null
+    }
 
 }

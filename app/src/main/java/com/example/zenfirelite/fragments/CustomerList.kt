@@ -68,15 +68,20 @@ class CustomerList : Fragment() {
 
         viewModel.customerList.observe(viewLifecycleOwner, Observer { customerList ->
             if (customerList != null) {
-                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
-                        customerDetails->
-                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
-                    navController.navigate(action)
-                } }
-                binding.customerRecycleView.adapter = customerAdapter
+                setRecyclerView(customerList)
             }
         })
         return binding.root
+    }
+
+    private fun setRecyclerView(customerList: List<CustomerListModel>) {
+
+        val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
+                customerDetails->
+            val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
+            navController.navigate(action)
+        } }
+        binding.customerRecycleView.adapter = customerAdapter
     }
 
     override fun onResume() {

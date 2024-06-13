@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.zenfirelite.R
 import com.example.zenfirelite.apis.APIManager
@@ -17,6 +19,8 @@ import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Respo
 import com.example.zenfirelite.databinding.FragmentSettingBussinessInformationBinding
 import com.example.zenfirelite.databinding.FragmentSettingUsersBinding
 import com.example.zenfirelite.prefs
+import com.example.zenfirelite.viewmodels.HomeViewModel
+import com.example.zenfirelite.viewmodels.SettingViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +40,8 @@ class Setting_BussinessInformation : Fragment() {
     private lateinit var country : EditText
     private lateinit var phoneNumber : EditText
     private lateinit var companyLogo : ImageView
+
+    private val viewModel : SettingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,45 +67,21 @@ class Setting_BussinessInformation : Fragment() {
         phoneNumber = binding.phoneNumber
         companyLogo = binding.companyLogo
 
-        APIRequestForBussinessInfo()
+
+        viewModel.bussinessInfo.observe(viewLifecycleOwner, Observer { companyInfo ->
+            if (companyInfo != null) {
+                companyName.setText(companyInfo.result.name)
+                companyTagLine.setText(companyInfo.result.tagLine)
+                addressLine1.setText(companyInfo.result.addressLevel1)
+
+                Glide.with(requireContext())
+                    .load(companyInfo.result.media.file)
+                    .into(companyLogo)
+            }
+        })
 
         return binding.root
     }
 
-    private fun APIRequestForBussinessInfo() {
-
-        APIManager.apiInterface.getBussinessInfo(
-            prefs.userID.toString(),
-            prefs.accessToken.toString(),
-            prefs.companyID.toString(),
-            System.currentTimeMillis()
-        ).enqueue(object : Callback<BussinessInformationResponse>{
-            override fun onResponse(
-                call: Call<BussinessInformationResponse>,
-                response: Response<BussinessInformationResponse>
-            ) {
-                if(response.isSuccessful){
-                    Log.d("neel","${response.body()}")
-
-                    val companyInfo = response.body()
-
-                    companyName.setText(companyInfo?.result?.name)
-                    companyTagLine.setText(companyInfo?.result?.tagLine)
-                    addressLine1.setText(companyInfo?.result?.addressLevel1)
-
-                    Glide.with(requireContext())
-                        .load(companyInfo?.result?.media?.file)
-                        .into(companyLogo)
-
-                }else{
-                    Log.d("neel","BussinessInfo-onResponse-Error")
-                }
-            }
-
-            override fun onFailure(call: Call<BussinessInformationResponse>, t: Throwable) {
-                Log.d("neel","BussinessInfo-onFailure")
-            }
-        })
-    }
 
 }
