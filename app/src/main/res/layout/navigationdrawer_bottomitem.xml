@@ -29,6 +29,8 @@
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:fontFamily="@font/roboto_bold"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textSize="13sp"
         android:gravity="center"
         android:layout_height="wrap_content"

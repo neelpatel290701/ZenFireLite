@@ -63,6 +63,9 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 //        navigationView.setupWithNavController(navController)
         navigationView.setNavigationItemSelectedListener(this)
 
+        val inspectorNameATBottom: TextView = findViewById(R.id.inspectorName)
+        inspectorNameATBottom.text = prefs.userName
+
         navigationView.setCheckedItem(R.id.homeScreen)
         toggleNavigationDrawerItemsClickOnInspectorName()
     }
@@ -120,6 +123,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     private fun toggleNavigationDrawerItemsClickOnInspectorName() {
         val inspectorName: TextView = findViewById(R.id.inspectorName)
         val inspectorNameBottomLayout : LinearLayout = findViewById(R.id.inspectorNameLayout)
+
         inspectorNameBottomLayout.setOnClickListener {
 
             if (isOldMenuLoaded) {
@@ -128,6 +132,10 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                 navigationView.inflateHeaderView(R.layout.new_drawerheader)
                 navigationView.menu.clear()
                 navigationView.inflateMenu(R.menu.new_draweritems)
+
+                val inspectorNameAtHeader :  TextView = findViewById(R.id.inspectorNameAtHeader)
+                inspectorNameAtHeader.text = prefs.userName
+
                 // Remove bottom item layout
                 findViewById<LinearLayout>(R.id.navigationDrawer_bottomItems).visibility = View.GONE
                 isOldMenuLoaded = false

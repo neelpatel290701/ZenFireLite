@@ -25,6 +25,8 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Neel Patel"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/black"
         android:drawableEnd="@drawable/baseline_expand_more_24"
         android:textSize="15sp"

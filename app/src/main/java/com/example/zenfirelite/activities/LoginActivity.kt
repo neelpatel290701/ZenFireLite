@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                         prefs.userID = responseData?.result?.user?.id.toString()
                         prefs.companyID = responseData?.result?.user?.company?.id.toString()
                         prefs.accessToken = responseData?.result?.accessToken
+                        prefs.userName = responseData?.result?.user?.firstName +" "+responseData?.result?.user?.lastName
                     }else{
                         Toast.makeText(applicationContext, "User not found", Toast.LENGTH_LONG).show()
                     }

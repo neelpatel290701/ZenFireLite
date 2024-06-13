@@ -2,6 +2,7 @@ package com.example.zenfirelite.apis
 
 import com.example.zenfirelite.apis.datamodels.AddCustomerRequestBody
 import com.example.zenfirelite.apis.datamodels.AddCustomerResponse
+import com.example.zenfirelite.apis.datamodels.BussinessInformationResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerListResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListResult
@@ -13,6 +14,7 @@ import com.example.zenfirelite.apis.datamodels.UserAuthRequestBody
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -79,4 +81,14 @@ interface ApiInterface {
         @Header("company-id") companyId : String,
         @Body customerDetails : AddCustomerRequestBody
     ): Call<AddCustomerResponse>
+
+
+    @Headers("request-from:ZENFIRE_LITE")
+    @GET("company")
+    fun getBussinessInfo(
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+        @Query("timestamp") timestamp :Long
+    ) : Call<BussinessInformationResponse>
 }

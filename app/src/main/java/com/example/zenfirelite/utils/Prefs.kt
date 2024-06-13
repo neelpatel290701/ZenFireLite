@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.example.zenfirelite.utils.PREF_CONSTANTS.ACCESS_TOKEN
 import com.example.zenfirelite.utils.PREF_CONSTANTS.COMPANY_ID
 import com.example.zenfirelite.utils.PREF_CONSTANTS.USER_ID
+import com.example.zenfirelite.utils.PREF_CONSTANTS.USER_NAME
 
 class Prefs(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("ZTPref",Context.MODE_PRIVATE)
@@ -29,6 +30,14 @@ class Prefs(context: Context) {
             // Save the userId to SharedPreferences
             preferences.edit().putString(COMPANY_ID.value, value).apply()
         }
+
+    var userName: String?
+        get() = preferences.getString(USER_NAME.value, null)
+        set(value) {
+            // Save the token to SharedPreferences
+            preferences.edit().putString(USER_NAME.value, value).apply()
+        }
+
 
     fun clear() {
         preferences.edit().clear().apply()

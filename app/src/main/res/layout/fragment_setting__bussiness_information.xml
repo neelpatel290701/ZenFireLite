@@ -15,13 +15,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:weightSum="2"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -36,9 +36,9 @@
                 android:hint="COMPANY NAME">
 
                 <EditText
+                    android:id="@+id/companyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Zentrades"
                     android:textColor="@color/black"
                     android:ems="10"
                     android:backgroundTint="@color/black"
@@ -59,9 +59,9 @@
                 android:hint="COMPANY TAGLINE">
 
                 <EditText
+                    android:id="@+id/companyTagline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Make More Money"
                     android:ems="10"
                     android:backgroundTint="@color/black"
                     android:textSize="12sp"
@@ -78,14 +78,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/zenfirelite"/>
+                android:id="@+id/companyLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
 
 
         </LinearLayout>
@@ -101,7 +103,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -117,6 +119,7 @@
                 android:hint="LINE 1">
 
                 <EditText
+                    android:id="@+id/addressLine1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -140,6 +143,7 @@
                 android:hint="CITY">
 
                 <EditText
+                    android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -163,6 +167,7 @@
                 android:hint="ZIPCODE">
 
                 <EditText
+                    android:id="@+id/zipCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -183,7 +188,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1">
@@ -198,6 +202,7 @@
                 android:hint="LINE 2">
 
                 <EditText
+                    android:id="@+id/addressLine2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -221,6 +226,7 @@
                 android:hint="STATE">
 
                 <EditText
+                    android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -244,6 +250,7 @@
                 android:hint="COUNTRY">
 
                 <EditText
+                    android:id="@+id/country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -280,6 +287,7 @@
             android:hint="Phone Number">
 
             <EditText
+                android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
