@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zenfirelite.adapters.AdapterForCustomerList
+import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.apis.APIManager
 import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerListResponse
@@ -19,6 +22,8 @@ import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Respo
 import com.example.zenfirelite.databinding.FragmentCustomerListBinding
 import com.example.zenfirelite.datamodels.CustomerListModel
 import com.example.zenfirelite.prefs
+import com.example.zenfirelite.viewmodels.CustomerListViewModel
+import com.example.zenfirelite.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +34,8 @@ class CustomerList : Fragment() {
 
     private lateinit var binding : FragmentCustomerListBinding
     private lateinit var navController: NavController
-    private var customerList = ArrayList<CustomerListModel>()
+
+    private val viewModel: CustomerListViewModel by viewModels()
 
     companion object {
         const val CUSTOMERDETAILS_KEY = "customerDetails_key"
@@ -49,30 +55,27 @@ class CustomerList : Fragment() {
             val action = CustomerListDirections.actionCustomerListToAddCustomerDetails()
             navController.navigate(action)
         }
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         binding = FragmentCustomerListBinding.inflate(inflater,container,false)
 
         binding.customerRecycleView.layoutManager = LinearLayoutManager(context)
 
-        if(customerList.isEmpty()){
-            fetchCustomerList()
-        }else{
-            val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
-                    customerDetails->
-                val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
-                navController.navigate(action)
-
-            } }
-            binding.customerRecycleView.adapter = customerAdapter
-        }
-
+        viewModel.customerList.observe(viewLifecycleOwner, Observer { customerList ->
+            if (customerList != null) {
+                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it ,  false){
+                        customerDetails->
+                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
+                    navController.navigate(action)
+                } }
+                binding.customerRecycleView.adapter = customerAdapter
+            }
+        })
         return binding.root
     }
 
@@ -81,75 +84,10 @@ class CustomerList : Fragment() {
         parentFragmentManager.setFragmentResultListener(CUSTOMERDETAILS_KEY, this) { _, result ->
             val addedCustomerStatus = result.getBoolean(CUSTOMER_ADDED_STATUS)
             if(addedCustomerStatus) {
-                fetchCustomerList()
+                viewModel.fetchCustomerList()
             }
         }
     }
-
-    private fun fetchCustomerList() {
-        val customerListRequestModel2 = CustomerList_ServiceBilling_RequestBody(
-            0,80,"","",false,false,true
-        )
-
-        APIManager.apiInterface.getCustomerListWithBillingService(
-            prefs.userID.toString(),
-            prefs.accessToken.toString(),
-            prefs.companyID.toString(),
-            customerListRequestModel2
-        ).enqueue(object : Callback<CustomerList_ServiceBilling_Response>{
-
-            override fun onResponse(
-                call: Call<CustomerList_ServiceBilling_Response>,
-                response: Response<CustomerList_ServiceBilling_Response>
-            ) {
-
-                Log.d("neel","-------------${response.isSuccessful}")
-                val customerListResponse = response.body()
-                val custList = customerListResponse?.result?.data?.hits?.flatMap{hit->
-                        hit.serviceAddresses.map{ serviceAddress ->
-                            CustomerListModel(
-                                firstName = serviceAddress.firstname,
-                                lastName = serviceAddress.lastname,
-                                customerUniqueId = serviceAddress.customerUniqueId,
-                                addressLine1 = serviceAddress.addressLine1,
-                                addressLine2 = serviceAddress.addressLine2 ?: "", // Handle nullable field
-                                city = serviceAddress.city,
-                                state = serviceAddress.state,
-                                zipCode = serviceAddress.zipcode,
-                                email = serviceAddress.email,
-                                cellPhone = serviceAddress.cellphone,
-                                landline = serviceAddress.landline
-                            )
-                        }
-                }?.toCollection(ArrayList())
-
-                if(custList!=null){
-                    customerList = custList
-                }
-
-                val customerAdapter = context?.let { AdapterForCustomerList(customerList , it , false){
-                        customerDetails->
-                    val action = CustomerListDirections.actionCustomerListToCustomerDetails(customerDetails)
-                    navController.navigate(action)
-
-                } }
-                binding.customerRecycleView.adapter = customerAdapter
-
-            }
-
-            override fun onFailure(call: Call<CustomerList_ServiceBilling_Response>, t: Throwable) {
-                Log.d("neel", "CustomerList-onFailure : $call")
-                if (t is IOException) {
-                    Log.e("RetrofitFailure", "Network error", t)
-                } else {
-                    Log.e("RetrofitFailure", "Conversion error", t)
-                }
-                t.printStackTrace()
-            }
-        })
-
-    }
-
 
 }
 

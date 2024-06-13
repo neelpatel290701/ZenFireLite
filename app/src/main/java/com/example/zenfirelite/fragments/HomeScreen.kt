@@ -21,6 +21,8 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +48,8 @@ import com.example.zenfirelite.apis.datamodels.SortBy
 import com.example.zenfirelite.datamodels.CustomerListModel
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 import com.example.zenfirelite.prefs
+import com.example.zenfirelite.utils.ZTUtils
+import com.example.zenfirelite.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,9 +64,10 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
 
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var navController: NavController
-    private var inspectionList = ArrayList<InspectionListModel>()
     private var customerList = ArrayList<CustomerListModel>()
     private var screenWidth : Int = 0
+
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,81 +106,18 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
         Log.d("neel","onCreateView()-HomeScreen")
         binding.inspectionrecyclerview.layoutManager = LinearLayoutManager(context)
 
-        if(inspectionList.isEmpty()) {
-            fetchInspectionList()
-            Log.d("neel", "InspectionList-Empty")
-        }else{
-            val adapter =
-                context?.let { AdapterForInspectionList(it, screenWidth, inspectionList, ){ it ->
-                    val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(it)
+        viewModel.inspectionList.observe(viewLifecycleOwner, Observer { items ->
+            if (items != null) {
+                val adapter =
+                context?.let { AdapterForInspectionList(it, screenWidth, items, ){ InspectionModel ->
+                    val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(InspectionModel)
                     navController.navigate(action)
                 } }
-
-            binding.inspectionrecyclerview.adapter = adapter
-            binding.inspectionrecyclerview.adapter?.notifyDataSetChanged()
-
-            Log.d("neel", "InspectionList-Not Empty")
-        }
+                binding.inspectionrecyclerview.adapter = adapter
+            }
+        })
 
         return binding.root
-    }
-
-    private fun fetchInspectionList() {
-        val inspectionListRequestModel = InspectionListRequestBody(SortBy("desc"))
-        APIManager.apiInterface.inspectionList(
-            prefs.userID.toString(),
-            prefs.accessToken.toString(),
-            prefs.companyID.toString(),
-            inspectionListRequestModel
-        )
-            .enqueue(object : Callback<InspectionListResponse> {
-                @RequiresApi(Build.VERSION_CODES.O)
-                override fun onResponse(
-                    call: Call<InspectionListResponse>,
-                    response: Response<InspectionListResponse>
-                ) {
-                    Log.d("neel", "Inspection List : ${response.body()}")
-
-                    val InspectionResponse = response.body()
-                    Log.d("neel","InspectionInfo Response")
-                    val insList = InspectionResponse?.result?.map{ result->
-
-                        InspectionListModel("#"+result.ticketNumber,
-                            result.ticketId.customerId.firstname +" "+result.ticketId.customerId.lastname,
-                            result.status,
-                            result.defficiencyReportedCount.toString(),
-                            result.recommendationsCount.toString(),
-                            convertTimestampToFormattedDate(result.ticketStartDate),
-                            convertTimestampToFormattedDate(result.ticketEndDate),
-                            "Kuldeep Tripathi",
-                            result.ticketId.customerId.customerUniqueId,
-                            result.ticketId.serviceAddressId.addressLine1 ?:"",
-                            result.ticketId.serviceAddressId.addressLine2 ?: "",
-                            result.ticketId.serviceAddressId.city,
-                            result.ticketId.serviceAddressId.state,
-                            result.ticketId.serviceAddressId.zipcode,
-                            result.ticketId.serviceAddressId.country
-                        )
-                    }?.toCollection(ArrayList())
-//                    Log.d("neel",insList.toString())
-                    if(insList != null) {
-                        inspectionList = insList
-                    }
-                    val adapter =
-                        context?.let { AdapterForInspectionList(it, screenWidth, inspectionList, ){ it ->
-                            val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(it)
-                            navController.navigate(action)
-                        } }
-
-                    binding.inspectionrecyclerview.adapter = adapter
-                }
-
-                override fun onFailure(call: Call<InspectionListResponse>, t: Throwable) {
-                    Log.d("neel", "InspectionList-onFailure")
-                    t.printStackTrace()
-                }
-
-            })
     }
 
     @Deprecated("Deprecated in Java")
@@ -411,14 +353,5 @@ class HomeScreen : Fragment(),OnItemClickListenerForFormTemplateItem {
         navController.navigate(action)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun convertTimestampToFormattedDate(timestamp: Long): String {
-        // Convert the timestamp to LocalDateTime
-        val dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault())
-        // Define the formatter with the desired pattern
-        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
-        // Format the LocalDateTime to the desired string format
-        return dateTime.format(formatter)
-    }
 
 }

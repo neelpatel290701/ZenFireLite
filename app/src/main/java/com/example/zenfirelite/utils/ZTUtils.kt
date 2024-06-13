@@ -1,8 +1,14 @@
 package com.example.zenfirelite.utils
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.zenfirelite.databinding.ActivityLoginBinding
 import com.example.zenfirelite.databinding.FragmentAddCustomerDetailsBinding
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 object ZTUtils {
 
@@ -84,4 +90,17 @@ object ZTUtils {
 
         return true
     }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertTimestampToFormattedDate(timestamp: Long): String {
+        // Convert the timestamp to LocalDateTime
+        val dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault())
+        // Define the formatter with the desired pattern
+        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
+        // Format the LocalDateTime to the desired string format
+        return dateTime.format(formatter)
+    }
+
+
 }
