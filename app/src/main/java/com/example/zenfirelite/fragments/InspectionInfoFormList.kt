@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -35,17 +36,23 @@ import com.google.android.material.internal.ViewUtils.showKeyboard
 import java.util.Locale
 
 
+@Suppress("DEPRECATION")
 class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateItem {
     private lateinit var binding : FragmentInspectionInfoFormListBinding
     private lateinit var view : View
     private lateinit var parentTopLinearLayout : LinearLayout
     private var parentFragment: Fragment? = null
 //    private lateinit var navController: NavController
+    private var screenWidth: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = displayMetrics.widthPixels
     }
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onCreateView(
@@ -73,7 +80,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
             )
         }
 
-        val adapter = AdapterForInspectionForm(formInspectionList)
+        val adapter = AdapterForInspectionForm(formInspectionList,screenWidth)
         binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
         binding.formsRecycleView.adapter = adapter
 
@@ -119,6 +126,7 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         })
 
     }
+
 
     private fun OpenFormList() {
         val dialog = Dialog(requireContext())

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -77,6 +78,8 @@ class Setting_BussinessInformation : Fragment() {
                 Glide.with(requireContext())
                     .load(companyInfo.result.media.file)
                     .into(companyLogo)
+            }else{
+                Toast.makeText(requireContext(), "BussinessInfo-Null", Toast.LENGTH_SHORT).show()
             }
         })
 

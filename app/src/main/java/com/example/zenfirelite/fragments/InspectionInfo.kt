@@ -40,11 +40,17 @@ class InspectionInfo : Fragment() {
     private lateinit var navController: NavController
     val args : InspectionInfoArgs by navArgs()
     private val tabTitles = arrayListOf("Forms","Deficiency")
+
+    private var screenWidth: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = displayMetrics.widthPixels
         Log.d("neel","onCreate()-InsInfo")
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,11 +67,6 @@ class InspectionInfo : Fragment() {
         // Set the title in the toolbar
         requireActivity().title = inspectionInfo.InspectionNumber
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)
-
-
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val screenWidth = displayMetrics.widthPixels
 
         // Set layout orientation based on screen width
         setLayoutOrientation(binding.root, screenWidth)
@@ -102,12 +103,6 @@ class InspectionInfo : Fragment() {
 //              customView.text = tabTitles[position]
 //              tab.customView = customView
         }.attach()
-
-//        for(i in 0..2){
-//            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.inspectioninfo_tabtitle,null) as TextView
-//            binding.insInfoTabLayout.getTabAt(i)?.customView = textView
-//        }
-
 
         return binding.root
     }

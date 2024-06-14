@@ -18,26 +18,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
-
+            android:weightSum="3"
+            android:orientation="horizontal"
+           >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2">
             <TextView
                 android:id="@+id/insFormName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:fontFamily="@font/roboto_bold"
+                android:drawableEnd="@drawable/charm_menu_kebab"
+                android:paddingEnd="8dp"
                 android:text="Inspection of IND Fire Suppression System"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
+        </LinearLayout>
 
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <LinearLayout
+            android:id="@+id/insFormCardView_lowerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="10dp"
+                android:layout_weight="1"
                 android:paddingBottom="4dp">
             <TextView
                 android:id="@+id/formInspectorName"
@@ -59,12 +74,13 @@
                 android:layout_marginRight="5dp"
                 android:textColor="@color/black" />
            </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginEnd="40dp"
             android:paddingBottom="10dp">
             <TextView
                 android:id="@+id/formInspectionDate"
@@ -95,6 +111,7 @@
                 android:text="12:00AM"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/black" />
+        </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -3,14 +3,19 @@ package com.example.zenfirelite.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 
-class AdapterForInspectionForm(private val inspectionFormList : List<InspectionInfoFormModel>) :
+class AdapterForInspectionForm(
+    private val inspectionFormList : List<InspectionInfoFormModel>,
+    private val screenWidth: Int) :
     RecyclerView.Adapter<AdapterForInspectionForm.ViewHolder>(){
+
+    private val ScreenSizethreshold = 1080
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -18,12 +23,13 @@ class AdapterForInspectionForm(private val inspectionFormList : List<InspectionI
         val formInspectorName  : TextView
         val formInspectionDate : TextView
         val formInspectionTime : TextView
+        val lowerLayout : LinearLayout
         init {
             inspectionFormName = view.findViewById(R.id.insFormName)
             formInspectorName = view.findViewById(R.id.formInspectorName_Value)
             formInspectionDate = view.findViewById(R.id.formInspectionDate_Value)
             formInspectionTime = view.findViewById(R.id.formInspectionTime_Value)
-
+            lowerLayout = view.findViewById(R.id.insFormCardView_lowerLayout)
         }
     }
 
@@ -35,6 +41,13 @@ class AdapterForInspectionForm(private val inspectionFormList : List<InspectionI
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = inspectionFormList[position]
+
+        if (screenWidth > ScreenSizethreshold) {
+            holder.lowerLayout.orientation = LinearLayout.HORIZONTAL
+        } else {
+            holder.lowerLayout.orientation = LinearLayout.VERTICAL
+        }
+
         holder.inspectionFormName.text = ItemsViewModel.inspectionFormName
         holder.formInspectorName.text = ItemsViewModel.formInspectorName
         holder.formInspectionDate.text = ItemsViewModel.formInspectionDate

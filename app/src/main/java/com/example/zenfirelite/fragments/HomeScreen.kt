@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -96,6 +97,8 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
         viewModel.inspectionList.observe(viewLifecycleOwner, Observer { inspectionDetails ->
             if (inspectionDetails != null) {
                 setRecyclerView(inspectionDetails)
+            }else{
+                Toast.makeText(requireContext(), "InspectionList-Null", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -164,6 +167,8 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
                     onclickCustomerNameOpenFormTemplatesList()
                 }
                 customerRecycleView.adapter = customeradapter
+            }else{
+                Toast.makeText(requireContext(), "CustomerList-Null", Toast.LENGTH_SHORT).show()
             }
         })
 

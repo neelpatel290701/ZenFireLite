@@ -17,6 +17,7 @@
             android:id="@+id/action_homeScreen_to_formDetails"
             app:destination="@id/formDetails" />
     </fragment>
+
     <fragment
         android:id="@+id/customerList"
         android:name="com.example.zenfirelite.fragments.CustomerList"

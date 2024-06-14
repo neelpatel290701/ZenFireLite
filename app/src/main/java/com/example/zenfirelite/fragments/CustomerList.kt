@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -69,6 +70,8 @@ class CustomerList : Fragment() {
         viewModel.customerList.observe(viewLifecycleOwner, Observer { customerList ->
             if (customerList != null) {
                 setRecyclerView(customerList)
+            }else{
+                Toast.makeText(requireContext(), "CustomerList-Null", Toast.LENGTH_SHORT).show()
             }
         })
         return binding.root
