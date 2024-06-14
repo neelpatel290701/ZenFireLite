@@ -29,6 +29,7 @@
             android:id="@+id/action_customerList_to_addCustomerDetails"
             app:destination="@id/addCustomerDetails" />
     </fragment>
+
     <fragment
         android:id="@+id/setting"
         android:name="com.example.zenfirelite.fragments.Setting"

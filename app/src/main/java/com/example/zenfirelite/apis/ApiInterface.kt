@@ -8,6 +8,7 @@ import com.example.zenfirelite.apis.datamodels.CustomerListResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListResult
 import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_RequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Response
+import com.example.zenfirelite.apis.datamodels.FormTemplatesListResponse
 import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
 import com.example.zenfirelite.apis.datamodels.UserAuthRequestBody
@@ -91,4 +92,14 @@ interface ApiInterface {
         @Header("company-id") companyId : String,
         @Query("timestamp") timestamp :Long
     ) : Call<BussinessInformationResponse>
+
+
+    @Headers("Content-Type:application/json; charset=UTF-8",
+             "request-from:ZENFIRE_LITE")
+    @GET("common/fp/formtemplatecf/list")
+    fun getFormTemplates(
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+    ) : Call<FormTemplatesListResponse>
 }

@@ -19,7 +19,10 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +35,8 @@ import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
+import com.example.zenfirelite.viewmodels.CustomerListViewModel
+import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.google.android.material.internal.ViewUtils.showKeyboard
 import java.util.Locale
 
@@ -44,6 +49,8 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
     private var parentFragment: Fragment? = null
 //    private lateinit var navController: NavController
     private var screenWidth: Int = 0
+
+    private val viewModel: FormTemplatesListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,6 +155,14 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
             formTemplatesList.add("Backflow Assembly test form")
         }
 
+        viewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { list ->
+            if (list != null) {
+               Log.d("neel","FormTemplatesList - $list")
+            }else{
+                Toast.makeText(requireContext(), "FormTemplatesList-Null", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView)
         val previousFormsRecycleView = dialog.findViewById<RecyclerView>(R.id.previousFormsRecycleView)
         val FormTemplate = dialog.findViewById<TextView>(R.id.formtemplates)
@@ -173,8 +188,11 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         }
         formTemplatesRecycleView .layoutManager = LinearLayoutManager(requireContext())
         previousFormsRecycleView .layoutManager = LinearLayoutManager(requireContext())
+
         val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , this , dialog)
+
         val previousFormAdapter = AdapterForPreviousFormList(formTemplatesList)
+
         formTemplatesRecycleView.adapter = formTemplatesAdapter
         previousFormsRecycleView.adapter = previousFormAdapter
         dialog.show()
