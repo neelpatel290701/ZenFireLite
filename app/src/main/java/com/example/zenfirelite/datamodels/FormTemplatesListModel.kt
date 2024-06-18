@@ -40,11 +40,11 @@ data class SectionData(
     val updatedUserId: Long,
     val createdAt: String,
     val updatedAt: String,
-    val fields: List<FieldType>?,
+    val fields: List<FieldModel>?,
     val description: String?,
 )
 
-data class FieldType(
+data class FieldModel(
     val id: String,
     val name: String,
     val displayName: String,
@@ -55,7 +55,7 @@ data class FieldType(
     val readonly: Boolean,
     val sortPosition: String,
     val sectionId: String,
-    val layout: Layout?,
+    val layout: LayoutModel?,
     val isActive: Boolean,
     val isDeleted: Boolean,
     val createdUserId: Long,
@@ -63,11 +63,11 @@ data class FieldType(
     val createdAt: String,
     val updatedAt: String,
     val value: Any?,
-    val options: FieldOptions?,
+    val options: FieldOptionsModel?,
     val reasons: List<Any?>?,
 )
 
-data class Layout(
+data class LayoutModel(
     val x: Long,
     val y: Long,
     val w: Long,
@@ -76,53 +76,53 @@ data class Layout(
     val fullWidth: Long?,
 )
 
-data class FieldOptions(
-    val radioOptions: List<RadioOption>?,
-    val dropdownOptions: List<DropdownOption>?,
-    val checkboxOptions: List<CheckboxOption>?,
-    val value: Value?,
+data class FieldOptionsModel(
+    val radioOptions: List<RadioOptionModel>?,
+    val dropdownOptions: List<DropdownOptionModel>?,
+    val checkboxOptions: List<CheckboxOptionModel>?,
+    val value: ValueModel?,
     val label: String?,
     val entity: String?,
     val entityType: String?,
-    val columns: List<Column>?,
+    val columns: List<ColumnModel>?,
 )
 
-data class RadioOption(
+data class RadioOptionModel(
     val key: String,
     val value: String,
     val label: String,
 )
 
-data class DropdownOption(
+data class DropdownOptionModel(
     val key: String,
     val value: String,
     val label: String,
 )
 
-data class CheckboxOption(
+data class CheckboxOptionModel(
     val key: String,
     val value: String,
     val label: String,
 )
 
-data class Value(
+data class ValueModel(
     val entity: String,
     val entityType: String,
 )
 
-data class Column(
+data class ColumnModel(
     val name: String,
     val displayName: String,
     val uiType: String,
     val dataType: String,
-    val columnOptions: ColumnOptions,
+    val columnOptions: ColumnOptionsModel,
 )
 
-data class ColumnOptions(
-    val dropdownOptions: List<DropdownOption2>?,
+data class ColumnOptionsModel(
+    val dropdownOptions: List<DropdownOption2Model>?,
 )
 
-data class DropdownOption2(
+data class DropdownOption2Model(
     val key: String,
     val value: String,
     val label: String,

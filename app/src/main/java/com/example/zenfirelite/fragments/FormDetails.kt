@@ -203,10 +203,10 @@ class FormDetails : Fragment()  {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =  FragmentFormDetailsBinding.inflate(inflater, container, false)
         val formName = args.formName
-        requireActivity().title = "Alarm Inspection"
+        requireActivity().title = formName
 
         binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
 

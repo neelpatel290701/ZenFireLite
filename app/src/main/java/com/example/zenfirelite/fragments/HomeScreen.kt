@@ -34,6 +34,7 @@ import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 import com.example.zenfirelite.utils.ZTUtils
 import com.example.zenfirelite.utils.ZTUtils.getDateInMillis
 import com.example.zenfirelite.viewmodels.CustomerListViewModel
+import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.HomeViewModel
 
 
@@ -47,6 +48,7 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
 
     private val viewModel: HomeViewModel by viewModels()
     private val customerListviewModel: CustomerListViewModel by viewModels()
+    private val formTemplatesListViewModel: FormTemplatesListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -207,8 +209,19 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
             dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView_homepage)
         val cancelDialogBox = dialog.findViewById<TextView>(R.id.cancelDialogBox)
         formTemplatesRecycleView.layoutManager = LinearLayoutManager(requireContext())
-        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList, this, dialog)
-        formTemplatesRecycleView.adapter = formTemplatesAdapter
+
+
+//        val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList, this, dialog)
+//        formTemplatesRecycleView.adapter = formTemplatesAdapter
+
+        formTemplatesListViewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { formsList ->
+            if ( formsList!= null) {
+                val formTemplatesAdapter = AdapterForFormTemplatesList(formsList , this , dialog)
+                formTemplatesRecycleView.adapter = formTemplatesAdapter
+            }else{
+                Toast.makeText(requireContext(), "FormTemplatesList-Null", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         cancelDialogBox.setOnClickListener {
             dialog.dismiss()

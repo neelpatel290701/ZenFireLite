@@ -2,6 +2,7 @@ package com.example.zenfirelite.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.zenfirelite.utils.ZTUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -66,6 +68,13 @@ class LoginActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<UserAuthResponse>, t: Throwable) {
                     Toast.makeText(applicationContext, "UserAuthRequestBody Failure", Toast.LENGTH_LONG).show()
                     binding.progessBar.visibility = View.GONE
+                    Log.d("neel", "Login-onFailure : $call")
+                    if (t is IOException) {
+                        Log.e("neel-RetrofitFailure", "Network error", t)
+                    } else {
+                        Log.e("neel-RetrofitFailure", "Conversion error", t)
+                    }
+                    t.printStackTrace()
                 }
             })
     }
