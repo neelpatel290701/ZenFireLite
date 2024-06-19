@@ -7,9 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -25,9 +29,11 @@ import com.example.zenfirelite.datamodels.Option
 import com.example.zenfirelite.datamodels.RadioButtonItem
 import com.example.zenfirelite.datamodels.Section
 import com.example.zenfirelite.datamodels.SectionData
+import com.example.zenfirelite.utils.ZTUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
+@Suppress("DEPRECATION")
 class FormDetails : Fragment()  {
 
     companion object {
@@ -209,6 +215,7 @@ class FormDetails : Fragment()  {
         savedInstanceState: Bundle?
     ): View {
         binding =  FragmentFormDetailsBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
 
         val formName = args.formName
         requireActivity().title = formName
@@ -248,6 +255,7 @@ class FormDetails : Fragment()  {
 
     }
 
+
     override fun onResume() {
         super.onResume()
 
@@ -265,6 +273,29 @@ class FormDetails : Fragment()  {
     override fun onPause() {
         super.onPause()
         parentFragmentManager.clearFragmentResultListener(SIGNATURE_RESULT_KEY)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbaritems, menu)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val menuItem_save = menu.findItem(R.id.save_formDetails)
+        menuItem_save.isVisible = true
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save_formDetails -> {
+                Toast.makeText(requireContext(), "Details Saved", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> false
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -321,13 +352,16 @@ class FormDetails : Fragment()  {
             val fieldTypeListItems2: List<FormFieldTypeListItem> =
                 selectedSectionArray.fields?.map { field ->
                     when (field.uiType) {
-                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType)
-                        "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType)
+                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType,false)
+                        "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,false)
+                        "TEXTAREA"->FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,true)
                         "DROPDOWN" -> FormFieldTypeListItem.DropDownList(field.displayName, field.options?.dropdownOptions?.map{it.value} ?: emptyList())
                         "CHECKBOX" -> FormFieldTypeListItem.RadioButton(field.displayName, false, field.options?.checkboxOptions?.map { RadioButtonItem(it.value,false) }?: emptyList())
+                        "RADIO" -> FormFieldTypeListItem.RadioButton(field.displayName, true, field.options?.radioOptions?.map { RadioButtonItem(it.value,false) }?: emptyList())
                         "BUTTON_RADIO" -> FormFieldTypeListItem.RadioTypeButton(field.displayName)
                         "TABLE" -> FormFieldTypeListItem.TableView(field.displayName)
-                        else -> FormFieldTypeListItem.EditTextType(field.displayName, "text")
+                        "SIGNATURE_PAD" -> FormFieldTypeListItem.SignaturePadType(field.displayName)
+                        else -> FormFieldTypeListItem.EditTextType(field.displayName, "text",false)
                     }
                 } ?: emptyList()
 

@@ -2,10 +2,14 @@ package com.example.zenfirelite.adapters
 
 import android.content.Context
 import android.text.InputType
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.fragments.FormDetailsDirections
+import com.example.zenfirelite.utils.ZTUtils
 
 class AdapterForDynamicDataField(
     private val items: List<FormFieldTypeListItem>,
@@ -29,12 +34,33 @@ class AdapterForDynamicDataField(
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
 
-            val editText = itemView.findViewById<TextView>(R.id.value)
+            val editText = itemView.findViewById<EditText>(R.id.value)
             editText.hint = item.title
-            if (item.inputType == "NUMBER") {
+            if(item.inputType == "NUMBER") {
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
-            } else {
+            }
+            else if(item.inputType == "DATE"){
+                editText.isClickable = false
+                editText.isCursorVisible = false
+                editText.isFocusable = false
+                editText.isFocusableInTouchMode = false
+            }
+            else {
                 editText.inputType = InputType.TYPE_CLASS_TEXT
+            }
+
+            if(item.isTextArea){
+                val layoutParams = editText.layoutParams
+                layoutParams.height = 500
+                editText.layoutParams = layoutParams
+                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                editText.gravity = Gravity.TOP or Gravity.START
+            }
+
+            editText.setOnClickListener{
+                if(item.inputType == "DATE"){
+                    ZTUtils.openCalenderPicker(editText,null,null,context)
+                }
             }
         }
     }

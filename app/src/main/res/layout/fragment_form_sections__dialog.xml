@@ -22,9 +22,11 @@
 
            <TextView
                android:id="@+id/choosesection"
+               android:padding="8dp"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:gravity="center"
+               android:paddingHorizontal="15dp"
                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                android:textSize="20dp"
                android:textColor="@color/black"
@@ -36,7 +38,9 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_margin="10dp">
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginBottom="10dp">
 
      <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/formSectionsRecyclerView"

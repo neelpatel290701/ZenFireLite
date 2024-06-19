@@ -39,4 +39,10 @@
     </style>
 
 
+    <!-- Custom TextAppearance for Toolbar Title -->
+    <style name="CustomToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item> <!-- Set the desired text size -->
+    </style>
+
+
 </resources>

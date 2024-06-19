@@ -88,6 +88,7 @@
         android:name="com.example.zenfirelite.fragments.SignaturePad"
         android:label="fragment_signature_pad"
         tools:layout="@layout/fragment_signature_pad" />
+
     <fragment
         android:id="@+id/tableInfo"
         android:name="com.example.zenfirelite.fragments.TableInfo"
