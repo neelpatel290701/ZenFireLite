@@ -30,7 +30,6 @@ import com.example.zenfirelite.adapters.AdapterForInspectionList
 import com.example.zenfirelite.databinding.FragmentHomeScreenBinding
 import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.datamodels.InspectionListModel
-import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 import com.example.zenfirelite.utils.ZTUtils
 import com.example.zenfirelite.utils.ZTUtils.getDateInMillis
 import com.example.zenfirelite.viewmodels.CustomerListViewModel
@@ -39,7 +38,7 @@ import com.example.zenfirelite.viewmodels.HomeViewModel
 
 
 @Suppress("DEPRECATION")
-class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
+class HomeScreen : Fragment(){
 
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var navController: NavController
@@ -216,7 +215,11 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
 
         formTemplatesListViewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { formsList ->
             if ( formsList!= null) {
-                val formTemplatesAdapter = AdapterForFormTemplatesList(formsList , this , dialog)
+                val formTemplatesAdapter = AdapterForFormTemplatesList(formsList,dialog){
+                    formDetails,formName ->
+                    val action = HomeScreenDirections.actionHomeScreenToFormDetails(formDetails,formName, 0)
+                    navController.navigate(action)
+                }
                 formTemplatesRecycleView.adapter = formTemplatesAdapter
             }else{
                 Toast.makeText(requireContext(), "FormTemplatesList-Null", Toast.LENGTH_SHORT).show()
@@ -229,11 +232,5 @@ class HomeScreen : Fragment(), OnItemClickListenerForFormTemplateItem {
 
         dialog.show()
     }
-
-    override fun onFormTemplateClick(item: String) {
-        val action = HomeScreenDirections.actionHomeScreenToFormDetails(item, 0)
-        navController.navigate(action)
-    }
-
 
 }

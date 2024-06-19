@@ -24,6 +24,7 @@ import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.datamodels.Option
 import com.example.zenfirelite.datamodels.RadioButtonItem
 import com.example.zenfirelite.datamodels.Section
+import com.example.zenfirelite.datamodels.SectionData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -34,12 +35,13 @@ class FormDetails : Fragment()  {
         const val SIGNATURE_DATA_KEY = "signature_data_key"
     }
 
-
     private var currSectionIndex = 0
 
     private lateinit var binding : FragmentFormDetailsBinding
     private lateinit var navController: NavController
     val args : FormDetailsArgs by navArgs()
+
+    private lateinit var sectionArray: Array<SectionData>
 
 
     val sections = arrayOf(
@@ -198,6 +200,8 @@ class FormDetails : Fragment()  {
         super.onCreate(savedInstanceState)
         currSectionIndex = args.sectionIndex
         Log.d("neel","onCreate()-FormDetails")
+        val sectionList: List<SectionData> = args.formDetails.sections
+         sectionArray = sectionList.toTypedArray()
     }
     @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
     override fun onCreateView(
@@ -205,10 +209,11 @@ class FormDetails : Fragment()  {
         savedInstanceState: Bundle?
     ): View {
         binding =  FragmentFormDetailsBinding.inflate(inflater, container, false)
+
         val formName = args.formName
         requireActivity().title = formName
 
-        binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
+        binding.formSectionName.hint = sectionArray[currSectionIndex].displayName
 
         binding.formSectionName.setOnClickListener {
             openBottomSheetDialogForSectionList()
@@ -224,14 +229,14 @@ class FormDetails : Fragment()  {
 
 
         binding.nextSection.setOnClickListener{
-            if(currSectionIndex + 1 in sections.indices) {
+            if(currSectionIndex + 1 in sectionArray.indices) {
                 currSectionIndex++
                 OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
             }
         }
 
         binding.peviousSection.setOnClickListener{
-            if(currSectionIndex - 1 in sections.indices) {
+            if(currSectionIndex - 1 in sectionArray.indices) {
                 currSectionIndex--
                 OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
             }
@@ -269,7 +274,7 @@ class FormDetails : Fragment()  {
             0 -> { binding.peviousSection.setTextColor(Color.parseColor("#D3D3D3"))
                    binding.nextSection.setTextColor(Color.parseColor("#318CE7"))
                  }
-            sections.size-1 -> {
+            sectionArray.size-1 -> {
                   binding.nextSection.setTextColor(Color.parseColor("#D3D3D3"))
                   binding.peviousSection.setTextColor(Color.parseColor("#318CE7"))
                  }
@@ -279,31 +284,59 @@ class FormDetails : Fragment()  {
                  }
         }
 
-        if (currSectionIndex in sections.indices) {
+//        if (currSectionIndex in sections.indices) {
+//
+//            val selectedSection = sections[currSectionIndex]
+//            // Transform the fields to FieldTypeListItem
+//            val fieldTypeListItems: List<FormFieldTypeListItem> = selectedSection.fields.map { field ->
+//                when (field.inputType) {
+//                    "text" -> FormFieldTypeListItem.EditTextType(field.title, "TEXT")
+//                    "number" -> FormFieldTypeListItem.EditTextType(field.title,"NUMBER")
+//                    "dropdownList" -> FormFieldTypeListItem.DropDownList(field.title, field.options?.map { it.value } ?: emptyList())
+//                    "radio button" -> FormFieldTypeListItem.RadioButton(field.title, true, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+//                    "checkbox" -> FormFieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
+//                    "radiotype button" -> FormFieldTypeListItem.RadioTypeButton(field.title)
+//                    "textarea" -> FormFieldTypeListItem.EditTextType(field.title, "textarea")
+//                    "signature" -> FormFieldTypeListItem.SignaturePadType(field.title)
+//                    "table" -> FormFieldTypeListItem.TableView(field.title)
+//                    else -> throw IllegalArgumentException("Unknown input type")
+//                }
+//            }
+//
+//            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems, it) }
+//            binding.dataFieldRecyclerView.adapter = adapter
+//            adapter!!.notifyDataSetChanged()
+//            binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
+//
+//        } else {
+//            // Handle the case where the index is out of bounds
+//            Log.d("neel","Invalid Section Index, ")
+//        }
 
-            val selectedSection = sections[currSectionIndex]
-            // Transform the fields to FieldTypeListItem
-            val fieldTypeListItems: List<FormFieldTypeListItem> = selectedSection.fields.map { field ->
-                when (field.inputType) {
-                    "text" -> FormFieldTypeListItem.EditTextType(field.title, "text")
-                    "number" -> FormFieldTypeListItem.EditTextType(field.title,"number")
-                    "dropdownList" -> FormFieldTypeListItem.DropDownList(field.title, field.options?.map { it.value } ?: emptyList())
-                    "radio button" -> FormFieldTypeListItem.RadioButton(field.title, true, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
-                    "checkbox" -> FormFieldTypeListItem.RadioButton(field.title, false, field.options?.map { RadioButtonItem(it.value, it.isSelected) } ?: emptyList())
-                    "radiotype button" -> FormFieldTypeListItem.RadioTypeButton(field.title)
-                    "textarea" -> FormFieldTypeListItem.EditTextType(field.title, "textarea")
-                    "signature" -> FormFieldTypeListItem.SignaturePadType(field.title)
-                    "table" -> FormFieldTypeListItem.TableView(field.title)
-                    else -> throw IllegalArgumentException("Unknown input type")
-                }
-            }
 
-            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems, it) }
+        if(currSectionIndex in sectionArray.indices){
+
+            val selectedSectionArray = sectionArray[currSectionIndex]
+
+            val fieldTypeListItems2: List<FormFieldTypeListItem> =
+                selectedSectionArray.fields?.map { field ->
+                    when (field.uiType) {
+                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType)
+                        "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType)
+                        "DROPDOWN" -> FormFieldTypeListItem.DropDownList(field.displayName, field.options?.dropdownOptions?.map{it.value} ?: emptyList())
+                        "CHECKBOX" -> FormFieldTypeListItem.RadioButton(field.displayName, false, field.options?.checkboxOptions?.map { RadioButtonItem(it.value,false) }?: emptyList())
+                        "BUTTON_RADIO" -> FormFieldTypeListItem.RadioTypeButton(field.displayName)
+                        "TABLE" -> FormFieldTypeListItem.TableView(field.displayName)
+                        else -> FormFieldTypeListItem.EditTextType(field.displayName, "text")
+                    }
+                } ?: emptyList()
+
+            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems2, it) }
             binding.dataFieldRecyclerView.adapter = adapter
             adapter!!.notifyDataSetChanged()
-            binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
+            binding.formSectionName.hint = selectedSectionArray.displayName
 
-        } else {
+        }else{
             // Handle the case where the index is out of bounds
             Log.d("neel","Invalid Section Index, ")
         }
@@ -315,8 +348,8 @@ class FormDetails : Fragment()  {
         val view = layoutInflater.inflate(R.layout.fragment_form_sections__dialog, null)
 
         val formSectionList = ArrayList<String>()
-        for (i in 1..sections.size) {
-            formSectionList.add("Section "+(i-1).toString())
+        for (i in 1..sectionArray.size) {
+            formSectionList.add(sectionArray[i-1].displayName)
         }
 
         val formSectionsRecyclerView = view.findViewById<RecyclerView>(R.id.formSectionsRecyclerView)
@@ -325,10 +358,9 @@ class FormDetails : Fragment()  {
         val adapter = AdapterForFormSectionsList(formSectionList,dialog){sectionIndex,sectionName->
             OnChangeSectionIndexUpdateSectionItems(sectionIndex)
             currSectionIndex = sectionIndex
-            binding.formSectionName.hint = "Section "+ currSectionIndex.toString()
+            binding.formSectionName.hint = sectionArray[currSectionIndex].displayName
         }
         formSectionsRecyclerView.adapter = adapter
-
         chooseSection.setOnClickListener{dialog.dismiss()}
         dialog.setContentView(view)
         dialog.show()

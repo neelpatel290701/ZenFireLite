@@ -29,12 +29,11 @@ import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionInfoFormModel
-import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 
 
 @Suppress("DEPRECATION")
-class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateItem {
+class InspectionInfoFormList : Fragment() {
     private lateinit var binding : FragmentInspectionInfoFormListBinding
     private lateinit var view : View
     private lateinit var parentTopLinearLayout : LinearLayout
@@ -178,7 +177,12 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
         viewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { formTemplatesList ->
             if (formTemplatesList != null) {
                 Log.d("neel","FormTemplatesList - $formTemplatesList")
-                val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , this , dialog)
+                val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , dialog){
+                    formDetails,formName ->
+                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(formDetails,formName,0)
+                    val navController = Navigation.findNavController(requireParentFragment().requireView())
+                    navController.navigate(action)
+                }
                 formTemplatesRecycleView.adapter = formTemplatesAdapter
             }else{
                 Toast.makeText(requireContext(), "FormTemplatesList-Null", Toast.LENGTH_SHORT).show()
@@ -189,13 +193,6 @@ class InspectionInfoFormList : Fragment() , OnItemClickListenerForFormTemplateIt
 
         previousFormsRecycleView.adapter = previousFormAdapter
         dialog.show()
-    }
-
-    override fun onFormTemplateClick(item: String) {
-        val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(item,0)
-        val navController = Navigation.findNavController(requireParentFragment().requireView())
-        navController.navigate(action)
-
     }
 
 

@@ -31,7 +31,7 @@ class AdapterForDynamicDataField(
 
             val editText = itemView.findViewById<TextView>(R.id.value)
             editText.hint = item.title
-            if (item.inputType == "number") {
+            if (item.inputType == "NUMBER") {
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             } else {
                 editText.inputType = InputType.TYPE_CLASS_TEXT

@@ -140,9 +140,7 @@ class FormTemplatesListViewModel : ViewModel() {
             updatedUserId = this.updatedUserId,
             createdAt = this.createdAt,
             updatedAt = this.updatedAt,
-            value = this.value,
             options = this.options?.toFieldOptions(),
-            reasons = this.reasons
         )
     }
 

@@ -63,12 +63,17 @@
         android:id="@+id/formDetails"
         android:name="com.example.zenfirelite.fragments.FormDetails"
         tools:layout="@layout/fragment_form_details" >
+
+        <argument
+            android:name="formDetails"
+            app:argType="com.example.zenfirelite.datamodels.FormTemplatesListModel" />
         <argument
             android:name="formName"
             app:argType="string" />
         <argument
             android:name="sectionIndex"
             app:argType="integer" />
+
         <action
             android:id="@+id/action_formDetails_to_signaturePad"
             app:destination="@id/signaturePad" />

@@ -14,7 +14,7 @@ class AdapterForFormSectionsList(private val formSectionList: List<String>,
       RecyclerView.Adapter<AdapterForFormSectionsList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val formSectionName: TextView = view.findViewById(R.id.formSectionName)
+        val formSectionName: TextView = view.findViewById(R.id.formSectionName_cardView)
     }
 
 
@@ -32,11 +32,13 @@ class AdapterForFormSectionsList(private val formSectionList: List<String>,
         holder.formSectionName.text = ItemsViewModel
 
         holder.itemView.setOnClickListener {
-//            OnSectionSelected.onSectionSelected(position)
+            holder.formSectionName.isSelected = true
             onItemClickListener.invoke(position,ItemsViewModel)
             dialog.dismiss()
         }
+
     }
+
 
     override fun getItemCount(): Int {
         return formSectionList.size

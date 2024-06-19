@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.FormTemplatesListModel
-import com.example.zenfirelite.interfaces.OnItemClickListenerForFormTemplateItem
 
 class AdapterForFormTemplatesList(private val formTemplates: List<FormTemplatesListModel?>,
-                                  private val itemClickListenerForFormTemplateItem: OnItemClickListenerForFormTemplateItem,
-                                  private val dialog: Dialog):
+                                  private val dialog: Dialog,
+                                  private val onItemClickListener: (FormTemplatesListModel,String) -> Unit):
         RecyclerView.Adapter<AdapterForFormTemplatesList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -30,11 +29,11 @@ class AdapterForFormTemplatesList(private val formTemplates: List<FormTemplatesL
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val formName = formTemplates[position]
-        holder.formName.text = formName?.displayName
+        val formDetails = formTemplates[position]
+        holder.formName.text = formDetails?.displayName
 
         holder.itemView.setOnClickListener {
-              itemClickListenerForFormTemplateItem.onFormTemplateClick(holder.formName.text.toString())
+              onItemClickListener.invoke(formDetails!!,holder.formName.text.toString())
               dialog.dismiss()
         }
     }
