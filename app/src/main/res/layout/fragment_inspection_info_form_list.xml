@@ -4,8 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="#F5F5F5"
     tools:context=".fragments.InspectionInfoFormList">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,6 +71,13 @@
 
         </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F5F5">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/formsRecycleView"
             android:layout_width="match_parent"
@@ -73,5 +85,7 @@
             android:background="#F5F5F5"
             tools:listitem="@layout/inspectionform_cardview"
             />
+
+        </LinearLayout>
 
 </LinearLayout>

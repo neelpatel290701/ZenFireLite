@@ -401,18 +401,4 @@ class FormDetails : Fragment()  {
 
     }
 
-
-
-//    @SuppressLint("InflateParams")
-//    private fun addNewView() {
-//        val inflater = LayoutInflater.from(requireContext()).inflate(R.layout.sample_textfieldtype_1, null)
-//        binding.parentLinearLayout.addView(inflater, binding.parentLinearLayout.childCount)
-//    }
-
-//    private fun navigateToFormDetailsWithIndex(currSectionIndex: Int) {
-//        val action = FormDetailsDirections.actionFormDetailsSelf("Neel",false,false,currSectionIndex)
-//        navController.navigate(action)
-//    }
-
-
 }

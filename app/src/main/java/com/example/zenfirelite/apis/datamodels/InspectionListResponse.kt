@@ -33,7 +33,7 @@ data class TicketId(
     val jobStatusId: Long,
     val jobDescription: String,
     val potentialRevenue: Long,
-    val options: Options,
+    val options: technicianOptions,
     val serviceAddressId: ServiceAddressId,
     val customerId: CustomerId,
     val companyId: Long,

@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
-import com.example.zenfirelite.datamodels.InspectionInfoFormModel
+import com.example.zenfirelite.datamodels.TicketFormListModel
 
 class AdapterForInspectionForm(
-    private val inspectionFormList : List<InspectionInfoFormModel>,
+    private val inspectionFormList : List<TicketFormListModel>,
     private val screenWidth: Int) :
     RecyclerView.Adapter<AdapterForInspectionForm.ViewHolder>(){
 
@@ -22,13 +21,13 @@ class AdapterForInspectionForm(
         val inspectionFormName : TextView
         val formInspectorName  : TextView
         val formInspectionDate : TextView
-        val formInspectionTime : TextView
+//        val formInspectionTime : TextView
         val lowerLayout : LinearLayout
         init {
             inspectionFormName = view.findViewById(R.id.insFormName)
             formInspectorName = view.findViewById(R.id.formInspectorName_Value)
             formInspectionDate = view.findViewById(R.id.formInspectionDate_Value)
-            formInspectionTime = view.findViewById(R.id.formInspectionTime_Value)
+//            formInspectionTime = view.findViewById(R.id.formInspectionTime_Value)
             lowerLayout = view.findViewById(R.id.insFormCardView_lowerLayout)
         }
     }
@@ -48,10 +47,10 @@ class AdapterForInspectionForm(
             holder.lowerLayout.orientation = LinearLayout.VERTICAL
         }
 
-        holder.inspectionFormName.text = ItemsViewModel.inspectionFormName
-        holder.formInspectorName.text = ItemsViewModel.formInspectorName
-        holder.formInspectionDate.text = ItemsViewModel.formInspectionDate
-        holder.formInspectionTime.text = ItemsViewModel.formInspectionTime
+        holder.inspectionFormName.text = ItemsViewModel.fpFormDisplayName
+        holder.formInspectorName.text = "Neel Patel"
+        holder.formInspectionDate.text = ItemsViewModel.fpFormCreatedAt
+//        holder.formInspectionTime.text = ItemsViewModel.formInspectionTime
     }
 
     override fun getItemCount(): Int {

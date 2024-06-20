@@ -34,6 +34,7 @@
         android:id="@+id/setting"
         android:name="com.example.zenfirelite.fragments.Setting"
         tools:layout="@layout/fragment_setting" />
+
     <fragment
         android:id="@+id/inspectionInfo"
         android:name="com.example.zenfirelite.fragments.InspectionInfo"

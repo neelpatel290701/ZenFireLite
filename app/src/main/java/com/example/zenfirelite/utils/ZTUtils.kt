@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
@@ -105,6 +106,14 @@ object ZTUtils {
         val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
 
         return dateTime.format(formatter)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertIsoToCustomFormat(isoDateTime: String): String {
+        val zonedDateTime = ZonedDateTime.parse(isoDateTime)
+        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
+
+        return zonedDateTime.format(formatter)
     }
 
     @Suppress("NAME_SHADOWING")

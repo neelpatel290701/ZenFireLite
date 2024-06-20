@@ -6,12 +6,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIManager {
-    private const val BASE_URL ="https://services-copilot.zentrades.pro/api/"
+    private const val BASE_URL = "https://services-copilot.zentrades.pro/api/"
 
     //create logger
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    // Create cURL logging interceptor
+    private val curlLogger = CurlLoggingInterceptor()
+
     // create okHttp instance
-    private val okHttp : OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(logger)
+    private val okHttp: OkHttpClient.Builder = OkHttpClient.Builder()
+        .addInterceptor(logger)
+        .addInterceptor(curlLogger)
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()

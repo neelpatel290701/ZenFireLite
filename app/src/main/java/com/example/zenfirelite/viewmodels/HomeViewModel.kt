@@ -45,7 +45,7 @@ class HomeViewModel : ViewModel() {
                         val insList = InspectionResponse?.result?.map { result ->
                             InspectionListModel(
                                 "#" + result.ticketNumber,
-                                result.ticketId.customerId.firstname + " " + result.ticketId.customerId.lastname,
+                                result.ticketId.customerId.displayName,
                                 result.status,
                                 result.defficiencyReportedCount.toString(),
                                 result.recommendationsCount.toString(),

@@ -28,8 +28,8 @@ import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
-import com.example.zenfirelite.datamodels.InspectionInfoFormModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
+import com.example.zenfirelite.viewmodels.TicketFormsViewModel
 
 
 @Suppress("DEPRECATION")
@@ -42,6 +42,7 @@ class InspectionInfoFormList : Fragment() {
     private var screenWidth: Int = 0
 
     private val viewModel: FormTemplatesListViewModel by viewModels()
+    private val ticketFormsViewModel: TicketFormsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,28 +61,36 @@ class InspectionInfoFormList : Fragment() {
 
         binding = FragmentInspectionInfoFormListBinding.inflate(inflater,container,false)
 
-        val formInspectionList = ArrayList<InspectionInfoFormModel>()
-        for (i in 1..10) {
-            formInspectionList.add(
-                InspectionInfoFormModel(
-                "Inspection of IND Fire Suppression System",
-                "Neel Patel",
-                "07/05/2024",
-                "12:00AM")
-            )
-            formInspectionList.add(
-                InspectionInfoFormModel(
-                "Off Road Vehicle Sysytem Inspection",
-                "Kuldeep Tripathi",
-                "07/05/2024",
-                "12:00PM")
-            )
-        }
-
-        val adapter = AdapterForInspectionForm(formInspectionList,screenWidth)
+//        val formInspectionList = ArrayList<TicketFormListModel>()
         binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
-        binding.formsRecycleView.adapter = adapter
 
+        ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
+            if (ticketFormsList != null) {
+                Log.d("neel","------$ticketFormsList")
+                val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth)
+                binding.formsRecycleView.adapter = adapter
+            }else{
+                Toast.makeText(requireContext(), "previousFormsList-Null", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+//        for (i in 1..10) {
+//            formInspectionList.add(
+//                TicketFormListModel(
+//                "Inspection of IND Fire Suppression System",
+//                "Neel Patel",
+//                "07/05/2024",
+//                "12:00AM")
+//            )
+//            formInspectionList.add(
+//                TicketFormListModel(
+//                "Off Road Vehicle Sysytem Inspection",
+//                "Kuldeep Tripathi",
+//                "07/05/2024",
+//                "12:00PM")
+//            )
+//        }
 
         return binding.root
     }

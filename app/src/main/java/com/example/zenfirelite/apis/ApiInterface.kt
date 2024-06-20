@@ -5,12 +5,15 @@ import com.example.zenfirelite.apis.datamodels.AddCustomerResponse
 import com.example.zenfirelite.apis.datamodels.BussinessInformationResponse
 import com.example.zenfirelite.apis.datamodels.CustomerListRequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerListResponse
-import com.example.zenfirelite.apis.datamodels.CustomerListResult
 import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_RequestBody
 import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Response
 import com.example.zenfirelite.apis.datamodels.FormTemplatesListResponse
 import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
+import com.example.zenfirelite.apis.datamodels.TicketFormsResponse
+import com.example.zenfirelite.apis.datamodels.TechnicianListRequestBody
+import com.example.zenfirelite.apis.datamodels.TechnicianListResponse
+import com.example.zenfirelite.apis.datamodels.TicketFormsRequestBody
 import com.example.zenfirelite.apis.datamodels.UserAuthRequestBody
 import com.example.zenfirelite.apis.datamodels.UserAuthResponse
 import retrofit2.Call
@@ -32,7 +35,7 @@ interface ApiInterface {
     ) : Call<UserAuthResponse>
 
 
-    @Headers("Content-Type:application/json; charset=UTF-8",
+    @Headers("Content-Type:application/json",
              "request-from:ZENFIRE_LITE")
     @POST("zenfirelite/inspections/list")
     fun inspectionList(
@@ -102,4 +105,26 @@ interface ApiInterface {
         @Header("access-token") accessToken:String,
         @Header("company-id") companyId : String,
     ) : Call<FormTemplatesListResponse>
+
+    @Headers("Content-Type:application/json",
+             "request-from:ZENFIRE_LITE")
+    @POST("common/fp/forms/filter")
+    fun getPreviousForms(
+        @Query("sortBy[]") sortBy: String,
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+        @Body ticketId : TicketFormsRequestBody
+    ) : Call<TicketFormsResponse>
+
+
+    @Headers("Content-Type:application/json",
+             "request-from:ZENFIRE_LITE")
+    @POST("common/staticlists")
+    fun getTechnicianList(
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+        @Body technicianIds : TechnicianListRequestBody
+    ) : Call<TechnicianListResponse>
 }
