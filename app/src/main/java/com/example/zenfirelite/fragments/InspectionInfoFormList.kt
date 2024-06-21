@@ -29,6 +29,7 @@ import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
+import com.example.zenfirelite.viewmodels.PreviousFormsViewModel
 import com.example.zenfirelite.viewmodels.TicketFormsViewModel
 
 
@@ -43,6 +44,7 @@ class InspectionInfoFormList : Fragment() {
 
     private val viewModel: FormTemplatesListViewModel by viewModels()
     private val ticketFormsViewModel: TicketFormsViewModel by viewModels()
+    private val previousFormsViewModel: PreviousFormsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +68,6 @@ class InspectionInfoFormList : Fragment() {
 
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
-                Log.d("neel","------$ticketFormsList")
                 val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth)
                 binding.formsRecycleView.adapter = adapter
             }else{
@@ -185,7 +186,6 @@ class InspectionInfoFormList : Fragment() {
 
         viewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { formTemplatesList ->
             if (formTemplatesList != null) {
-                Log.d("neel","FormTemplatesList - $formTemplatesList")
                 val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , dialog){
                     formDetails,formName ->
                     val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(formDetails,formName,0)
@@ -198,9 +198,16 @@ class InspectionInfoFormList : Fragment() {
             }
         })
 
-        val previousFormAdapter = AdapterForPreviousFormList(formTemplatesList)
 
-        previousFormsRecycleView.adapter = previousFormAdapter
+        previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
+            if (previousFormsList  != null) {
+                val previousFormAdapter = AdapterForPreviousFormList(previousFormsList)
+                previousFormsRecycleView.adapter = previousFormAdapter
+            }else{
+                Toast.makeText(requireContext(), "PreviousFormsList-Null", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         dialog.show()
     }
 

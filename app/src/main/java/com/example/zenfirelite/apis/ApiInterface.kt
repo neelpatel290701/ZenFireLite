@@ -10,6 +10,7 @@ import com.example.zenfirelite.apis.datamodels.CustomerList_ServiceBilling_Respo
 import com.example.zenfirelite.apis.datamodels.FormTemplatesListResponse
 import com.example.zenfirelite.apis.datamodels.InspectionListRequestBody
 import com.example.zenfirelite.apis.datamodels.InspectionListResponse
+import com.example.zenfirelite.apis.datamodels.PreviousFormsResponse
 import com.example.zenfirelite.apis.datamodels.TicketFormsResponse
 import com.example.zenfirelite.apis.datamodels.TechnicianListRequestBody
 import com.example.zenfirelite.apis.datamodels.TechnicianListResponse
@@ -109,7 +110,7 @@ interface ApiInterface {
     @Headers("Content-Type:application/json",
              "request-from:ZENFIRE_LITE")
     @POST("common/fp/forms/filter")
-    fun getPreviousForms(
+    fun getTicketForms(
         @Query("sortBy[]") sortBy: String,
         @Header("user-id") userId : String,
         @Header("access-token") accessToken:String,
@@ -117,6 +118,16 @@ interface ApiInterface {
         @Body ticketId : TicketFormsRequestBody
     ) : Call<TicketFormsResponse>
 
+    @Headers("Content-Type:application/json",
+             "request-from:ZENFIRE_LITE")
+    @GET("common/fp/form/serviceaddress")
+    fun getPreviousForms(
+        @Query("serviceAddressId") serviceAddressId: Long,
+        @Query("limit") limit: Int,
+        @Header("user-id") userId : String,
+        @Header("access-token") accessToken:String,
+        @Header("company-id") companyId : String,
+    ) : Call<PreviousFormsResponse>
 
     @Headers("Content-Type:application/json",
              "request-from:ZENFIRE_LITE")

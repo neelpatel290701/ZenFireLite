@@ -32,7 +32,7 @@ class TicketFormsViewModel : ViewModel() {
         val sortBy = "{\"fpFormUpdatedAt\":\"desc\"}"
         val ticketId = TicketFormsRequestBody(terms = listOf(Term(ticketId = listOf("1076503"))))
 
-        APIManager.apiInterface.getPreviousForms(
+        APIManager.apiInterface.getTicketForms(
             sortBy,
             prefs.userID.toString(),
             prefs.accessToken.toString(),
@@ -74,7 +74,7 @@ class TicketFormsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<TicketFormsResponse>, t: Throwable) {
-                Log.d("neel", "PreviousFormsList-onFailure : $call")
+                Log.d("neel", "TicketFormsList-onFailure : $call")
                 if (t is IOException) {
                     Log.e("neel-RetrofitFailure", "Network error", t)
                 } else {
