@@ -44,6 +44,7 @@ class HomeViewModel : ViewModel() {
                         val InspectionResponse = response.body()
                         val insList = InspectionResponse?.result?.map { result ->
                             InspectionListModel(
+                                result.ticketId.id,
                                 "#" + result.ticketNumber,
                                 result.ticketId.customerId.displayName,
                                 result.status,
@@ -53,6 +54,7 @@ class HomeViewModel : ViewModel() {
                                 ZTUtils.convertTimestampToFormattedDate(result.ticketEndDate),
                                 "Kuldeep Tripathi",
                                 result.ticketId.customerId.customerUniqueId,
+                                result.ticketId.serviceAddressId.id,
                                 result.ticketId.serviceAddressId.addressLine1 ?: "",
                                 result.ticketId.serviceAddressId.addressLine2 ?: "",
                                 result.ticketId.serviceAddressId.city,

@@ -20,24 +20,34 @@ import java.io.IOException
 
 class TicketFormsViewModel : ViewModel() {
 
+    private val _ticketId = MutableLiveData<Long>()
+
     private var _ticketFormsList = MutableLiveData<List<TicketFormListModel>?>()
     val ticketFormsList: LiveData<List<TicketFormListModel>?> get() = _ticketFormsList
 
     init {
-        fetchTicketFormsList()
+        _ticketId.observeForever { ticketId ->
+            Log.d("neel","ticketId ObserveForever")
+            fetchTicketFormsList(ticketId)
+        }
     }
+        fun setTicketId(ticketId: Long) {
+            _ticketId.value = ticketId
+        }
 
-    private fun fetchTicketFormsList() {
+        private fun fetchTicketFormsList(ticketId: Long) {
+
+            Log.d("neel","fetchTicketFormList")
 
         val sortBy = "{\"fpFormUpdatedAt\":\"desc\"}"
-        val ticketId = TicketFormsRequestBody(terms = listOf(Term(ticketId = listOf("1076503"))))
+        val ticketIdVal = TicketFormsRequestBody(terms = listOf(Term(ticketId = listOf(ticketId.toString()))))
 
         APIManager.apiInterface.getTicketForms(
             sortBy,
             prefs.userID.toString(),
             prefs.accessToken.toString(),
             prefs.companyID.toString(),
-            ticketId
+            ticketIdVal
         ).enqueue(object : Callback<TicketFormsResponse>{
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(
@@ -69,6 +79,7 @@ class TicketFormsViewModel : ViewModel() {
                         _ticketFormsList.value = ticketFormsList
                     } else {
                         _ticketFormsList.value = null
+                        Log.d("neel","--------------")
                     }
                 }
             }

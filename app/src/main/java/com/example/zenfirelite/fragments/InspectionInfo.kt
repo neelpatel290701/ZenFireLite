@@ -20,6 +20,7 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -30,6 +31,7 @@ import com.example.zenfirelite.adapters.AdapterForFireInspectorList
 import com.example.zenfirelite.adapters.PageAdapterForInspectionInfo
 import com.example.zenfirelite.databinding.FragmentInspectionInfoBinding
 import com.example.zenfirelite.datamodels.InspectionListModel
+import com.example.zenfirelite.viewmodels.TicketInfoViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.Locale
 
@@ -40,6 +42,8 @@ class InspectionInfo : Fragment() {
     private lateinit var navController: NavController
     val args : InspectionInfoArgs by navArgs()
     private val tabTitles = arrayListOf("Forms","Deficiency")
+
+    private val ticketInfoViewModel: TicketInfoViewModel by viewModels()
 
     private var screenWidth: Int = 0
 
@@ -64,6 +68,13 @@ class InspectionInfo : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val inspectionInfo : InspectionListModel = args.inspectionInfo
+
+
+        // Check if ticketInfo is already set to avoid redundant calls
+        if (ticketInfoViewModel.ticketInfo.value == null) {
+            ticketInfoViewModel.setTicketInfo(inspectionInfo)
+        }
+
         // Set the title in the toolbar
         requireActivity().title = inspectionInfo.InspectionNumber
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)
@@ -75,7 +86,7 @@ class InspectionInfo : Fragment() {
         binding.customerUniqueId.text = inspectionInfo.CustomerUniqueId
         binding.customerName.text = inspectionInfo.CustomerName.toString()
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
-        binding.insInfoCustomerAddress.text = inspectionInfo.addressLine1 + " " + inspectionInfo.addressLine2 + " " +
+        binding.insInfoCustomerAddress.text = inspectionInfo.ServiceAddressLine1 + " " + inspectionInfo.ServiceAddressLine2 + " " +
                                               inspectionInfo.city + " " + inspectionInfo.state + " " +
                                               inspectionInfo.zipCode + " " + inspectionInfo.country
 
@@ -98,10 +109,6 @@ class InspectionInfo : Fragment() {
         binding.insInfoViewPager.adapter = PageAdapterForInspectionInfo(this)
         TabLayoutMediator(binding.insInfoTabLayout , binding.insInfoViewPager){tab,position->
               tab.text = tabTitles[position]
-//              val customView = LayoutInflater.from(binding.insInfoTabLayout.context).
-//              inflate(R.layout.inspectioninfo_tabtitle, null) as TextView
-//              customView.text = tabTitles[position]
-//              tab.customView = customView
         }.attach()
 
         return binding.root

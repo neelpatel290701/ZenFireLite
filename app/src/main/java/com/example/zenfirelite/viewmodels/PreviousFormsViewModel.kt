@@ -17,17 +17,27 @@ import java.io.IOException
 
 class PreviousFormsViewModel : ViewModel() {
 
+    private val _serviceAddressId = MutableLiveData<Long>()
+
     private var _previousFormsList = MutableLiveData<List<PreviousFormListModel>?>()
     val previousFormsList: LiveData<List<PreviousFormListModel>?> get() = _previousFormsList
 
     init {
-        fetchPreviousFormsList()
+        _serviceAddressId.observeForever{serviceAddId->
+            fetchPreviousFormsList(serviceAddId)
+        }
     }
 
-    private fun fetchPreviousFormsList() {
+    fun setServiceAddressId(serviceAddressId: Long) {
+        _serviceAddressId.value = serviceAddressId
+    }
 
-        val serviceAddressId = 2702493L
+    private fun fetchPreviousFormsList(serviceAdderessIdVal : Long) {
+
+        val serviceAddressId = serviceAdderessIdVal
         val limit = 1000
+
+        Log.d("neel","-----$serviceAddressId")
 
         APIManager.apiInterface.getPreviousForms(
             serviceAddressId,

@@ -20,6 +20,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,9 +29,11 @@ import com.example.zenfirelite.adapters.AdapterForFormTemplatesList
 import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
+import com.example.zenfirelite.datamodels.InspectionListModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.PreviousFormsViewModel
 import com.example.zenfirelite.viewmodels.TicketFormsViewModel
+import com.example.zenfirelite.viewmodels.TicketInfoViewModel
 
 
 @Suppress("DEPRECATION")
@@ -43,8 +46,19 @@ class InspectionInfoFormList : Fragment() {
     private var screenWidth: Int = 0
 
     private val viewModel: FormTemplatesListViewModel by viewModels()
-    private val ticketFormsViewModel: TicketFormsViewModel by viewModels()
-    private val previousFormsViewModel: PreviousFormsViewModel by viewModels()
+    private lateinit var ticketFormsViewModel: TicketFormsViewModel
+    private lateinit var previousFormsViewModel: PreviousFormsViewModel
+    private val ticketInfoViewModel: TicketInfoViewModel by viewModels({ requireParentFragment()})
+    //requireParentFragment - LifeCycleAwareness  , tiedBound , workOn Single Instance , destroy with parent
+
+
+    private lateinit var ticketInfo : InspectionListModel
+    private var isTicketInfoObserved = false
+
+    companion object {
+        private const val KEY_TICKET_INFO_OBSERVED = "key_ticket_info_observed"
+        private const val KEY_TICKET_INFO = "key_ticket_info"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +77,27 @@ class InspectionInfoFormList : Fragment() {
 
         binding = FragmentInspectionInfoFormListBinding.inflate(inflater,container,false)
 
-//        val formInspectionList = ArrayList<TicketFormListModel>()
         binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
+
+        // Initialize TicketFormsViewModel
+        ticketFormsViewModel = ViewModelProvider(this)[TicketFormsViewModel::class.java]
+
+
+        if (savedInstanceState != null) {
+            isTicketInfoObserved = savedInstanceState.getBoolean(KEY_TICKET_INFO_OBSERVED, false)
+            ticketInfo = savedInstanceState.getParcelable(KEY_TICKET_INFO)!!
+        }
+
+        // Observe ticketInfo only once
+        if (!isTicketInfoObserved) {
+            ticketInfoViewModel.ticketInfo.observe(viewLifecycleOwner, Observer { ticketInfoData ->
+                ticketInfo = ticketInfoData
+                Log.d("neel", "ticketInfo : $ticketInfo")
+                ticketFormsViewModel.setTicketId(ticketInfo.ticketId)
+                // Set flag to true after observing ticketInfo
+                isTicketInfoObserved = true
+            })
+        }
 
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
@@ -76,23 +109,6 @@ class InspectionInfoFormList : Fragment() {
         })
 
 
-//        for (i in 1..10) {
-//            formInspectionList.add(
-//                TicketFormListModel(
-//                "Inspection of IND Fire Suppression System",
-//                "Neel Patel",
-//                "07/05/2024",
-//                "12:00AM")
-//            )
-//            formInspectionList.add(
-//                TicketFormListModel(
-//                "Off Road Vehicle Sysytem Inspection",
-//                "Kuldeep Tripathi",
-//                "07/05/2024",
-//                "12:00PM")
-//            )
-//        }
-
         return binding.root
     }
 
@@ -103,7 +119,7 @@ class InspectionInfoFormList : Fragment() {
         this.view = view
 
         binding.addForm.setOnClickListener{
-            OpenFormList()
+            openFormList()
         }
 
         parentFragment  = requireParentFragment()
@@ -136,7 +152,14 @@ class InspectionInfoFormList : Fragment() {
     }
 
 
-    private fun OpenFormList() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(KEY_TICKET_INFO_OBSERVED, isTicketInfoObserved)
+        outState.putParcelable(KEY_TICKET_INFO, ticketInfo)
+    }
+
+
+    private fun openFormList() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.fragment_addform_list)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -149,30 +172,24 @@ class InspectionInfoFormList : Fragment() {
 
         dialog.window?.setGravity(Gravity.CENTER)
 
-        val formTemplatesList = ArrayList<String>()
-        for (i in 1..20) {
-            formTemplatesList.add("1-Fire Sprinkler inspection report(combo)")
-            formTemplatesList.add("Alarm Inspection & Testing Form ")
-            formTemplatesList.add("Backflow Assembly test form")
-        }
-
 
         val formTemplatesRecycleView = dialog.findViewById<RecyclerView>(R.id.formTemplatesRecycleView)
         val previousFormsRecycleView = dialog.findViewById<RecyclerView>(R.id.previousFormsRecycleView)
-        val FormTemplate = dialog.findViewById<TextView>(R.id.formtemplates)
-        val PreviousForm = dialog.findViewById<TextView>(R.id.previousForm)
-        var FormTemplateflag = true
-        FormTemplate.setOnClickListener{
-            if(!FormTemplateflag) {
+        val formTemplate = dialog.findViewById<TextView>(R.id.formtemplates)
+        val previousForm = dialog.findViewById<TextView>(R.id.previousForm)
+        var formTemplateflag = true
+
+        formTemplate.setOnClickListener{
+            if(!formTemplateflag) {
                 formTemplatesRecycleView.visibility = View.VISIBLE
             }else{
                 formTemplatesRecycleView.visibility = View.GONE
             }
-            FormTemplateflag = !FormTemplateflag
+            formTemplateflag = !formTemplateflag
         }
 
         var PreviousFormflag = true
-        PreviousForm.setOnClickListener{
+        previousForm.setOnClickListener{
             if(!PreviousFormflag) {
                 previousFormsRecycleView.visibility = View.VISIBLE
             }else{
@@ -198,6 +215,8 @@ class InspectionInfoFormList : Fragment() {
             }
         })
 
+        previousFormsViewModel = ViewModelProvider(this)[PreviousFormsViewModel::class.java]
+        previousFormsViewModel.setServiceAddressId(ticketInfo.serviceAddressId)
 
         previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
             if (previousFormsList  != null) {
