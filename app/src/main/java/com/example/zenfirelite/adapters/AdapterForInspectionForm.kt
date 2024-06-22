@@ -1,5 +1,6 @@
 package com.example.zenfirelite.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +8,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.datamodels.FormTemplatesListModel
 import com.example.zenfirelite.datamodels.TicketFormListModel
 
 class AdapterForInspectionForm(
     private val inspectionFormList : List<TicketFormListModel>,
-    private val screenWidth: Int) :
+    private val screenWidth: Int,
+    private val onItemClickListener: (TicketFormListModel) -> Unit) :
     RecyclerView.Adapter<AdapterForInspectionForm.ViewHolder>(){
 
     private val ScreenSizethreshold = 1080
@@ -51,6 +54,10 @@ class AdapterForInspectionForm(
         holder.formInspectorName.text = "Neel Patel"
         holder.formInspectionDate.text = ItemsViewModel.fpFormCreatedAt
 //        holder.formInspectionTime.text = ItemsViewModel.formInspectionTime
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener.invoke(ItemsViewModel)
+        }
     }
 
     override fun getItemCount(): Int {

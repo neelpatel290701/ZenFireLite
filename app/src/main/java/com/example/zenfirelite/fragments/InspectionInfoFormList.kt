@@ -30,6 +30,7 @@ import com.example.zenfirelite.adapters.AdapterForInspectionForm
 import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionListModel
+import com.example.zenfirelite.viewmodels.FormDetailsViewModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.PreviousFormsViewModel
 import com.example.zenfirelite.viewmodels.TicketFormsViewModel
@@ -49,6 +50,8 @@ class InspectionInfoFormList : Fragment() {
     private lateinit var previousFormsViewModel: PreviousFormsViewModel
     private val ticketInfoViewModel: TicketInfoViewModel by viewModels({ requireParentFragment()})
     //requireParentFragment - LifeCycleAwareness  , tiedBound , workOn Single Instance , destroy with parent
+
+    private lateinit var formDetailsviewModel: FormDetailsViewModel
 
 
     private lateinit var ticketInfo : InspectionListModel
@@ -88,7 +91,6 @@ class InspectionInfoFormList : Fragment() {
         if (!isTicketInfoObserved) {
             ticketInfoViewModel.ticketInfo.observe(viewLifecycleOwner, Observer { ticketInfoData ->
                 ticketInfo = ticketInfoData
-                Log.d("neel", "ticketInfo : $ticketInfo")
                 ticketFormsViewModel.setTicketId(ticketInfo.ticketId)
                 // Set flag to true after observing ticketInfo
                 isTicketInfoObserved = true
@@ -97,12 +99,23 @@ class InspectionInfoFormList : Fragment() {
 
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
-                val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth)
+                val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth){ticketFormInfo->
+                    Toast.makeText(requireContext(), ticketFormInfo.fpFormDisplayName, Toast.LENGTH_SHORT).show()
+                }
                 binding.formsRecycleView.adapter = adapter
             }else{
                 Toast.makeText(requireContext(), "previousFormsList-Null", Toast.LENGTH_SHORT).show()
             }
         })
+
+
+//        // Get the ViewModel
+//        formDetailsviewModel = ViewModelProvider(this).get(FormDetailsViewModel::class.java)
+//        // Observe the LiveData
+//        formDetailsviewModel.formDetails.observe(viewLifecycleOwner, Observer { formDetails ->
+//            // Update the UI with formDetails
+//            Log.d("neel","!!!!!!$formDetails")
+//        })
 
 
         return binding.root
@@ -214,7 +227,9 @@ class InspectionInfoFormList : Fragment() {
 
         previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
             if (previousFormsList  != null) {
-                val previousFormAdapter = AdapterForPreviousFormList(previousFormsList)
+                val previousFormAdapter = AdapterForPreviousFormList(previousFormsList){formDetails->
+                    Toast.makeText(requireContext(), formDetails.displayName, Toast.LENGTH_SHORT).show()
+                }
                 previousFormsRecycleView.adapter = previousFormAdapter
             }else{
                 Toast.makeText(requireContext(), "PreviousFormsList-Null", Toast.LENGTH_SHORT).show()

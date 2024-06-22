@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.datamodels.PreviousFormListModel
+import com.example.zenfirelite.datamodels.TicketFormListModel
 
-class AdapterForPreviousFormList(private val previousForms : List<PreviousFormListModel>) :
+class AdapterForPreviousFormList(private val previousForms : List<PreviousFormListModel>,
+                                 private val onItemClickListener: (PreviousFormListModel) -> Unit) :
     RecyclerView.Adapter<AdapterForPreviousFormList.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,8 +27,12 @@ class AdapterForPreviousFormList(private val previousForms : List<PreviousFormLi
     }
 
     override fun onBindViewHolder(holder: AdapterForPreviousFormList.ViewHolder, position: Int) {
-        val formName = previousForms[position]
-        holder.formName.text = formName.displayName
+        val formDetails = previousForms[position]
+        holder.formName.text = formDetails.displayName
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener.invoke(formDetails)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -46,6 +46,7 @@
             android:id="@+id/action_inspectionInfo_to_formDetails2"
             app:destination="@id/formDetails" />
     </fragment>
+
     <fragment
         android:id="@+id/customerDetails"
         android:name="com.example.zenfirelite.fragments.CustomerDetails"
