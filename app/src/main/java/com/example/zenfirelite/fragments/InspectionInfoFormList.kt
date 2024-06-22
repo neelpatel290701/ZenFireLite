@@ -39,10 +39,9 @@ import com.example.zenfirelite.viewmodels.TicketInfoViewModel
 @Suppress("DEPRECATION")
 class InspectionInfoFormList : Fragment() {
     private lateinit var binding : FragmentInspectionInfoFormListBinding
-    private lateinit var view : View
     private lateinit var parentTopLinearLayout : LinearLayout
     private var parentFragment: Fragment? = null
-//    private lateinit var navController: NavController
+
     private var screenWidth: Int = 0
 
     private val viewModel: FormTemplatesListViewModel by viewModels()
@@ -62,8 +61,6 @@ class InspectionInfoFormList : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
 
         val displayMetrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -81,7 +78,6 @@ class InspectionInfoFormList : Fragment() {
 
         // Initialize TicketFormsViewModel
         ticketFormsViewModel = ViewModelProvider(this)[TicketFormsViewModel::class.java]
-
 
         if (savedInstanceState != null) {
             isTicketInfoObserved = savedInstanceState.getBoolean(KEY_TICKET_INFO_OBSERVED, false)
@@ -115,8 +111,6 @@ class InspectionInfoFormList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        navController = Navigation.findNavController(view)
-        this.view = view
 
         binding.addForm.setOnClickListener{
             openFormList()
