@@ -19,17 +19,14 @@ class FormDetailsViewModel : ViewModel() {
     private var _formDetails = MutableLiveData<FormDetailsResponse?>()
     val formDetails: LiveData<FormDetailsResponse?> get() = _formDetails
 
-    init {
-        fetchFormDetails()
-    }
 
-    private fun fetchFormDetails() {
+     fun fetchFormDetails(formId : String) {
 
         APIManager.apiInterface.getFormDetails(
             prefs.userID.toString(),
             prefs.accessToken.toString(),
             prefs.companyID.toString(),
-            FormDetailsRequestBody(id = "5982")
+            FormDetailsRequestBody(id = formId)
         ).enqueue(object : Callback<FormDetailsResponse>{
             override fun onResponse(
                 call: Call<FormDetailsResponse>,

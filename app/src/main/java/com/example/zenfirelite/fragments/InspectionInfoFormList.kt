@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,6 +70,7 @@ class InspectionInfoFormList : Fragment() {
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
     }
+
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,9 +99,15 @@ class InspectionInfoFormList : Fragment() {
             })
         }
 
+        // Get the ViewModel
+        formDetailsviewModel = ViewModelProvider(this)[FormDetailsViewModel::class.java]
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
                 val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth){ticketFormInfo->
+                    formDetailsviewModel.fetchFormDetails(ticketFormInfo.fpFormId.toString())
+//                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(null,"Neel Patel",0)
+//                    val navController = Navigation.findNavController(requireParentFragment().requireView())
+//                    navController.navigate(action)
                     Toast.makeText(requireContext(), ticketFormInfo.fpFormDisplayName, Toast.LENGTH_SHORT).show()
                 }
                 binding.formsRecycleView.adapter = adapter
@@ -108,15 +116,11 @@ class InspectionInfoFormList : Fragment() {
             }
         })
 
-
-//        // Get the ViewModel
-//        formDetailsviewModel = ViewModelProvider(this).get(FormDetailsViewModel::class.java)
-//        // Observe the LiveData
+        // Observe the LiveData
 //        formDetailsviewModel.formDetails.observe(viewLifecycleOwner, Observer { formDetails ->
 //            // Update the UI with formDetails
-//            Log.d("neel","!!!!!!$formDetails")
+//            Log.d("neel","++++++++$formDetails")
 //        })
-
 
         return binding.root
     }
@@ -124,6 +128,7 @@ class InspectionInfoFormList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.addForm.setOnClickListener{
             openFormList()

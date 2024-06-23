@@ -14,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -25,11 +27,13 @@ import com.example.zenfirelite.adapters.AdapterForFormSectionsList
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.datamodels.Field
 import com.example.zenfirelite.datamodels.FormFieldTypeListItem
+import com.example.zenfirelite.datamodels.FormTemplatesListModel
 import com.example.zenfirelite.datamodels.Option
 import com.example.zenfirelite.datamodels.RadioButtonItem
 import com.example.zenfirelite.datamodels.Section
 import com.example.zenfirelite.datamodels.SectionData
 import com.example.zenfirelite.utils.ZTUtils
+import com.example.zenfirelite.viewmodels.FormDetailsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -206,8 +210,10 @@ class FormDetails : Fragment()  {
         super.onCreate(savedInstanceState)
         currSectionIndex = args.sectionIndex
         Log.d("neel","onCreate()-FormDetails")
+
         val sectionList: List<SectionData> = args.formDetails.sections
-         sectionArray = sectionList.toTypedArray()
+        sectionArray = sectionList.toTypedArray()
+
     }
     @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
     override fun onCreateView(

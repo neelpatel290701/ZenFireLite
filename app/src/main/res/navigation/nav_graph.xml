@@ -64,7 +64,8 @@
     <fragment
         android:id="@+id/formDetails"
         android:name="com.example.zenfirelite.fragments.FormDetails"
-        tools:layout="@layout/fragment_form_details" >
+        tools:layout="@layout/fragment_form_details"
+        app:nullable="true">
 
         <argument
             android:name="formDetails"
