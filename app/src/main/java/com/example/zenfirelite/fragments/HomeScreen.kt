@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -33,6 +34,7 @@ import com.example.zenfirelite.datamodels.InspectionListModel
 import com.example.zenfirelite.utils.ZTUtils
 import com.example.zenfirelite.utils.ZTUtils.getDateInMillis
 import com.example.zenfirelite.viewmodels.CustomerListViewModel
+import com.example.zenfirelite.viewmodels.FormTemplateDetailsViewModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.HomeViewModel
 
@@ -47,7 +49,8 @@ class HomeScreen : Fragment(){
 
     private val viewModel: HomeViewModel by viewModels()
     private val customerListviewModel: CustomerListViewModel by viewModels()
-    private val formTemplatesListViewModel: FormTemplatesListViewModel by viewModels()
+    private val formTemplatesListViewModel: FormTemplatesListViewModel by activityViewModels()
+    private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -217,7 +220,8 @@ class HomeScreen : Fragment(){
             if ( formsList!= null) {
                 val formTemplatesAdapter = AdapterForFormTemplatesList(formsList,dialog){
                     formDetails,formName ->
-                    val action = HomeScreenDirections.actionHomeScreenToFormDetails(formDetails,formName, 0)
+                    formTemplateDetailsViewModel.formTemplateDetails.value = formDetails
+                    val action = HomeScreenDirections.actionHomeScreenToFormDetails(formName, 0,true)
                     navController.navigate(action)
                 }
                 formTemplatesRecycleView.adapter = formTemplatesAdapter

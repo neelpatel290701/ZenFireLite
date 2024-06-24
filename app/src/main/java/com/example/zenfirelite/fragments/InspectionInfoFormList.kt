@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +33,7 @@ import com.example.zenfirelite.adapters.AdapterForPreviousFormList
 import com.example.zenfirelite.databinding.FragmentInspectionInfoFormListBinding
 import com.example.zenfirelite.datamodels.InspectionListModel
 import com.example.zenfirelite.viewmodels.FormDetailsViewModel
+import com.example.zenfirelite.viewmodels.FormTemplateDetailsViewModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.PreviousFormsViewModel
 import com.example.zenfirelite.viewmodels.TicketFormsViewModel
@@ -46,13 +48,14 @@ class InspectionInfoFormList : Fragment() {
 
     private var screenWidth: Int = 0
 
-    private val viewModel: FormTemplatesListViewModel by viewModels()
+    private val viewModel: FormTemplatesListViewModel by activityViewModels()
     private lateinit var ticketFormsViewModel: TicketFormsViewModel
     private lateinit var previousFormsViewModel: PreviousFormsViewModel
+    private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
     private val ticketInfoViewModel: TicketInfoViewModel by viewModels({ requireParentFragment()})
     //requireParentFragment - LifeCycleAwareness  , tiedBound , workOn Single Instance , destroy with parent
 
-    private lateinit var formDetailsviewModel: FormDetailsViewModel
+    private val formDetailsviewModel: FormDetailsViewModel by activityViewModels()
 
 
     private lateinit var ticketInfo : InspectionListModel
@@ -100,15 +103,13 @@ class InspectionInfoFormList : Fragment() {
         }
 
         // Get the ViewModel
-        formDetailsviewModel = ViewModelProvider(this)[FormDetailsViewModel::class.java]
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
                 val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth){ticketFormInfo->
                     formDetailsviewModel.fetchFormDetails(ticketFormInfo.fpFormId.toString())
-//                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(null,"Neel Patel",0)
-//                    val navController = Navigation.findNavController(requireParentFragment().requireView())
-//                    navController.navigate(action)
-                    Toast.makeText(requireContext(), ticketFormInfo.fpFormDisplayName, Toast.LENGTH_SHORT).show()
+                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2("Neel Patel",0,false)
+                    val navController = Navigation.findNavController(requireParentFragment().requireView())
+                    navController.navigate(action)
                 }
                 binding.formsRecycleView.adapter = adapter
             }else{
@@ -116,11 +117,6 @@ class InspectionInfoFormList : Fragment() {
             }
         })
 
-        // Observe the LiveData
-//        formDetailsviewModel.formDetails.observe(viewLifecycleOwner, Observer { formDetails ->
-//            // Update the UI with formDetails
-//            Log.d("neel","++++++++$formDetails")
-//        })
 
         return binding.root
     }
@@ -217,7 +213,8 @@ class InspectionInfoFormList : Fragment() {
             if (formTemplatesList != null) {
                 val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , dialog){
                     formDetails,formName ->
-                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(formDetails,formName,0)
+                    formTemplateDetailsViewModel.formTemplateDetails.value = formDetails
+                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(formName,0,true)
                     val navController = Navigation.findNavController(requireParentFragment().requireView())
                     navController.navigate(action)
                 }

@@ -141,6 +141,8 @@ class FormTemplatesListViewModel : ViewModel() {
             createdAt = this.createdAt,
             updatedAt = this.updatedAt,
             options = this.options?.toFieldOptions(),
+            value = this.value,
+            reasons = this.reasons
         )
     }
 

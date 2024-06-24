@@ -22,14 +22,11 @@ object APIManager {
         .addInterceptor(logger)
         .addInterceptor(curlLogger)
 
-    val gson: Gson = GsonBuilder()
-        .registerTypeAdapter(FieldDetails::class.java, FieldDetailsDeserializer())
-        .create()
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttp.build())
             .build()
     }

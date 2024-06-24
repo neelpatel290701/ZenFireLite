@@ -1,16 +1,17 @@
 package com.example.zenfirelite.apis.datamodels
 
 import android.os.Parcelable
+import com.example.zenfirelite.datamodels.FieldModel
+import com.example.zenfirelite.datamodels.SectionData
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class FormDetailsResponse(
     val status: String,
     val requestId: String,
     val result: FormDetailsResult
-) : Parcelable
+)
 
-@Parcelize
+
 data class FormDetailsResult(
     val id: Long,
     val name: String,
@@ -26,10 +27,10 @@ data class FormDetailsResult(
     val updatedBy: UpdatedBy,
     val createdAt: String,
     val updatedAt: String,
-    val sections: List<SectionDetails>
-) : Parcelable
+    val sections: List<SectionData>
+)
 
-@Parcelize
+
 data class CreatedBy(
     val id: Long,
     val firstName: String,
@@ -52,9 +53,9 @@ data class CreatedBy(
     val rateBasis: String,
     val firstname: String,
     val lastname: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class UpdatedBy(
     val id: Long,
     val firstName: String,
@@ -77,9 +78,9 @@ data class UpdatedBy(
     val rateBasis: String,
     val firstname: String,
     val lastname: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class SectionDetails(
     val id: String,
     val name: String,
@@ -96,16 +97,16 @@ data class SectionDetails(
     val updatedUserId: Long,
     val createdAt: String,
     val updatedAt: String,
-    val fields: List<FieldDetails>?,
+    val fields: List<FieldModel>?,
     val description: String?
-) : Parcelable
+)
 
-@Parcelize
+
 data class FieldDetails(
     val id: String,
     val name: String,
     val displayName: String,
-    val value: ValueDetailsOfForm?,
+    val value: Any?,
     val uiType: String,
     val dataType: String,
     val defaultValue: String?,
@@ -122,9 +123,9 @@ data class FieldDetails(
     val updatedAt: String,
     val reasons: List<ReasonDetails>,
     val options: FieldOptionsDetails?
-) : Parcelable
+)
 
-@Parcelize
+
 data class ReasonDetails(
     val id: Long,
     val name: String,
@@ -140,9 +141,9 @@ data class ReasonDetails(
     val updatedBy: String,
     val createdAt: String,
     val updatedAt: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class LayoutDetails(
     val x: Long,
     val y: Long,
@@ -150,9 +151,9 @@ data class LayoutDetails(
     val h: Long,
     val i: String,
     val fullWidth: Long?
-) : Parcelable
+)
 
-@Parcelize
+
 data class FieldOptionsDetails(
     val radioOptions: List<RadioOptionDetails>?,
     val dropdownOptions: List<DropdownOptionDetails>?,
@@ -162,52 +163,52 @@ data class FieldOptionsDetails(
     val entity: String?,
     val entityType: String?,
     val columns: List<ColumnDetails>?
-) : Parcelable
+)
 
-@Parcelize
+
 data class RadioOptionDetails(
     val key: String,
     val value: String,
     val label: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class DropdownOptionDetails(
     val key: String,
     val value: String,
     val label: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class CheckboxOptionDetails(
     val key: String,
     val value: String,
     val label: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class ValueDetails(
     val entity: String,
     val entityType: String
-) : Parcelable
+)
 
-@Parcelize
+
 data class ColumnDetails(
     val name: String,
     val displayName: String,
     val uiType: String,
     val dataType: String,
     val columnOptions: ColumnOptionsDetails
-) : Parcelable
+)
 
-@Parcelize
+
 data class ColumnOptionsDetails(
     val dropdownOptions: List<DropdownOption2Details>?
-) : Parcelable
+)
 
-@Parcelize
+
 data class DropdownOption2Details(
     val key: String,
     val value: String,
     val label: String
-) : Parcelable
+)
