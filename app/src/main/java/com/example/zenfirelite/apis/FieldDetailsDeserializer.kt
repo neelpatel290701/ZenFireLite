@@ -10,6 +10,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+// Not Used now
 class FieldDetailsDeserializer : JsonDeserializer<FieldDetails> {
     override fun deserialize(
         json: JsonElement?,

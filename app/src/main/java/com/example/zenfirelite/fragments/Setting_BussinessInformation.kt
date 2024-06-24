@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -42,7 +43,7 @@ class Setting_BussinessInformation : Fragment() {
     private lateinit var phoneNumber : EditText
     private lateinit var companyLogo : ImageView
 
-    private val viewModel : SettingViewModel by viewModels()
+    private val viewModel : SettingViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

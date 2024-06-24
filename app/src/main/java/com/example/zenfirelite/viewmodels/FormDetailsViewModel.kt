@@ -19,6 +19,10 @@ class FormDetailsViewModel : ViewModel() {
     private var _formDetails = MutableLiveData<FormDetailsResponse?>()
     val formDetails: LiveData<FormDetailsResponse?> get() = _formDetails
 
+    fun clearFormDetails() {
+        _formDetails.value = null
+    }
+
 
      fun fetchFormDetails(formId : String) {
 

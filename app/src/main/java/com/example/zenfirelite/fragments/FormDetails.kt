@@ -104,31 +104,7 @@ class FormDetails : Fragment()  {
         if (sectionArray.isNotEmpty()) {
             updateUI()
         }
-
-//        binding.formSectionName.hint = sectionArray[currSectionIndex].displayName
-//
-//        binding.formSectionName.setOnClickListener {
-//            openBottomSheetDialogForSectionList()
-//        }
-//
-//        binding.nextSection.setOnClickListener{
-//            if(currSectionIndex + 1 in sectionArray.indices) {
-//                currSectionIndex++
-//                OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
-//            }
-//        }
-//
-//        binding.peviousSection.setOnClickListener{
-//            if(currSectionIndex - 1 in sectionArray.indices) {
-//                currSectionIndex--
-//                OnChangeSectionIndexUpdateSectionItems(currSectionIndex)
-//            }
-//
-//        }
-//
-//        binding.dataFieldRecyclerView.layoutManager = LinearLayoutManager(context)
-
-
+        
     }
 
     private fun updateUI() {
@@ -160,7 +136,7 @@ class FormDetails : Fragment()  {
 
     override fun onResume() {
         super.onResume()
-        Log.d("neel","------------------")
+
         onChangeSectionIndexUpdateSectionItems(currSectionIndex)
 
         parentFragmentManager.setFragmentResultListener(SIGNATURE_RESULT_KEY, this) { _, result ->

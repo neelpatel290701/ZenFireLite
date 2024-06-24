@@ -47,8 +47,8 @@ class HomeScreen : Fragment(){
 
     private var screenWidth: Int = 0
 
-    private val viewModel: HomeViewModel by viewModels()
-    private val customerListviewModel: CustomerListViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
+    private val customerListviewModel: CustomerListViewModel by activityViewModels()
     private val formTemplatesListViewModel: FormTemplatesListViewModel by activityViewModels()
     private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
 

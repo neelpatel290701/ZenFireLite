@@ -34,13 +34,10 @@ class PreviousFormsViewModel : ViewModel() {
 
     private fun fetchPreviousFormsList(serviceAdderessIdVal : Long) {
 
-        val serviceAddressId = serviceAdderessIdVal
         val limit = 1000
 
-        Log.d("neel","-----$serviceAddressId")
-
         APIManager.apiInterface.getPreviousForms(
-            serviceAddressId,
+            serviceAdderessIdVal,
             limit,
             prefs.userID.toString(),
             prefs.accessToken.toString(),

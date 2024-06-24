@@ -50,7 +50,7 @@ class InspectionInfoFormList : Fragment() {
 
     private val viewModel: FormTemplatesListViewModel by activityViewModels()
     private lateinit var ticketFormsViewModel: TicketFormsViewModel
-    private lateinit var previousFormsViewModel: PreviousFormsViewModel
+    private lateinit var  previousFormsViewModel: PreviousFormsViewModel
     private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
     private val ticketInfoViewModel: TicketInfoViewModel by viewModels({ requireParentFragment()})
     //requireParentFragment - LifeCycleAwareness  , tiedBound , workOn Single Instance , destroy with parent
@@ -106,6 +106,7 @@ class InspectionInfoFormList : Fragment() {
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
                 val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth){ticketFormInfo->
+                    formDetailsviewModel.clearFormDetails()
                     formDetailsviewModel.fetchFormDetails(ticketFormInfo.fpFormId.toString())
                     val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2("Neel Patel",0,false)
                     val navController = Navigation.findNavController(requireParentFragment().requireView())
@@ -210,13 +211,14 @@ class InspectionInfoFormList : Fragment() {
 
 
         viewModel.formTemplatesList.observe(viewLifecycleOwner, Observer { formTemplatesList ->
+
             if (formTemplatesList != null) {
-                val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , dialog){
-                    formDetails,formName ->
+                val formTemplatesAdapter = AdapterForFormTemplatesList(formTemplatesList , dialog){ formDetails,formName ->
                     formTemplateDetailsViewModel.formTemplateDetails.value = formDetails
                     val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2(formName,0,true)
                     val navController = Navigation.findNavController(requireParentFragment().requireView())
                     navController.navigate(action)
+                    dialog.dismiss()
                 }
                 formTemplatesRecycleView.adapter = formTemplatesAdapter
             }else{
@@ -224,13 +226,21 @@ class InspectionInfoFormList : Fragment() {
             }
         })
 
+
         previousFormsViewModel = ViewModelProvider(this)[PreviousFormsViewModel::class.java]
+        //create instance at the time of FormList Open Only
         previousFormsViewModel.setServiceAddressId(ticketInfo.serviceAddressId)
 
         previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
+
             if (previousFormsList  != null) {
                 val previousFormAdapter = AdapterForPreviousFormList(previousFormsList){formDetails->
-                    Toast.makeText(requireContext(), formDetails.displayName, Toast.LENGTH_SHORT).show()
+                    formDetailsviewModel.clearFormDetails()
+                    formDetailsviewModel.fetchFormDetails(formDetails.id.toString())
+                    val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2("Neel Patel",0,false)
+                    val navController = Navigation.findNavController(requireParentFragment().requireView())
+                    navController.navigate(action)
+                    dialog.dismiss()
                 }
                 previousFormsRecycleView.adapter = previousFormAdapter
             }else{
