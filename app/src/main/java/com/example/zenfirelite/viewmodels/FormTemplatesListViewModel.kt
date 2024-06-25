@@ -75,8 +75,6 @@ class FormTemplatesListViewModel : ViewModel() {
         })
     }
 
-
-    // Convert FormTemplatesListResponse to FormTemplatesListModel
     // Convert FormTemplatesListResponse to FormTemplatesListModel
     fun List<FormTemplatesResult>.toFormTemplatesListModel(): List<FormTemplatesListModel> {
         return this.map { formTemplatesResult ->
@@ -140,9 +138,9 @@ class FormTemplatesListViewModel : ViewModel() {
             updatedUserId = this.updatedUserId,
             createdAt = this.createdAt,
             updatedAt = this.updatedAt,
-            options = this.options?.toFieldOptions(),
             value = this.value,
-            reasons = this.reasons
+            reasons = this.reasons,
+            options = this.options?.toFieldOptionsModel()
         )
     }
 
@@ -159,7 +157,7 @@ class FormTemplatesListViewModel : ViewModel() {
     }
 
     // Convert FieldOptions to FieldOptions
-    fun FieldOptions.toFieldOptions(): FieldOptionsModel {
+    fun FieldOptions.toFieldOptionsModel(): FieldOptionsModel {
         return FieldOptionsModel(
             radioOptions = this.radioOptions?.map { it.toRadioOption() },
             dropdownOptions = this.dropdownOptions?.map { it.toDropdownOption() },
@@ -233,5 +231,6 @@ class FormTemplatesListViewModel : ViewModel() {
             label = this.label
         )
     }
+
 
 }

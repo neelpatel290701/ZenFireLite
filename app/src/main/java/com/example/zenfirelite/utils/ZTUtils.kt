@@ -16,6 +16,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Locale
 
@@ -110,11 +111,21 @@ object ZTUtils {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun convertIsoToCustomFormat(isoDateTime: String): String {
-        val zonedDateTime = ZonedDateTime.parse(isoDateTime)
-        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
+        if (isoDateTime.isEmpty()) {
+            // Handle the empty string case, return an empty string
+            return ""
+        }
 
-        return zonedDateTime.format(formatter)
+        return try {
+            val zonedDateTime = ZonedDateTime.parse(isoDateTime)
+            val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
+            zonedDateTime.format(formatter)
+        } catch (e: DateTimeParseException) {
+            // Handle parsing error, return an empty string
+            ""
+        }
     }
+
 
     @Suppress("NAME_SHADOWING")
     fun openCalenderPicker(

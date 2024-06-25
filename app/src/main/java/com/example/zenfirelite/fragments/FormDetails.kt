@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForDynamicDataField
 import com.example.zenfirelite.adapters.AdapterForFormSectionsList
+import com.example.zenfirelite.apis.datamodels.FieldOptions
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.datamodels.RadioButtonItem
@@ -104,7 +105,7 @@ class FormDetails : Fragment()  {
         if (sectionArray.isNotEmpty()) {
             updateUI()
         }
-        
+
     }
 
     private fun updateUI() {
@@ -200,16 +201,25 @@ class FormDetails : Fragment()  {
             val fieldTypeListItems2: List<FormFieldTypeListItem> =
                 selectedSectionArray.fields?.map { field ->
                     when (field.uiType) {
-                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType,false)
-                        "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,false)
-                        "TEXTAREA"->FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,true)
-                        "DROPDOWN" -> FormFieldTypeListItem.DropDownList(field.displayName, field.options?.dropdownOptions?.map{it.value} ?: emptyList())
-                        "CHECKBOX" -> FormFieldTypeListItem.RadioButton(field.displayName, false, field.options?.checkboxOptions?.map { RadioButtonItem(it.value,false) }?: emptyList())
-                        "RADIO" -> FormFieldTypeListItem.RadioButton(field.displayName, true, field.options?.radioOptions?.map { RadioButtonItem(it.value,false) }?: emptyList())
+                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType, field.value?.toString() ?: "",false)
+                        "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,field.value?.toString() ?: "",false)
+                        "TEXTAREA"->FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,field.value?.toString() ?: "",true)
+                        "DROPDOWN" -> {
+                            val dropdownOptions = (field.options)?.dropdownOptions ?: emptyList()
+                            FormFieldTypeListItem.DropDownList(field.displayName, dropdownOptions.map { it.value ?: "" })
+                        }
+                        "CHECKBOX" -> {
+                            val checkboxOptions = (field.options)?.checkboxOptions ?: emptyList()
+                            FormFieldTypeListItem.RadioButton(field.displayName, false, checkboxOptions.map { RadioButtonItem(it.value ?: "", false) })
+                        }
+                        "RADIO" -> {
+                            val radioOptions = (field.options)?.radioOptions ?: emptyList()
+                            FormFieldTypeListItem.RadioButton(field.displayName, true, radioOptions.map { RadioButtonItem(it.value ?: "",false) })
+                        }
                         "BUTTON_RADIO" -> FormFieldTypeListItem.RadioTypeButton(field.displayName)
                         "TABLE" -> FormFieldTypeListItem.TableView(field.displayName)
                         "SIGNATURE_PAD" -> FormFieldTypeListItem.SignaturePadType(field.displayName)
-                        else -> FormFieldTypeListItem.EditTextType(field.displayName, "text",false)
+                        else -> FormFieldTypeListItem.EditTextType(field.displayName, "text",field.value?.toString() ?: "",false)
                     }
                 } ?: emptyList()
 

@@ -1,6 +1,8 @@
 package com.example.zenfirelite.apis
 
+import FieldOptionsDeserializer
 import com.example.zenfirelite.apis.datamodels.FieldDetails
+import com.example.zenfirelite.apis.datamodels.FieldOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -22,11 +24,14 @@ object APIManager {
         .addInterceptor(logger)
         .addInterceptor(curlLogger)
 
+    val gson = GsonBuilder()
+        .registerTypeAdapter(FieldOptions::class.java, FieldOptionsDeserializer())
+        .create()
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttp.build())
             .build()
     }

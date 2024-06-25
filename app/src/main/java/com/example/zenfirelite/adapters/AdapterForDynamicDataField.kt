@@ -1,6 +1,7 @@
 package com.example.zenfirelite.adapters
 
 import android.content.Context
+import android.os.Build
 import android.text.InputType
 import android.util.Log
 import android.view.Gravity
@@ -13,6 +14,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +31,7 @@ class AdapterForDynamicDataField(
 
     // ViewHolder classes for each type of view
     inner class EditTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: FormFieldTypeListItem.EditTextType) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
@@ -36,17 +39,24 @@ class AdapterForDynamicDataField(
 
             val editText = itemView.findViewById<EditText>(R.id.value)
             editText.hint = item.title
-            if(item.inputType == "NUMBER") {
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-            else if(item.inputType == "DATE"){
-                editText.isClickable = false
-                editText.isCursorVisible = false
-                editText.isFocusable = false
-                editText.isFocusableInTouchMode = false
-            }
-            else {
-                editText.inputType = InputType.TYPE_CLASS_TEXT
+
+            when (item.inputType) {
+                "NUMBER" -> {
+                    editText.inputType = InputType.TYPE_CLASS_NUMBER
+                    editText.setText(item.value)
+                }
+                "DATE" -> {
+                    editText.isClickable = false
+                    editText.isCursorVisible = false
+                    editText.isFocusable = false
+                    editText.isFocusableInTouchMode = false
+                    editText.setText(ZTUtils.convertIsoToCustomFormat(item.value))
+
+                }
+                else -> {
+                    editText.inputType = InputType.TYPE_CLASS_TEXT
+                    editText.setText(item.value)
+                }
             }
 
             if(item.isTextArea){
@@ -119,6 +129,7 @@ class AdapterForDynamicDataField(
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
+
             val clickListener = View.OnClickListener { view ->
                 resetTextViewBackgrounds()
                 view.isSelected = true
@@ -233,6 +244,7 @@ class AdapterForDynamicDataField(
         return items.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
             is FormFieldTypeListItem.EditTextType -> (holder as EditTextViewHolder).bind(item)

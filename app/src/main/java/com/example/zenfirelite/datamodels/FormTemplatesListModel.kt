@@ -119,7 +119,7 @@ data class ColumnModel(
     val name: String,
     val displayName: String,
     val uiType: String,
-    val dataType: String,
+    val dataType: String?,
     val columnOptions: ColumnOptionsModel,
 )
 
