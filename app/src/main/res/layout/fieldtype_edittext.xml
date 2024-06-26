@@ -23,6 +23,7 @@
         android:textColor="@color/black"
         android:layout_margin="10dp"
         android:fontFamily="@font/roboto"
+        android:imeOptions="actionNext"
         android:inputType="text"
         android:textSize="13sp"
         android:textColorHint="@color/light_grey"

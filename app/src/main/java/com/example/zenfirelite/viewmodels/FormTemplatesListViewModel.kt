@@ -17,6 +17,7 @@ import com.example.zenfirelite.apis.datamodels.FormTemplatesResult
 import com.example.zenfirelite.apis.datamodels.Section
 import com.example.zenfirelite.apis.datamodels.Layout
 import com.example.zenfirelite.apis.datamodels.RadioOption
+import com.example.zenfirelite.apis.datamodels.Reason
 import com.example.zenfirelite.apis.datamodels.Value
 import com.example.zenfirelite.datamodels.CheckboxOptionModel
 import com.example.zenfirelite.datamodels.ColumnModel
@@ -28,6 +29,7 @@ import com.example.zenfirelite.datamodels.FieldOptionsModel
 import com.example.zenfirelite.datamodels.FormTemplatesListModel
 import com.example.zenfirelite.datamodels.LayoutModel
 import com.example.zenfirelite.datamodels.RadioOptionModel
+import com.example.zenfirelite.datamodels.ReasonValue
 import com.example.zenfirelite.datamodels.SectionData
 import com.example.zenfirelite.datamodels.ValueModel
 import com.example.zenfirelite.prefs
@@ -139,8 +141,28 @@ class FormTemplatesListViewModel : ViewModel() {
             createdAt = this.createdAt,
             updatedAt = this.updatedAt,
             value = this.value,
-            reasons = this.reasons,
+            reasons = this.reasons?.map { it?.toReasons() },
             options = this.options?.toFieldOptionsModel()
+        )
+    }
+
+
+    fun Reason.toReasons() : ReasonValue{
+        return ReasonValue(
+            id = this.id,
+            name = this.name,
+            displayName = this.displayName,
+            description = this.description ?: "",
+            isSelected = this.isSelected,
+            reasonTemplateId = this.reasonTemplateId,
+            isActive = this.isActive,
+            isDeleted = this.isDeleted,
+            createdUserId = this.createdUserId,
+            updatedUserId = this.updatedUserId,
+            createdBy = this.createdBy,
+            updatedBy = this.updatedBy,
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt
         )
     }
 

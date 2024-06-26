@@ -30,6 +30,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/searchbar"
                     android:ems="10"
+                    android:imeOptions="actionSearch"
                     android:clickable="true"
                     android:fontFamily="@font/roboto"
                     android:hint="Search Form"

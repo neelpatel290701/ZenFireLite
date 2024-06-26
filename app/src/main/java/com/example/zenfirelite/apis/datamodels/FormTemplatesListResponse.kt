@@ -62,7 +62,24 @@ data class Field(
     val updatedAt: String,
     val value: Any?,
     val options: FieldOptions?,
-    val reasons: List<Any?>?,
+    val reasons: List<Reason?>?,
+)
+
+data class Reason(
+    val id: Long,
+    val name: String,
+    val displayName: String,
+    val description: String?,
+    val isSelected: Boolean,
+    val reasonTemplateId: String,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val createdUserId: Long,
+    val updatedUserId: Long,
+    val createdBy: String,
+    val updatedBy: String,
+    val createdAt: String,
+    val updatedAt: String
 )
 
 data class Layout(

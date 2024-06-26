@@ -118,13 +118,15 @@ object ZTUtils {
 
         return try {
             val zonedDateTime = ZonedDateTime.parse(isoDateTime)
+            val systemDefaultZone = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy   hh:mma")
-            zonedDateTime.format(formatter)
+            systemDefaultZone.format(formatter)
         } catch (e: DateTimeParseException) {
             // Handle parsing error, return an empty string
             ""
         }
     }
+
 
 
     @Suppress("NAME_SHADOWING")

@@ -29,6 +29,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/searchbar"
                 android:ems="10"
+                android:imeOptions="actionSearch"
                 android:fontFamily="@font/roboto"
                 android:hint="Search "
                 android:inputType="text"

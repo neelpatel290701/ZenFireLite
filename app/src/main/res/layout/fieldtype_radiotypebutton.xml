@@ -103,11 +103,14 @@
             />
 
         <EditText
+            android:id="@+id/reasonDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="12sp"
+            android:padding="5dp"
             android:inputType="text"
+            android:imeOptions="actionDone"
             android:fontFamily="@font/roboto"
             android:hint="Custom Reason"
             android:textColorHint="@android:color/darker_gray"

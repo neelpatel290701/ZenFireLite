@@ -37,6 +37,7 @@ class AdapterForRadioButtonItem(private val itemList: List<RadioButtonItem> ,
 
             checkBox?.setOnCheckedChangeListener { _, isChecked ->
                 if (adapterPosition == RecyclerView.NO_POSITION) return@setOnCheckedChangeListener
+                itemList[adapterPosition].isSelected = isChecked
                 if (isChecked) {
                     selectedItems.add(adapterPosition)
                 } else {
@@ -83,7 +84,7 @@ class AdapterForRadioButtonItem(private val itemList: List<RadioButtonItem> ,
         if (isRadioMode) {
             holder.radioButton?.isChecked = item.isSelected
         } else {
-            holder.checkBox?.isChecked = selectedItems.contains(position)
+            holder.checkBox?.isChecked = item.isSelected
         }
 
     }

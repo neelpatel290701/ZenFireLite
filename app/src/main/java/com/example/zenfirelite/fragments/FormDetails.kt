@@ -201,7 +201,7 @@ class FormDetails : Fragment()  {
             val fieldTypeListItems2: List<FormFieldTypeListItem> =
                 selectedSectionArray.fields?.map { field ->
                     when (field.uiType) {
-                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType, field.value?.toString() ?: "",false)
+                        "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType, field.value?.toString() ?: "",false,)
                         "INPUT" -> FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,field.value?.toString() ?: "",false)
                         "TEXTAREA"->FormFieldTypeListItem.EditTextType(field.displayName,field.dataType,field.value?.toString() ?: "",true)
                         "DROPDOWN" -> {
@@ -209,14 +209,38 @@ class FormDetails : Fragment()  {
                             FormFieldTypeListItem.DropDownList(field.displayName, dropdownOptions.map { it.value ?: "" })
                         }
                         "CHECKBOX" -> {
+                            val valueMap = (field.value as? Map<*, *>)
+                                ?.filterKeys { it is String }
+                                ?.filterValues { it is Boolean }
+                                ?.mapKeys { it.key as String }
+                                ?.mapValues { it.value as Boolean }
+                                ?: emptyMap()
+
                             val checkboxOptions = (field.options)?.checkboxOptions ?: emptyList()
-                            FormFieldTypeListItem.RadioButton(field.displayName, false, checkboxOptions.map { RadioButtonItem(it.value ?: "", false) })
+//                            val valueMap = field.value as? Map<String, Boolean> ?: emptyMap()
+                            val radioButtonItems = checkboxOptions.map {
+                                RadioButtonItem(it.value ?: "", valueMap[it.key] ?: false)
+                            }
+                            FormFieldTypeListItem.RadioButton(field.displayName, false, radioButtonItems)
                         }
                         "RADIO" -> {
+                            val valueMap = (field.value as? Map<*, *>)
+                                ?.filterKeys { it is String }
+                                ?.filterValues { it is Boolean }
+                                ?.mapKeys { it.key as String }
+                                ?.mapValues { it.value as Boolean }
+                                ?: emptyMap()
                             val radioOptions = (field.options)?.radioOptions ?: emptyList()
-                            FormFieldTypeListItem.RadioButton(field.displayName, true, radioOptions.map { RadioButtonItem(it.value ?: "",false) })
+//                            val valueMap = field.value as? Map<String, Boolean> ?: emptyMap()
+                            val radioButtonItems = radioOptions.map {
+                                RadioButtonItem(it.value ?: "", valueMap[it.key] ?: false)
+                            }
+                            FormFieldTypeListItem.RadioButton(field.displayName, true, radioButtonItems)
                         }
-                        "BUTTON_RADIO" -> FormFieldTypeListItem.RadioTypeButton(field.displayName)
+                        "BUTTON_RADIO" -> {
+                            val description = field.reasons?.firstOrNull()?.description ?: ""
+                            FormFieldTypeListItem.RadioTypeButton(field.displayName,field.value.toString(),description)
+                        }
                         "TABLE" -> FormFieldTypeListItem.TableView(field.displayName)
                         "SIGNATURE_PAD" -> FormFieldTypeListItem.SignaturePadType(field.displayName)
                         else -> FormFieldTypeListItem.EditTextType(field.displayName, "text",field.value?.toString() ?: "",false)
@@ -235,6 +259,7 @@ class FormDetails : Fragment()  {
 
     }
 
+    @SuppressLint("InflateParams")
     private fun openBottomSheetDialogForSectionList() {
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.fragment_form_sections__dialog, null)

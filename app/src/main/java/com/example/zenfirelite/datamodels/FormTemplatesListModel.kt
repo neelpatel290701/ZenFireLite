@@ -62,7 +62,25 @@ data class FieldModel(
     val updatedAt: String,
     val value: Any?,
     val options: FieldOptionsModel?,
-    val reasons: List<Any?>?,
+    val reasons: List<ReasonValue?>?,
+)
+
+
+data class ReasonValue(
+    val id: Long,
+    val name: String,
+    val displayName: String,
+    val description: String?,
+    val isSelected: Boolean,
+    val reasonTemplateId: String,
+    val isActive: Boolean,
+    val isDeleted: Boolean,
+    val createdUserId: Long,
+    val updatedUserId: Long,
+    val createdBy: String,
+    val updatedBy: String,
+    val createdAt: String,
+    val updatedAt: String
 )
 
 

@@ -2,7 +2,9 @@ package com.example.zenfirelite.adapters
 
 import android.content.Context
 import android.os.Build
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -72,6 +74,24 @@ class AdapterForDynamicDataField(
                     ZTUtils.openCalenderPicker(editText,null,null,context)
                 }
             }
+
+
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // No action needed
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Update the entered text in your data model
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // No action needed
+                    item.value = s?.toString().toString()
+                }
+            })
+
+
         }
     }
 
@@ -125,10 +145,24 @@ class AdapterForDynamicDataField(
         val NO = itemView.findViewById<TextView>(R.id.no)
         val NA = itemView.findViewById<TextView>(R.id.NA)
         val reasonLayout = itemView.findViewById<LinearLayout>(R.id.reasons_layout)
+        val reasonDescription = itemView.findViewById<EditText>(R.id.reasonDescription)
         fun bind(item: FormFieldTypeListItem.RadioTypeButton) {
             // Bind data to views
             val textView = itemView.findViewById<TextView>(R.id.title)
             textView.text = item.title
+
+            val descriptionValue = item.description
+
+            when(item.value){
+                "YES" -> YES.isSelected = true
+                "NO" -> {
+                    NO.isSelected = true
+                    reasonLayout.visibility = View.VISIBLE
+                    reasonDescription.setText(descriptionValue)
+                }
+                "NA" -> NA.isSelected = true
+            }
+
 
             val clickListener = View.OnClickListener { view ->
                 resetTextViewBackgrounds()
@@ -143,6 +177,7 @@ class AdapterForDynamicDataField(
             }
             NA.setOnClickListener(clickListener)
 
+
         }
 
         private fun resetTextViewBackgrounds() {
@@ -151,6 +186,7 @@ class AdapterForDynamicDataField(
             NA.isSelected = false
             reasonLayout.visibility = View.GONE
         }
+
 
     }
 
