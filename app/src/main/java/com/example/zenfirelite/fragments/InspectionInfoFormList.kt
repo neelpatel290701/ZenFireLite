@@ -49,22 +49,14 @@ class InspectionInfoFormList : Fragment() {
     private var screenWidth: Int = 0
 
     private val viewModel: FormTemplatesListViewModel by activityViewModels()
-    private lateinit var ticketFormsViewModel: TicketFormsViewModel
+    private val ticketFormsViewModel: TicketFormsViewModel by activityViewModels()
     private lateinit var  previousFormsViewModel: PreviousFormsViewModel
     private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
-    private val ticketInfoViewModel: TicketInfoViewModel by viewModels({ requireParentFragment()})
-    //requireParentFragment - LifeCycleAwareness  , tiedBound , workOn Single Instance , destroy with parent
 
+
+    private val ticketInfoViewModel : TicketInfoViewModel by activityViewModels()
     private val formDetailsviewModel: FormDetailsViewModel by activityViewModels()
 
-
-    private lateinit var ticketInfo : InspectionListModel
-    private var isTicketInfoObserved = false
-
-    companion object {
-        private const val KEY_TICKET_INFO_OBSERVED = "key_ticket_info_observed"
-        private const val KEY_TICKET_INFO = "key_ticket_info"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,25 +76,7 @@ class InspectionInfoFormList : Fragment() {
 
         binding.formsRecycleView.layoutManager = LinearLayoutManager(context)
 
-        // Initialize TicketFormsViewModel
-        ticketFormsViewModel = ViewModelProvider(this)[TicketFormsViewModel::class.java]
 
-        if (savedInstanceState != null) {
-            isTicketInfoObserved = savedInstanceState.getBoolean(KEY_TICKET_INFO_OBSERVED, false)
-            ticketInfo = savedInstanceState.getParcelable(KEY_TICKET_INFO)!!
-        }
-
-        // Observe ticketInfo only once
-        if (!isTicketInfoObserved) {
-            ticketInfoViewModel.ticketInfo.observe(viewLifecycleOwner, Observer { ticketInfoData ->
-                ticketInfo = ticketInfoData
-                ticketFormsViewModel.setTicketId(ticketInfo.ticketId)
-                // Set flag to true after observing ticketInfo
-                isTicketInfoObserved = true
-            })
-        }
-
-        // Get the ViewModel
         ticketFormsViewModel.ticketFormsList.observe(viewLifecycleOwner, Observer { ticketFormsList ->
             if (ticketFormsList != null) {
                 val adapter = AdapterForInspectionForm(ticketFormsList,screenWidth){ticketFormInfo->
@@ -125,7 +99,6 @@ class InspectionInfoFormList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.addForm.setOnClickListener{
             openFormList()
@@ -158,13 +131,6 @@ class InspectionInfoFormList : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-    }
-
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(KEY_TICKET_INFO_OBSERVED, isTicketInfoObserved)
-        outState.putParcelable(KEY_TICKET_INFO, ticketInfo)
     }
 
 
@@ -229,7 +195,9 @@ class InspectionInfoFormList : Fragment() {
 
         previousFormsViewModel = ViewModelProvider(this)[PreviousFormsViewModel::class.java]
         //create instance at the time of FormList Open Only
-        previousFormsViewModel.setServiceAddressId(ticketInfo.serviceAddressId)
+        ticketInfoViewModel.ticketInfo.observe(viewLifecycleOwner, Observer { ticketInfo->
+            previousFormsViewModel.setServiceAddressId(ticketInfo.serviceAddressId)
+        })
 
         previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
 

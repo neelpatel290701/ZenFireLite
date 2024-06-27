@@ -51,7 +51,15 @@ class AdapterForRadioButtonItem(private val itemList: List<RadioButtonItem> ,
                 if (isRadioMode) {
                     updateSelection(adapterPosition)
                 } else {
-                    checkBox?.isChecked = !checkBox?.isChecked!!
+                    checkBox?.let {
+                        it.isChecked = !it.isChecked
+                        itemList[adapterPosition].isSelected = it.isChecked
+                        if (it.isChecked) {
+                            selectedItems.add(adapterPosition)
+                        } else {
+                            selectedItems.remove(adapterPosition)
+                        }
+                    }
                 }
             }
         }
@@ -67,8 +75,6 @@ class AdapterForRadioButtonItem(private val itemList: List<RadioButtonItem> ,
                 selectedItemPosition = position
                 notifyItemChanged(selectedItemPosition)
             }
-        } else {
-            notifyItemChanged(position)
         }
     }
 

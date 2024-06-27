@@ -153,6 +153,8 @@ class AdapterForDynamicDataField(
 
             val descriptionValue = item.description
 
+            resetTextViewBackgrounds()
+
             when(item.value){
                 "YES" -> YES.isSelected = true
                 "NO" -> {
@@ -163,19 +165,30 @@ class AdapterForDynamicDataField(
                 "NA" -> NA.isSelected = true
             }
 
+//            val clickListener = View.OnClickListener { view ->
+//                resetTextViewBackgrounds()
+//                view.isSelected = true
+//            }
 
-            val clickListener = View.OnClickListener { view ->
+            YES.setOnClickListener {
+                item.value = "YES"
                 resetTextViewBackgrounds()
-                view.isSelected = true
+                YES.isSelected = true
             }
 
-            YES.setOnClickListener(clickListener)
-            NO.setOnClickListener { view ->
+            NO.setOnClickListener {
+                item.value = "NO"
                 resetTextViewBackgrounds()
-                view.isSelected = true
+                NO.isSelected = true
                 reasonLayout.visibility = View.VISIBLE
+                reasonDescription.setText(item.description)
             }
-            NA.setOnClickListener(clickListener)
+
+            NA.setOnClickListener {
+                item.value = "NA"
+                resetTextViewBackgrounds()
+                NA.isSelected = true
+            }
 
 
         }

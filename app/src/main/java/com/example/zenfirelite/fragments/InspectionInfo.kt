@@ -69,12 +69,6 @@ class InspectionInfo : Fragment() {
     ): View {
         val inspectionInfo : InspectionListModel = args.inspectionInfo
 
-
-        // Check if ticketInfo is already set to avoid redundant calls
-        if (ticketInfoViewModel.ticketInfo.value == null) {
-            ticketInfoViewModel.setTicketInfo(inspectionInfo)
-        }
-
         // Set the title in the toolbar
         requireActivity().title = inspectionInfo.InspectionNumber
         binding = FragmentInspectionInfoBinding.inflate(inflater,container,false)
@@ -84,7 +78,7 @@ class InspectionInfo : Fragment() {
 
 
         binding.customerUniqueId.text = inspectionInfo.CustomerUniqueId
-        binding.customerName.text = inspectionInfo.CustomerName.toString()
+        binding.customerName.text = inspectionInfo.CustomerName
         binding.InsStartDateValue.text = inspectionInfo.InsStartDate
         binding.insInfoCustomerAddress.text = inspectionInfo.ServiceAddressLine1 + " " + inspectionInfo.ServiceAddressLine2 + " " +
                                               inspectionInfo.city + " " + inspectionInfo.state + " " +

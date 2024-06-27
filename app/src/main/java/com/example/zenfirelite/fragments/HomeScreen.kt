@@ -19,7 +19,6 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -37,6 +36,8 @@ import com.example.zenfirelite.viewmodels.CustomerListViewModel
 import com.example.zenfirelite.viewmodels.FormTemplateDetailsViewModel
 import com.example.zenfirelite.viewmodels.FormTemplatesListViewModel
 import com.example.zenfirelite.viewmodels.HomeViewModel
+import com.example.zenfirelite.viewmodels.TicketFormsViewModel
+import com.example.zenfirelite.viewmodels.TicketInfoViewModel
 
 
 @Suppress("DEPRECATION")
@@ -51,6 +52,8 @@ class HomeScreen : Fragment(){
     private val customerListviewModel: CustomerListViewModel by activityViewModels()
     private val formTemplatesListViewModel: FormTemplatesListViewModel by activityViewModels()
     private val formTemplateDetailsViewModel: FormTemplateDetailsViewModel by activityViewModels()
+    private val ticketInfoViewModel : TicketInfoViewModel by activityViewModels()
+    private val ticketFormsViewModel: TicketFormsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,12 +112,14 @@ class HomeScreen : Fragment(){
         return binding.root
     }
 
-    private fun setRecyclerView(inspectionDetails: List<InspectionListModel>) {
+    private fun setRecyclerView(inspectionList: List<InspectionListModel>) {
         val adapter =
             context?.let {
-                AdapterForInspectionList(it, screenWidth, inspectionDetails) { InspectionModel ->
+                AdapterForInspectionList(it, screenWidth, inspectionList) { InspectionInfoModel ->
+                    ticketInfoViewModel.ticketInfo.value = InspectionInfoModel
+                    ticketFormsViewModel.setTicketId(InspectionInfoModel.ticketId)
                     val action = HomeScreenDirections.actionHomeScreenToInspectionInfo(
-                        InspectionModel
+                        InspectionInfoModel
                     )
                     navController.navigate(action)
                 }
