@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
 import com.example.zenfirelite.adapters.AdapterForDynamicDataField
 import com.example.zenfirelite.adapters.AdapterForFormSectionsList
-import com.example.zenfirelite.apis.datamodels.FieldOptions
 import com.example.zenfirelite.databinding.FragmentFormDetailsBinding
 import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.datamodels.RadioButtonItem
@@ -57,6 +56,7 @@ class FormDetails : Fragment()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireActivity().title = ""
         currSectionIndex = args.sectionIndex
     }
     @SuppressLint("SetTextI18n", "InflateParams", "MissingInflatedId")
@@ -68,21 +68,25 @@ class FormDetails : Fragment()  {
 
         if(args.isFromFormTemplate) {
 
-            formTemplateDetailsViewModel.formTemplateDetails.observe(viewLifecycleOwner, Observer {
-                val sectionList: List<SectionData> = it?.sections ?: emptyList()
+            formTemplateDetailsViewModel.formTemplateDetails.observe(viewLifecycleOwner, Observer {formDetails->
+                val sectionList: List<SectionData> = formDetails?.sections ?: emptyList()
                 sectionArray = sectionList.toTypedArray()
                 Log.d("neel", "FormTemplate - Observer triggered, sectionArray size: ${sectionArray.size}")
                 if (sectionArray.isNotEmpty()) {
+                    val formName = formDetails.displayName
+                    requireActivity().title = formName
                     updateUI()
                 }
             })
 
         }else{
-            previousFormDetailsviewModel.formDetails.observe(viewLifecycleOwner, Observer {
-                val sectionList: List<SectionData> = it?.result?.sections ?: emptyList()
+            previousFormDetailsviewModel.formDetails.observe(viewLifecycleOwner, Observer {formDetails->
+                val sectionList: List<SectionData> = formDetails?.result?.sections ?: emptyList()
                 sectionArray = sectionList.toTypedArray()
                 Log.d("neel", "Previous Form - Observer triggered, sectionArray size: ${sectionArray.size}")
                 if (sectionArray.isNotEmpty()) {
+                    val formName = formDetails?.result?.displayName ?:""
+                    requireActivity().title = formName
                     updateUI()
                 }
             })
@@ -90,9 +94,6 @@ class FormDetails : Fragment()  {
         }
 
         setHasOptionsMenu(true)
-
-        val formName = args.formName
-        requireActivity().title = formName
 
         return binding.root
     }
@@ -198,7 +199,7 @@ class FormDetails : Fragment()  {
 
             val selectedSectionArray = sectionArray[currSectionIndex]
 
-            val fieldTypeListItems2: List<FormFieldTypeListItem> =
+            val fieldTypeListItems: List<FormFieldTypeListItem> =
                 selectedSectionArray.fields?.map { field ->
                     when (field.uiType) {
                         "AUTO_POPULATE" -> FormFieldTypeListItem.EditTextType(field.displayName, field.dataType, field.value?.toString() ?: "",false,)
@@ -247,7 +248,7 @@ class FormDetails : Fragment()  {
                     }
                 } ?: emptyList()
 
-            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems2, it) }
+            val adapter = context?.let { AdapterForDynamicDataField(fieldTypeListItems, it) }
             binding.dataFieldRecyclerView.adapter = adapter
             adapter!!.notifyDataSetChanged()
             binding.formSectionName.hint = selectedSectionArray.displayName

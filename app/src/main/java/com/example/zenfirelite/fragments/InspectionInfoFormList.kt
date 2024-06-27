@@ -202,9 +202,9 @@ class InspectionInfoFormList : Fragment() {
         previousFormsViewModel.previousFormsList.observe(viewLifecycleOwner, Observer {previousFormsList ->
 
             if (previousFormsList  != null) {
-                val previousFormAdapter = AdapterForPreviousFormList(previousFormsList){formDetails->
+                val previousFormAdapter = AdapterForPreviousFormList(previousFormsList){prevFormInfo->
                     formDetailsviewModel.clearFormDetails()
-                    formDetailsviewModel.fetchFormDetails(formDetails.id.toString())
+                    formDetailsviewModel.fetchFormDetails(prevFormInfo.id.toString())
                     val action = InspectionInfoDirections.actionInspectionInfoToFormDetails2("Neel Patel",0,false)
                     val navController = Navigation.findNavController(requireParentFragment().requireView())
                     navController.navigate(action)

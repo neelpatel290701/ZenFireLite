@@ -21,6 +21,13 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zenfirelite.R
+import com.example.zenfirelite.databinding.FieldtypeDropdownBinding
+import com.example.zenfirelite.databinding.FieldtypeEdittextBinding
+import com.example.zenfirelite.databinding.FieldtypeRadiobuttonBinding
+import com.example.zenfirelite.databinding.FieldtypeRadiotypebuttonBinding
+import com.example.zenfirelite.databinding.FiledtypeSignatureBinding
+import com.example.zenfirelite.databinding.FiledtypeTableBinding
+import com.example.zenfirelite.databinding.SampleTextfiledtype2Binding
 import com.example.zenfirelite.datamodels.FormFieldTypeListItem
 import com.example.zenfirelite.fragments.FormDetailsDirections
 import com.example.zenfirelite.utils.ZTUtils
@@ -28,210 +35,139 @@ import com.example.zenfirelite.utils.ZTUtils
 class AdapterForDynamicDataField(
     private val items: List<FormFieldTypeListItem>,
     private val context: Context
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // ViewHolder classes for each type of view
-    inner class EditTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class EditTextViewHolder(private val binding: FieldtypeEdittextBinding) : RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: FormFieldTypeListItem.EditTextType) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            textView.text = item.title
-
-            val editText = itemView.findViewById<EditText>(R.id.value)
-            editText.hint = item.title
+            binding.title.text = item.title
+            binding.value.hint = item.title
 
             when (item.inputType) {
                 "NUMBER" -> {
-                    editText.inputType = InputType.TYPE_CLASS_NUMBER
-                    editText.setText(item.value)
+                    binding.value.inputType = InputType.TYPE_CLASS_NUMBER
+                    binding.value.setText(item.value)
                 }
                 "DATE" -> {
-                    editText.isClickable = false
-                    editText.isCursorVisible = false
-                    editText.isFocusable = false
-                    editText.isFocusableInTouchMode = false
-                    editText.setText(ZTUtils.convertIsoToCustomFormat(item.value))
-
+                    binding.value.apply {
+                        isClickable = false
+                        isCursorVisible = false
+                        isFocusable = false
+                        isFocusableInTouchMode = false
+                        setText(ZTUtils.convertIsoToCustomFormat(item.value))
+                    }
                 }
                 else -> {
-                    editText.inputType = InputType.TYPE_CLASS_TEXT
-                    editText.setText(item.value)
+                    binding.value.inputType = InputType.TYPE_CLASS_TEXT
+                    binding.value.setText(item.value)
                 }
             }
 
-            if(item.isTextArea){
-                val layoutParams = editText.layoutParams
-                layoutParams.height = 500
-                editText.layoutParams = layoutParams
-                editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-                editText.gravity = Gravity.TOP or Gravity.START
-            }
-
-            editText.setOnClickListener{
-                if(item.inputType == "DATE"){
-                    ZTUtils.openCalenderPicker(editText,null,null,context)
+            if (item.isTextArea) {
+                binding.value.apply {
+                    layoutParams.height = 500
+                    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                    gravity = Gravity.TOP or Gravity.START
                 }
             }
 
-
-            editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    // No action needed
+            binding.value.setOnClickListener {
+                if (item.inputType == "DATE") {
+                    ZTUtils.openCalenderPicker(binding.value, null, null, context)
                 }
+            }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Update the entered text in your data model
-                }
-
+            binding.value.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
-                    // No action needed
                     item.value = s?.toString().toString()
                 }
             })
-
-
         }
     }
 
-    inner class DropDownViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DropDownViewHolder(private val binding: FieldtypeDropdownBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormFieldTypeListItem.DropDownList) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            textView.text = item.title
-
-            val spinner = itemView.findViewById<Spinner>(R.id.chooseOptionSpinner)
-            spinner.onItemSelectedListener
-            val options = item.options
-            val ad: ArrayAdapter<*> = ArrayAdapter<Any?>(
-                context,
-                R.layout.spinner_item,
-                options
-            )
-            ad.setDropDownViewResource(
-                R.layout.status_spinner_dropdown_item
-            )
-            spinner.adapter = ad
+            binding.title.text = item.title
+            val adapter = ArrayAdapter(context, R.layout.spinner_item, item.options)
+            adapter.setDropDownViewResource(R.layout.status_spinner_dropdown_item)
+            binding.chooseOptionSpinner.adapter = adapter
         }
     }
 
-    inner class EditTextNumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: FormFieldTypeListItem.EditTextTypeNum) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            textView.inputType = InputType.TYPE_CLASS_NUMBER
-            textView.text = item.title
-        }
-    }
-
-    inner class RadioButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RadioButtonViewHolder(private val binding: FieldtypeRadiobuttonBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormFieldTypeListItem.RadioButton) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            val recyclerView = itemView.findViewById<RecyclerView>(R.id.singleOptionRecycleView)
-            textView.text = item.title
-            val isRadioButton = item.isRadioButton
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            val itemList = item.options
-            val adapter = AdapterForRadioButtonItem(itemList, isRadioMode = isRadioButton)
-            recyclerView.adapter = adapter
+            binding.title.text = item.title
+            binding.singleOptionRecycleView.layoutManager = LinearLayoutManager(context)
+            val adapter = AdapterForRadioButtonItem(item.options, item.isRadioButton)
+            binding.singleOptionRecycleView.adapter = adapter
         }
     }
 
-    inner class RadioButtonTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val YES = itemView.findViewById<TextView>(R.id.yes)
-        val NO = itemView.findViewById<TextView>(R.id.no)
-        val NA = itemView.findViewById<TextView>(R.id.NA)
-        val reasonLayout = itemView.findViewById<LinearLayout>(R.id.reasons_layout)
-        val reasonDescription = itemView.findViewById<EditText>(R.id.reasonDescription)
+    inner class RadioButtonTypeViewHolder(private val binding: FieldtypeRadiotypebuttonBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormFieldTypeListItem.RadioTypeButton) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            textView.text = item.title
-
-            val descriptionValue = item.description
-
+            binding.title.text = item.title
             resetTextViewBackgrounds()
 
-            when(item.value){
-                "YES" -> YES.isSelected = true
+            when (item.value) {
+                "YES" -> binding.yes.isSelected = true
                 "NO" -> {
-                    NO.isSelected = true
-                    reasonLayout.visibility = View.VISIBLE
-                    reasonDescription.setText(descriptionValue)
+                    binding.no.isSelected = true
+                    binding.reasonsLayout.visibility = View.VISIBLE
+                    binding.reasonDescription.setText(item.description)
                 }
-                "NA" -> NA.isSelected = true
+                "NA" -> binding.NA.isSelected = true
             }
 
-//            val clickListener = View.OnClickListener { view ->
-//                resetTextViewBackgrounds()
-//                view.isSelected = true
-//            }
-
-            YES.setOnClickListener {
+            binding.yes.setOnClickListener {
                 item.value = "YES"
                 resetTextViewBackgrounds()
-                YES.isSelected = true
+                binding.yes.isSelected = true
             }
 
-            NO.setOnClickListener {
+            binding.no.setOnClickListener {
                 item.value = "NO"
                 resetTextViewBackgrounds()
-                NO.isSelected = true
-                reasonLayout.visibility = View.VISIBLE
-                reasonDescription.setText(item.description)
+                binding.no.isSelected = true
+                binding.reasonsLayout.visibility = View.VISIBLE
+                binding.reasonDescription.setText(item.description)
             }
 
-            NA.setOnClickListener {
+            binding.NA.setOnClickListener {
                 item.value = "NA"
                 resetTextViewBackgrounds()
-                NA.isSelected = true
+                binding.NA.isSelected = true
             }
-
-
         }
 
         private fun resetTextViewBackgrounds() {
-            YES.isSelected = false
-            NO.isSelected = false
-            NA.isSelected = false
-            reasonLayout.visibility = View.GONE
+            binding.yes.isSelected = false
+            binding.no.isSelected = false
+            binding.NA.isSelected = false
+            binding.reasonsLayout.visibility = View.GONE
         }
-
-
     }
 
-    inner class SignaturePadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SignaturePadViewHolder(private val binding: FiledtypeSignatureBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormFieldTypeListItem.SignaturePadType) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            val addSignature = itemView.findViewById<TextView>(R.id.addSignature)
-            textView.text = item.title
-
-            addSignature.setOnClickListener {
+            binding.title.text = item.title
+            binding.addSignature.setOnClickListener {
                 val action = FormDetailsDirections.actionFormDetailsToSignaturePad()
                 val navController = Navigation.findNavController(itemView)
                 navController.navigate(action)
             }
-
-
         }
     }
 
-    inner class TableTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TableTypeViewHolder(private val binding: FiledtypeTableBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormFieldTypeListItem.TableView) {
-            // Bind data to views
-            val textView = itemView.findViewById<TextView>(R.id.title)
-            textView.text = item.title
-
-            val editTable = itemView.findViewById<TextView>(R.id.editTable)
-            editTable.setOnClickListener {
+            binding.title.text = item.title
+            binding.editTable.setOnClickListener {
                 val action = FormDetailsDirections.actionFormDetailsToTableInfo()
                 val navController = Navigation.findNavController(itemView)
                 navController.navigate(action)
-
             }
         }
     }
@@ -239,52 +175,22 @@ class AdapterForDynamicDataField(
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is FormFieldTypeListItem.EditTextType -> 0
-            is FormFieldTypeListItem.EditTextTypeNum -> 1
-            is FormFieldTypeListItem.DropDownList -> 2
-            is FormFieldTypeListItem.RadioButton -> 3
-            is FormFieldTypeListItem.RadioTypeButton -> 4
-            is FormFieldTypeListItem.SignaturePadType -> 5
-            is FormFieldTypeListItem.TableView -> 6
+            is FormFieldTypeListItem.DropDownList -> 1
+            is FormFieldTypeListItem.RadioButton -> 2
+            is FormFieldTypeListItem.RadioTypeButton -> 3
+            is FormFieldTypeListItem.SignaturePadType -> 4
+            is FormFieldTypeListItem.TableView -> 5
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            0 -> EditTextViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fieldtype_edittext, parent, false)
-            )
-
-            1 -> EditTextNumViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.sample_textfiledtype2, parent, false)
-            )
-
-            2 -> DropDownViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fieldtype_dropdown, parent, false)
-            )
-
-            3 -> RadioButtonViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fieldtype_radiobutton, parent, false)
-            )
-
-            4 -> RadioButtonTypeViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fieldtype_radiotypebutton, parent, false)
-            )
-
-            5 -> SignaturePadViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.filedtype_signature, parent, false)
-            )
-
-            6 -> TableTypeViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.filedtype_table, parent, false)
-            )
-
+            0 -> EditTextViewHolder(FieldtypeEdittextBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            1 -> DropDownViewHolder(FieldtypeDropdownBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            2 -> RadioButtonViewHolder(FieldtypeRadiobuttonBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            3 -> RadioButtonTypeViewHolder(FieldtypeRadiotypebuttonBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            4 -> SignaturePadViewHolder(FiledtypeSignatureBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            5 -> TableTypeViewHolder(FiledtypeTableBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -297,19 +203,11 @@ class AdapterForDynamicDataField(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
             is FormFieldTypeListItem.EditTextType -> (holder as EditTextViewHolder).bind(item)
-            is FormFieldTypeListItem.EditTextTypeNum -> (holder as EditTextNumViewHolder).bind(item)
             is FormFieldTypeListItem.DropDownList -> (holder as DropDownViewHolder).bind(item)
             is FormFieldTypeListItem.RadioButton -> (holder as RadioButtonViewHolder).bind(item)
-            is FormFieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(
-                item
-            )
-
-            is FormFieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(
-                item
-            )
-
+            is FormFieldTypeListItem.RadioTypeButton -> (holder as RadioButtonTypeViewHolder).bind(item)
+            is FormFieldTypeListItem.SignaturePadType -> (holder as SignaturePadViewHolder).bind(item)
             is FormFieldTypeListItem.TableView -> (holder as TableTypeViewHolder).bind(item)
         }
     }
-
 }

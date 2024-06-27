@@ -2,7 +2,6 @@ package com.example.zenfirelite.datamodels
 
 sealed class FormFieldTypeListItem {
     data class EditTextType(val title: String ,val inputType : String ,var value : String , val isTextArea : Boolean) : FormFieldTypeListItem()
-    data class EditTextTypeNum(val title: String) : FormFieldTypeListItem()
     data class DropDownList(val title : String , val options : List<String>) : FormFieldTypeListItem()
     data class RadioButton(val title : String , val isRadioButton : Boolean , val options : List<RadioButtonItem>) : FormFieldTypeListItem()
     data class RadioTypeButton(val title : String , var value : String,val description : String?) : FormFieldTypeListItem()
