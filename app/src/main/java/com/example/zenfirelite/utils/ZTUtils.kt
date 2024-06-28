@@ -127,6 +127,20 @@ object ZTUtils {
         }
     }
 
+    fun convertDateToIso(dateString: String): String {
+
+        if(dateString.isEmpty()) {
+            // Handle the empty string case, return an empty string
+            return ""
+        }
+
+        // Example implementation, adjust as per your date format and ISO conversion needs
+        val inputFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = inputFormat.parse(dateString)
+        return outputFormat.format(date!!)
+    }
+
 
 
     @Suppress("NAME_SHADOWING")
@@ -134,7 +148,8 @@ object ZTUtils {
         dateValue: EditText,
         minDate: Long? = null,
         maxDate: Long? = null,
-        context : Context
+        context : Context,
+        onDateSelected: (String) -> Unit
     ) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -151,6 +166,7 @@ object ZTUtils {
                 val selectedDate = calendar.time
                 val monthName = DateFormatSymbols().shortMonths[monthOfYear]
                 val date = "$dayOfMonth-$monthName-$year"
+                onDateSelected(date)
                 dateValue.setText(date)
 
                 if (dateValue.id == R.id.toDate) {

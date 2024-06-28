@@ -70,7 +70,12 @@ class FormDetails : Fragment()  {
 
             formTemplateDetailsViewModel.formTemplateDetails.observe(viewLifecycleOwner, Observer {formDetails->
                 val sectionList: List<SectionData> = formDetails?.sections ?: emptyList()
-                sectionArray = sectionList.toTypedArray()
+
+                // Create a deep copy of sectionList
+                val copiedSectionList = sectionList.deepCopy()
+                sectionArray = copiedSectionList.toTypedArray()
+
+               // sectionArray = sectionList.toTypedArray()
                 Log.d("neel", "FormTemplate - Observer triggered, sectionArray size: ${sectionArray.size}")
                 if (sectionArray.isNotEmpty()) {
                     val formName = formDetails.displayName
@@ -98,6 +103,16 @@ class FormDetails : Fragment()  {
         return binding.root
     }
 
+    fun List<SectionData>.deepCopy(): List<SectionData> {
+        return this.map { section ->
+            section.copy(
+                fields = section.fields?.map { field ->
+                    field.copy()
+                }
+            )
+        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -118,6 +133,7 @@ class FormDetails : Fragment()  {
         }
 
         binding.nextSection.setOnClickListener {
+            saveCurrentSectionData()
             if (currSectionIndex + 1 in sectionArray.indices) {
                 currSectionIndex++
                 onChangeSectionIndexUpdateSectionItems(currSectionIndex)
@@ -125,6 +141,7 @@ class FormDetails : Fragment()  {
         }
 
         binding.peviousSection.setOnClickListener {
+            saveCurrentSectionData()
             if (currSectionIndex - 1 in sectionArray.indices) {
                 currSectionIndex--
                 onChangeSectionIndexUpdateSectionItems(currSectionIndex)
@@ -260,6 +277,30 @@ class FormDetails : Fragment()  {
 
     }
 
+    private fun saveCurrentSectionData() {
+        val selectedSectionArray = sectionArray[currSectionIndex]
+
+        // Retrieve updated items from the adapter
+        val updatedItems =
+            (binding.dataFieldRecyclerView.adapter as? AdapterForDynamicDataField)?.items ?: return
+
+        // Update the fields in the selected section using the updated items directly by index
+        selectedSectionArray.fields?.forEachIndexed { index, field ->
+            when (val updatedField = updatedItems[index]) {
+                is FormFieldTypeListItem.EditTextType -> field.value = updatedField.value
+                is FormFieldTypeListItem.RadioTypeButton -> field.value = updatedField.value
+                is FormFieldTypeListItem.RadioButton -> field.value =
+                    updatedField.options.associate { it.itemName to it.isSelected }
+
+                is FormFieldTypeListItem.DropDownList -> field.value =
+                    updatedField.options.joinToString(",")
+                // Add more cases as needed for other types
+                is FormFieldTypeListItem.SignaturePadType -> field.value = ""
+                is FormFieldTypeListItem.TableView -> field.value = ""
+            }
+        }
+    }
+
     @SuppressLint("InflateParams")
     private fun openBottomSheetDialogForSectionList() {
         val dialog = BottomSheetDialog(requireContext())
@@ -274,6 +315,7 @@ class FormDetails : Fragment()  {
         val chooseSection = view.findViewById<TextView>(R.id.choosesection)
         formSectionsRecyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = AdapterForFormSectionsList(formSectionList,dialog){sectionIndex,sectionName->
+            saveCurrentSectionData()
             onChangeSectionIndexUpdateSectionItems(sectionIndex)
             currSectionIndex = sectionIndex
             binding.formSectionName.hint = sectionArray[currSectionIndex].displayName

@@ -76,7 +76,11 @@ class HomeScreen : Fragment(){
                 null,
                 binding.toDate.getDateInMillis(),
                 requireContext()
-            )
+            ){
+                selectedDate ->
+                binding.startDate.setText(selectedDate)
+            }
+
         }
         binding.toDate.setOnClickListener {
             ZTUtils.openCalenderPicker(
@@ -84,7 +88,10 @@ class HomeScreen : Fragment(){
                 binding.startDate.getDateInMillis(),
                 null,
                 context = requireContext()
-            )
+            ){
+                    selectedDate ->
+                binding.toDate.setText(selectedDate)
+            }
         }
     }
 

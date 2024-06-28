@@ -33,7 +33,7 @@ import com.example.zenfirelite.fragments.FormDetailsDirections
 import com.example.zenfirelite.utils.ZTUtils
 
 class AdapterForDynamicDataField(
-    private val items: List<FormFieldTypeListItem>,
+    val items: List<FormFieldTypeListItem>,
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -74,7 +74,11 @@ class AdapterForDynamicDataField(
 
             binding.value.setOnClickListener {
                 if (item.inputType == "DATE") {
-                    ZTUtils.openCalenderPicker(binding.value, null, null, context)
+                    ZTUtils.openCalenderPicker(binding.value, null, null, context){
+                        selectedDate ->
+                        binding.value.setText(selectedDate)
+                    }
+
                 }
             }
 
@@ -83,6 +87,10 @@ class AdapterForDynamicDataField(
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     item.value = s?.toString().toString()
+
+                    if(item.inputType == "DATE"){
+                        item.value = ZTUtils.convertDateToIso(item.value)
+                    }
                 }
             })
         }

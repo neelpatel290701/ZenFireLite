@@ -60,7 +60,7 @@ data class FieldModel(
     val updatedUserId: Long,
     val createdAt: String,
     val updatedAt: String,
-    val value: Any?,
+    var value: Any?,
     val options: FieldOptionsModel?,
     val reasons: List<ReasonValue?>?,
 )
